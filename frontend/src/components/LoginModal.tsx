@@ -1,5 +1,3 @@
-// import React, { useState } from 'react';
-// import Logo from '../assets/airbrbLogo';
 import React, { useState } from 'react';
 import {
   Modal,
@@ -11,23 +9,12 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { LoginData, LoginModalProps } from '../interfaces/loginInterface';
+import { LoginData, LoginModalProps } from '../interfaces/loginInterfaces';
 import { apiCall } from '../helpers/apiHelper';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import modalStyle from '../styles/modalStyles';
 
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  outline: 'none',
-};
-
-export interface LoginRes {
+interface LoginRes {
   data?: {
     token: string;
   };
@@ -49,7 +36,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Submitted data:', formData);
+    console.log('Submitted login data:', formData);
 
     const path: string = '/user/auth/login';
     const method: HttpMethod = 'POST';
@@ -82,12 +69,16 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       open={open}
       onClose={onClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
+      components={{
+        Backdrop
+      }}
+      componentsProps={{
+        backdrop: { // Pass props to the backdrop slot
+          timeout: 500,
+        },
       }}
     >
-      <Box sx={style}>
+      <Box sx={modalStyle}>
         <div
           style={{
             display: 'flex',

@@ -1,10 +1,9 @@
-import { ApiBody, ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
-
-interface RequestInit {
-  method: string;
-  headers: Record<string, string>;
-  body: string;
-}
+import {
+  ApiBody,
+  ApiResponse,
+  HttpMethod,
+  RequestInit
+} from '../interfaces/apiInterfaces';
 
 export const apiCall = async <T>(
   path: string,
@@ -24,8 +23,11 @@ export const apiCall = async <T>(
   const config: RequestInit = {
     method,
     headers,
-    body: JSON.stringify(body),
   };
+
+  if (body) {
+    config.body = JSON.stringify(body);
+  }
 
   const response = await fetch(
     `http://localhost:5005${path}${queryString ? `?${queryString}` : ''}`,
@@ -35,8 +37,8 @@ export const apiCall = async <T>(
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error || response.statusText);
+    return { error: data.error || response.statusText }
   }
 
-  return data as ApiResponse<T>;
+  return { data };
 };
