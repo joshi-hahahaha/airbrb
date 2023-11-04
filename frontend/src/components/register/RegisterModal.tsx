@@ -1,24 +1,18 @@
-// import React, { useState } from 'react';
 import React, { useState } from 'react';
-// import Logo from '../assets/airbrbLogo';
 import {
   Modal,
   Box,
   Typography,
   TextField,
   Button,
-  Backdrop,
+  Backdrop
 } from '@mui/material';
 
-// interface RegisterData {
-//   username: string;
-//   email: string;
-//   password: string;
-// }
 interface RegisterData {
-  username: string;
   email: string;
+  name: string;
   password: string;
+  confirmpassword: string;
 }
 
 interface RegisterModalProps {
@@ -40,9 +34,10 @@ const style = {
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<RegisterData>({
-    username: '',
     email: '',
+    name: '',
     password: '',
+    confirmpassword: ''
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,31 +50,19 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
     console.log('Submitted data:', formData);
     // TODO: Send formData to your backend or handle it accordingly.
   };
-  // const [formData, setFormData] = useState<RegisterData>({
-  //   username: '',
-  //   email: '',
-  //   password: '',
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prev => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log('Submitted data:', formData);
-  //   // TODO: Send formData to your backend or handle it accordingly.
-  // };
 
   return (
     <Modal
       open={open}
       onClose={onClose}
       closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
+      components={{
+        Backdrop
+      }}
+      componentsProps={{
+        backdrop: { // Pass props to the backdrop slot
+          timeout: 500,
+        },
       }}
     >
       <Box sx={style}>
@@ -91,19 +74,18 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             margin='normal'
             required
             fullWidth
-            label='Username'
-            name='username'
-            autoFocus
-            value={formData.username}
+            label="Email"
+            name="email"
+            value={formData.email}
             onChange={handleChange}
           />
           <TextField
             margin='normal'
             required
             fullWidth
-            label='Email Address'
-            name='email'
-            value={formData.email}
+            label="Name"
+            name="name"
+            value={formData.name}
             onChange={handleChange}
           />
           <TextField
@@ -114,6 +96,16 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             label='Password'
             type='password'
             value={formData.password}
+            onChange={handleChange}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="confirmPassword"
+            label="ConfirmPassword"
+            type="password"
+            value={formData.confirmpassword}
             onChange={handleChange}
           />
           <Button

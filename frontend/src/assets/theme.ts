@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#EB4C60',
+      main: '#D33753',
     },
     // 你可以在这里添加更多的颜色
   },
