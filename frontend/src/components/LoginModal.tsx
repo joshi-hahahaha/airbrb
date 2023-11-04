@@ -8,7 +8,9 @@ import {
   TextField,
   Button,
   Backdrop,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { LoginData, LoginModalProps } from '../interfaces/loginInterface';
 import { apiCall } from '../helpers/apiHelper';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
@@ -86,9 +88,26 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       }}
     >
       <Box sx={style}>
-        <Typography variant='h6' component='h2'>
-          Login
-        </Typography>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant='h6' component='h2'>
+            Login
+          </Typography>
+          <IconButton
+            aria-label='close'
+            onClick={onClose}
+            sx={{
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
         <form onSubmit={handleSubmit}>
           <TextField
             margin='normal'
