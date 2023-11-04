@@ -61,6 +61,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
     } else if (res.data) {
       // Handle successful res
       console.log(res.data);
+    } else {
+      console.log('Unexpected response structure:', res);
     }
   };
 
