@@ -15,12 +15,13 @@ import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import modalStyle from '../styles/modalStyles';
 
 interface LoginRes {
-  data?: {
-    token: string;
-  };
-  error?: {
-    error: string;
-  };
+  token: string;
+  // data?: {
+  //   token: string;
+  // };
+  // error?: {
+  //   error: string;
+  // };
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
@@ -55,12 +56,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       queryString
     );
 
+    // console.log(res);
+
     if (res.error) {
       // Handle error res
-      console.error(res.error);
+      console.log(res.error);
     } else if (res.data) {
       // Handle successful res
-      console.log(res.data);
+      console.log(res.data.token);
+      localStorage.setItem('token', res.data.token);
     } else {
       console.log('Unexpected response structure:', res);
     }

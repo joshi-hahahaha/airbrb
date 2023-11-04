@@ -15,12 +15,7 @@ import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import modalStyle from '../styles/modalStyles';
 
 interface RegisterRes {
-  data?: {
-    token: string;
-  };
-  error?: {
-    error: string;
-  };
+  token: string;
 }
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
@@ -64,6 +59,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
     } else if (res.data) {
       // Handle successful res
       console.log(res.data);
+      localStorage.setItem('token', res.data.token);
     } else {
       console.log('Unexpected response structure:', res);
     }
