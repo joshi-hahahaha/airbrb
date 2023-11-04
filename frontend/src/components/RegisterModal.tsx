@@ -5,39 +5,30 @@ import {
   Typography,
   TextField,
   Button,
-  Backdrop
+  Backdrop,
+  IconButton
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { RegisterData, RegisterModalProps } from '../interfaces/registerInterfaces';
+import { apiCall } from '../helpers/apiHelper';
+import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import modalStyle from '../styles/modalStyles';
 
-interface RegisterData {
-  email: string;
-  name: string;
-  password: string;
-  confirmpassword: string;
+interface RegisterRes {
+  data?: {
+    token: string;
+  };
+  error?: {
+    error: string;
+  };
 }
-
-interface RegisterModalProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-  p: 4,
-  outline: 'none',
-};
 
 const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<RegisterData>({
     email: '',
     name: '',
     password: '',
-    confirmpassword: ''
+    confirmPassword: ''
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +36,37 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Submitted data:', formData);
-    // TODO: Send formData to your backend or handle it accordingly.
+    console.log('Submitted register data:', formData);
+
+    const path: string = '/user/auth/register';
+    const method: HttpMethod = 'POST';
+    const body: RegisterData = {
+      email: formData.email,
+      password: formData.password,
+      name: formData.name,
+    };
+    const token: string | null = null;
+    const queryString: string = '';
+
+    const res: ApiResponse<RegisterRes> = await apiCall<RegisterRes>(
+      path,
+      method,
+      body,
+      token,
+      queryString
+    );
+
+    if (res.error) {
+      // Handle error res
+      console.error(res.error);
+    } else if (res.data) {
+      // Handle successful res
+      console.log(res.data);
+    } else {
+      console.log('Unexpected response structure:', res);
+    }
   };
 
   return (
@@ -65,10 +83,27 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
         },
       }}
     >
-      <Box sx={style}>
-        <Typography variant='h6' component='h2'>
-          Register
-        </Typography>
+      <Box sx={modalStyle}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
+          <Typography variant='h6' component='h2'>
+            Register
+          </Typography>
+          <IconButton
+            aria-label='close'
+            onClick={onClose}
+            sx={{
+              color: (theme) => theme.palette.grey[500],
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
         <form onSubmit={handleSubmit}>
           <TextField
             margin='normal'
@@ -105,7 +140,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             name="confirmPassword"
             label="ConfirmPassword"
             type="password"
-            value={formData.confirmpassword}
+            value={formData.confirmPassword}
             onChange={handleChange}
           />
           <Button

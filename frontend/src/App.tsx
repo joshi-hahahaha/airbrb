@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import theme from './assets/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import RegisterModal from './components/register/RegisterModal';
-import Logo from './assets/airbrbLogo';
+import RegisterModal from './components/RegisterModal';
+import Logo from './assets/AirbrbLogo';
 import LoginModal from './components/LoginModal';
 
 const App = () => {
