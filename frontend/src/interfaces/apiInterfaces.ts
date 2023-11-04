@@ -6,6 +6,9 @@ export interface ApiBody {
   // add more when needed.
 }
 
+export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+
 export interface ApiResponse<T> {
   data?: T;
+  error?: string;
 }
