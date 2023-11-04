@@ -1,6 +1,6 @@
 // import React, { useState } from 'react';
-import React, { useState } from 'react';
 // import Logo from '../assets/airbrbLogo';
+import React, { useState } from 'react';
 import {
   Modal,
   Box,
@@ -9,16 +9,9 @@ import {
   Button,
   Backdrop,
 } from '@mui/material';
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface LoginModalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { LoginData, LoginModalProps } from '../interfaces/loginInterface';
+import { apiCall } from '../helpers/apiHelper';
+import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 
 const style = {
   position: 'absolute' as const,
@@ -32,6 +25,15 @@ const style = {
   outline: 'none',
 };
 
+export interface LoginRes {
+  data?: {
+    token: string;
+  };
+  error?: {
+    error: string;
+  };
+}
+
 const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<LoginData>({
     email: '',
@@ -43,27 +45,35 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Submitted data:', formData);
-    // TODO: Send formData to your backend or handle it accordingly.
+
+    const path: string = '/user/auth/login';
+    const method: HttpMethod = 'POST';
+    const body: LoginData = {
+      email: formData.email,
+      password: formData.password,
+    };
+    const token: string | null = null;
+    const queryString: string = '';
+
+    const res: ApiResponse<LoginRes> = await apiCall<LoginRes>(
+      path,
+      method,
+      body,
+      token,
+      queryString
+    );
+
+    if (res.error) {
+      // Handle error res
+      console.error(res.error);
+    } else if (res.data) {
+      // Handle successful res
+      console.log(res.data);
+    }
   };
-  // const [formData, setFormData] = useState<RegisterData>({
-  //   username: '',
-  //   email: '',
-  //   password: '',
-  // });
-
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = e.target;
-  //   setFormData(prev => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   console.log('Submitted data:', formData);
-  //   // TODO: Send formData to your backend or handle it accordingly.
-  // };
 
   return (
     <Modal
