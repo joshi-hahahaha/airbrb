@@ -10,18 +10,12 @@ import {
   Backdrop,
 } from '@mui/material';
 
-// interface RegisterData {
-//   username: string;
-//   email: string;
-//   password: string;
-// }
-interface RegisterData {
-  username: string;
+interface LoginData {
   email: string;
   password: string;
 }
 
-interface RegisterModalProps {
+interface LoginModalProps {
   open: boolean;
   onClose: () => void;
 }
@@ -38,9 +32,8 @@ const style = {
   outline: 'none',
 };
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
-  const [formData, setFormData] = useState<RegisterData>({
-    username: '',
+const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
+  const [formData, setFormData] = useState<LoginData>({
     email: '',
     password: '',
   });
@@ -84,19 +77,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
     >
       <Box sx={style}>
         <Typography variant='h6' component='h2'>
-          Register
+          Login
         </Typography>
         <form onSubmit={handleSubmit}>
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            label='Username'
-            name='username'
-            autoFocus
-            value={formData.username}
-            onChange={handleChange}
-          />
           <TextField
             margin='normal'
             required
@@ -122,7 +105,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             variant='contained'
             sx={{ mt: 3, mb: 2 }}
           >
-            Register
+            Login
           </Button>
         </form>
       </Box>
@@ -130,4 +113,4 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   );
 };
 
-export default RegisterModal;
+export default LoginModal;
