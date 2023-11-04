@@ -3,22 +3,29 @@ import theme from './assets/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import RegisterModal from './components/RegisterModal';
 import Logo from './assets/airbrbLogo';
+import LoginModal from './components/LoginModal';
 
-function App () {
-  const [modalOpen, setModalOpen] = useState(false);
+const App = () => {
+  const [registerModalOpen, setRegisterModalOpen] = useState(false);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
 
-  const handleOpen = () => setModalOpen(true);
-  const handleClose = () => setModalOpen(false);
+  const handleRegisterOpen = () => setRegisterModalOpen(true);
+  const handleLoginOpen = () => setLoginModalOpen(true);
+
+  const handleRegisterClose = () => setRegisterModalOpen(false);
+  const handleLoginClose = () => setLoginModalOpen(false);
 
   return (
-    <div className="App">
+    <div className='App'>
       <ThemeProvider theme={theme}>
         <Logo />
-        <button onClick={handleOpen}>Open Register</button>
-        <RegisterModal open={modalOpen} onClose={handleClose} />
+        <button onClick={handleRegisterOpen}>Open Register</button>
+        <button onClick={handleLoginOpen}>Open Login</button>
+        <RegisterModal open={registerModalOpen} onClose={handleRegisterClose} />
+        <LoginModal open={loginModalOpen} onClose={handleLoginClose} />
       </ThemeProvider>
     </div>
   );
-}
+};
 
 export default App;
