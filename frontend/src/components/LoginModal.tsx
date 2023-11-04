@@ -1,6 +1,6 @@
 // import React, { useState } from 'react';
-import React, { useState } from 'react';
 // import Logo from '../assets/airbrbLogo';
+import React, { useState } from 'react';
 import {
   Modal,
   Box,
@@ -9,16 +9,7 @@ import {
   Button,
   Backdrop,
 } from '@mui/material';
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface LoginModalProps {
-  open: boolean;
-  onClose: () => void;
-}
+import { LoginData, LoginModalProps } from '../interfaces/loginInterface';
 
 const style = {
   position: 'absolute' as const,
