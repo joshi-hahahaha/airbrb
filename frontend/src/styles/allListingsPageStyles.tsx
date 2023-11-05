@@ -1,1 +1,0 @@
-import { CSSProperties } from 'react';
