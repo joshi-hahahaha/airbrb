@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Modal,
   Box,
@@ -10,17 +10,23 @@ import CloseIcon from '@mui/icons-material/Close';
 import modalStyle from '../styles/modalStyles';
 
 export interface BaseModalProps {
-  open: boolean;
-  onClose: () => void;
+  open?: boolean;
+  onClose?: () => void;
   title?: string;
   children?: React.ReactNode;
 }
 
-export const BaseModal: React.FC<BaseModalProps> = ({ open, onClose, title, children }) => {
+export const BaseModal: React.FC<BaseModalProps> = ({ title, children }) => {
+  const [modalOpen, setModalOpen] = useState(true);
+  const handleModalClose = () => {
+    setModalOpen(false);
+    history.back();
+  }
+
   return (
     <Modal
-      open={open}
-      onClose={onClose}
+      open={modalOpen}
+      onClose={handleModalClose}
       closeAfterTransition
       components={{ Backdrop }}
       componentsProps={{
@@ -34,7 +40,7 @@ export const BaseModal: React.FC<BaseModalProps> = ({ open, onClose, title, chil
           <Typography variant='h6' component='h2'>
             {title}
           </Typography>
-          <IconButton aria-label='close' onClick={onClose} sx={{ color: (theme) => theme.palette.grey[500] }}>
+          <IconButton aria-label='close' onClick={handleModalClose} sx={{ color: (theme) => theme.palette.grey[500] }}>
             <CloseIcon />
           </IconButton>
         </div>
