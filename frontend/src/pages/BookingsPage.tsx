@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ListingPage = () => {
+export const BookingsPage = () => {
   return <div>
 
   </div>;

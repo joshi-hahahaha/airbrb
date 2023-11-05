@@ -6,9 +6,15 @@ import LoginModal from './components/LoginModal';
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate
 } from 'react-router-dom';
+
+import { AllListingsPage } from './pages/AllListingsPage';
+import { BookingsPage } from './pages/BookingsPage';
+import { EditListingPage } from './pages/EditListingPage';
 import { ListingPage } from './pages/ListingPage';
+import { MyListingsPage } from './pages/MyListingsPage';
 
 const App = () => {
   return (
@@ -17,7 +23,12 @@ const App = () => {
         <Routes>
           <Route path="/register" element={<RegisterModal />} />
           <Route path="/login" element={<LoginModal />} />
-          <Route path='/' element={<ListingPage />} />
+          <Route path='/my-listings' element={<MyListingsPage />} />
+          <Route path='/edit:listingId' element={<EditListingPage />} />
+          <Route path='/' element={<AllListingsPage />} />
+          <Route path='/listings' element={<Navigate to="/" replace />} />
+          <Route path='/listings/:listingId' element={<ListingPage />} />
+          <Route path='/bookings:listingId' element={<BookingsPage />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

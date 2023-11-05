@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ListingPage = () => {
+export const MyListingsPage = () => {
   return <div>
 
   </div>;

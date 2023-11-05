@@ -1,6 +1,6 @@
 import { CSSProperties } from 'react';
 
-export const listingPage: CSSProperties = {
+export const allListingsPage: CSSProperties = {
   minHeight: '100vh',
   width: '100vw',
   overflowY: 'auto',
