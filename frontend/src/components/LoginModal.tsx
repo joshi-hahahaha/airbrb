@@ -1,30 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Backdrop,
-  IconButton,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { LoginData, LoginModalProps } from '../interfaces/loginInterfaces';
+import { TextField, Button } from '@mui/material';
+import { LoginData } from '../interfaces/loginInterfaces';
 import { apiCall } from '../helpers/apiHelper';
+import { BaseModal, BaseModalProps } from './BaseModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
-import modalStyle from '../styles/modalStyles';
 
 interface LoginRes {
   token: string;
-  // data?: {
-  //   token: string;
-  // };
-  // error?: {
-  //   error: string;
-  // };
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
+const LoginModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<LoginData>({
     email: '',
     password: '',
@@ -56,8 +41,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       queryString
     );
 
-    // console.log(res);
-
     if (res.error) {
       // Handle error res
       console.log(res.error);
@@ -71,40 +54,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      closeAfterTransition
-      components={{
-        Backdrop
-      }}
-      componentsProps={{
-        backdrop: { // Pass props to the backdrop slot
-          timeout: 500,
-        },
-      }}
-    >
-      <Box sx={modalStyle}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant='h6' component='h2'>
-            Login
-          </Typography>
-          <IconButton
-            aria-label='close'
-            onClick={onClose}
-            sx={{
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </div>
+    <BaseModal open={open} onClose={onClose} title="Login">
+      {
         <form onSubmit={handleSubmit}>
           <TextField
             margin='normal'
@@ -112,6 +63,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
             fullWidth
             label='Email Address'
             name='email'
+            type='email'
             value={formData.email}
             onChange={handleChange}
           />
@@ -134,8 +86,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
             Login
           </Button>
         </form>
-      </Box>
-    </Modal>
+      }
+    </BaseModal>
   );
 };
 

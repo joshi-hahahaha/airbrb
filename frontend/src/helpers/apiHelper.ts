@@ -34,10 +34,11 @@ export const apiCall = async <T>(
     config
   );
 
+  console.log(response);
   const data = await response.json();
 
   if (!response.ok) {
-    return { error: data.error || response.statusText }
+    return { error: data.error }
   }
 
   return { data };
