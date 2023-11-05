@@ -1,24 +1,15 @@
 import React, { useState } from 'react';
-import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  Button,
-  Backdrop,
-  IconButton
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import { RegisterData, RegisterModalProps } from '../interfaces/registerInterfaces';
+import { TextField, Button } from '@mui/material';
+import { RegisterData } from '../interfaces/registerInterfaces';
 import { apiCall } from '../helpers/apiHelper';
+import { BaseModal, BaseModalProps } from './BaseModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
-import modalStyle from '../styles/modalStyles';
 
 interface RegisterRes {
   token: string;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
+const RegisterModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<RegisterData>({
     email: '',
     name: '',
@@ -66,40 +57,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      closeAfterTransition
-      components={{
-        Backdrop
-      }}
-      componentsProps={{
-        backdrop: { // Pass props to the backdrop slot
-          timeout: 500,
-        },
-      }}
-    >
-      <Box sx={modalStyle}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant='h6' component='h2'>
-            Register
-          </Typography>
-          <IconButton
-            aria-label='close'
-            onClick={onClose}
-            sx={{
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </div>
+    <BaseModal open={open} onClose={onClose} title="Register">
+      {
         <form onSubmit={handleSubmit}>
           <TextField
             margin='normal'
@@ -107,6 +66,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             fullWidth
             label="Email"
             name="email"
+            type='email'
             value={formData.email}
             onChange={handleChange}
           />
@@ -148,8 +108,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ open, onClose }) => {
             Register
           </Button>
         </form>
-      </Box>
-    </Modal>
+      }
+    </BaseModal>
   );
 };
 
