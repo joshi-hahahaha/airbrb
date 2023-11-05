@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import { searchBar } from '../../styles/navbar/searchBarStyles';
 import { GuestMenu } from './GuestMenu';
+import { DatePicker } from './DatePicker';
 
 export const SearchBar: React.FC = () => {
   return (
@@ -12,6 +13,7 @@ export const SearchBar: React.FC = () => {
         variant='standard'
       />
       <GuestMenu />
+      <DatePicker />
     </div>
   );
 };
