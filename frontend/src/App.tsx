@@ -9,7 +9,7 @@ import {
   Route,
   Navigate
 } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
+import { NavBar } from './components/navbar/NavBar';
 
 import { AllListingsPage } from './pages/AllListingsPage';
 import { BookingsPage } from './pages/BookingsPage';
@@ -21,11 +21,11 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Navbar />
+        <NavBar />
         <Routes>
           <Route path="/login" element={<LoginModal />} />
           <Route path="/register" element={<RegisterModal />} />
-          <Route path='/my-listings' element={<MyListingsPage />} />
+          <Route path='/my-listings' element={<HostedListingsPage />} />
           <Route path='/edit/:listingId' element={<EditListingPage />} />
           <Route path='/' element={<AllListingsPage />} />
           <Route path='/listings' element={<Navigate to='/' replace />} />

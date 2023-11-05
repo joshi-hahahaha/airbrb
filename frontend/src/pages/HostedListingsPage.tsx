@@ -1,11 +1,10 @@
 import React from 'react';
 import { page } from '../styles/pageStyles';
-import { NavBar } from '../components/navbar/NavBar';
 
-export const HostedListingsPage = () => {
+export const HostedListingsPage: React.FC = () => {
   return (
     <div style={page}>
-      <NavBar />
+
     </div>
   );
 };
