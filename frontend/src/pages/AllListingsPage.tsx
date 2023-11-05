@@ -1,10 +1,12 @@
 import React from 'react';
-import { allListingsPage } from '../styles/allListingsPageStyles';
+import { page } from '../styles/pageStyles';
 import { Link } from 'react-router-dom';
 
 export const AllListingsPage = () => {
-  return <div style={allListingsPage}>
-    <Link to="/register">Open Register</Link>
-    <Link to="/login">Open Login</Link>
-  </div>;
+  return (
+    <div style={page}>
+      <Link to='/register'>Open Register</Link>
+      <Link to='/login'>Open Login</Link>
+    </div>
+  );
 };
