@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import { RegisterData } from '../interfaces/registerInterfaces';
 import { apiCall } from '../helpers/apiHelper';
-import { BaseModal, BaseModalProps } from './BaseModal';
+import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface RegisterRes {
   token: string;
 }
 
-const RegisterModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
+const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<RegisterData>({
     email: '',
     name: '',
@@ -36,28 +39,33 @@ const RegisterModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
     const token: string | null = null;
     const queryString: string = '';
 
-    const res: ApiResponse<RegisterRes> = await apiCall<RegisterRes>(
-      path,
-      method,
-      body,
-      token,
-      queryString
-    );
+    if (formData.password === formData.confirmPassword) {
+      const res: ApiResponse<RegisterRes> = await apiCall<RegisterRes>(
+        path,
+        method,
+        body,
+        token,
+        queryString
+      );
 
-    if (res.error) {
-      // Handle error res
-      console.error(res.error);
-    } else if (res.data) {
-      // Handle successful res
-      console.log(res.data);
-      localStorage.setItem('token', res.data.token);
+      if (res.error) {
+        // Handle error res
+        console.error(res.error);
+      } else if (res.data) {
+        // Handle successful res
+        console.log(res.data);
+        localStorage.setItem('token', res.data.token);
+        navigate('/');
+      } else {
+        console.log('Unexpected response structure:', res);
+      }
     } else {
-      console.log('Unexpected response structure:', res);
+      console.log('passwords do not match');
     }
   };
 
   return (
-    <BaseModal open={open} onClose={onClose} title="Register">
+    <BaseAuthModal open={open} onClose={onClose} title="Register">
       {
         <form onSubmit={handleSubmit}>
           <TextField
@@ -107,9 +115,10 @@ const RegisterModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
           >
             Register
           </Button>
+          <Link to='/login'>I have an account</Link>
         </form>
       }
-    </BaseModal>
+    </BaseAuthModal>
   );
 };
 

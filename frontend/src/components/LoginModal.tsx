@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { TextField, Button } from '@mui/material';
 import { LoginData } from '../interfaces/loginInterfaces';
 import { apiCall } from '../helpers/apiHelper';
-import { BaseModal, BaseModalProps } from './BaseModal';
+import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface LoginRes {
   token: string;
 }
 
-const LoginModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
+const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<LoginData>({
     email: '',
     password: '',
@@ -48,13 +51,14 @@ const LoginModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
       // Handle successful res
       console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
+      navigate('/');
     } else {
       console.log('Unexpected response structure:', res);
     }
   };
 
   return (
-    <BaseModal open={open} onClose={onClose} title="Login">
+    <BaseAuthModal open={open} onClose={onClose} title="Login">
       {
         <form onSubmit={handleSubmit}>
           <TextField
@@ -85,9 +89,10 @@ const LoginModal: React.FC<BaseModalProps> = ({ open, onClose }) => {
           >
             Login
           </Button>
+          <Link to='/register'>Register</Link>
         </form>
       }
-    </BaseModal>
+    </BaseAuthModal>
   );
 };
 
