@@ -9,6 +9,7 @@ import {
   Route,
   Navigate
 } from 'react-router-dom';
+import { Navbar } from './components/Navbar';
 
 import { AllListingsPage } from './pages/AllListingsPage';
 import { BookingsPage } from './pages/BookingsPage';
@@ -18,20 +19,21 @@ import { MyListingsPage } from './pages/MyListingsPage';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route path="/register" element={<RegisterModal />} />
           <Route path="/login" element={<LoginModal />} />
+          <Route path="/register" element={<RegisterModal />} />
           <Route path='/my-listings' element={<MyListingsPage />} />
-          <Route path='/edit:listingId' element={<EditListingPage />} />
+          <Route path='/edit/:listingId' element={<EditListingPage />} />
           <Route path='/' element={<AllListingsPage />} />
           <Route path='/listings' element={<Navigate to="/" replace />} />
           <Route path='/listings/:listingId' element={<ListingPage />} />
-          <Route path='/bookings:listingId' element={<BookingsPage />} />
+          <Route path='/bookings/:listingId' element={<BookingsPage />} />
         </Routes>
-      </ThemeProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

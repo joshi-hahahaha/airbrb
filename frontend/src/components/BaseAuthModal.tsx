@@ -8,19 +8,22 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import modalStyle from '../styles/modalStyles';
+import { useNavigate } from 'react-router-dom';
 
-export interface BaseModalProps {
+export interface BaseAuthModalProps {
   open?: boolean;
   onClose?: () => void;
   title?: string;
   children?: React.ReactNode;
 }
 
-export const BaseModal: React.FC<BaseModalProps> = ({ title, children }) => {
+export const BaseAuthModal: React.FC<BaseAuthModalProps> = ({ title, children }) => {
+  const navigate = useNavigate();
+
   const [modalOpen, setModalOpen] = useState(true);
   const handleModalClose = () => {
     setModalOpen(false);
-    history.back();
+    navigate('/');
   }
 
   return (
