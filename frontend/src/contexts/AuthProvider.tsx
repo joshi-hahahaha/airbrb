@@ -1,5 +1,6 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import AuthContext from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -7,6 +8,7 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -30,6 +32,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setAuthToken(null);
     localStorage.removeItem('token');
     console.log('logged out');
+    navigate('/');
   };
 
   return (
