@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
 import { LoginData } from '../interfaces/loginInterfaces';
 import { apiCall } from '../helpers/apiHelper';
 import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
 
 interface LoginRes {
   token: string;
@@ -12,6 +13,7 @@ interface LoginRes {
 
 const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
+  const { setAuthToken } = useContext(AuthContext);
 
   const [formData, setFormData] = useState<LoginData>({
     email: '',
@@ -51,6 +53,7 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
       // Handle successful res
       console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
+      setAuthToken(localStorage.getItem('token'));
       navigate('/');
     } else {
       console.log('Unexpected response structure:', res);
