@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { navBar } from '../../styles/navbar/navBarStyle';
-import Logo from '../../assets/AirbrbLogo';
+import Logo from '../../assets/airbrbLogo';
 import { SearchBar } from './SearchBar';
 import AuthContext from '../../contexts/AuthContext';
 
@@ -11,7 +11,8 @@ export const NavBar: React.FC = () => {
     <nav style={navBar}>
       <Logo />
       <SearchBar />
-      <div>buttons
+      <div>
+        buttons
         <button onClick={logout}>Logout</button>
       </div>
     </nav>
