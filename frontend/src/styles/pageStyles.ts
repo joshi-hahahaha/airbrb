@@ -6,3 +6,10 @@ export const page: CSSProperties = {
   overflowY: 'auto',
   backgroundColor: 'white', // temporary just to visualise
 };
+
+export const contentContainer: CSSProperties = {
+  overflowY: 'auto',
+  // backgroundColor: 'black',
+  minHeight: 'calc(100vh - 80px)',
+  marginTop: '80px',
+};
