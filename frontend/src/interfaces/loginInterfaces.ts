@@ -7,3 +7,7 @@ export interface LoginModalProps {
   open: boolean;
   onClose: () => void;
 }
+
+export interface LoginRes {
+  token: string;
+}

@@ -1,15 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
-import { LoginData } from '../interfaces/loginInterfaces';
+import { LoginData, LoginRes } from '../interfaces/loginInterfaces';
 import { apiCall } from '../helpers/apiHelper';
 import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../contexts/AuthContext';
-
-interface LoginRes {
-  token: string;
-}
 
 const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -61,7 +57,7 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <BaseAuthModal open={open} onClose={onClose} title="Login">
+    <BaseAuthModal open={open} onClose={onClose} title='Login'>
       {
         <form onSubmit={handleSubmit}>
           <TextField
