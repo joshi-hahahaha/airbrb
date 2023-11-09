@@ -12,7 +12,6 @@ import {
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
-// import picture from './../../assets/default-pfp.jpg';
 
 export const UserMenu = () => {
   const { authToken, logout } = useContext(AuthContext);
@@ -36,6 +35,9 @@ export const UserMenu = () => {
   };
   const handleMyListingsBtn = () => {
     navigate('/my-listings');
+  };
+  const handleAddListingBtn = () => {
+    navigate('/add-listings');
   };
 
   return (
@@ -105,7 +107,7 @@ export const UserMenu = () => {
               </ListItemIcon>
               My Listings
             </MenuItem>
-            <MenuItem onClick={handleMyListingsBtn}>
+            <MenuItem onClick={handleAddListingBtn}>
               <ListItemIcon>
                 <AddHome fontSize='small' />
               </ListItemIcon>
