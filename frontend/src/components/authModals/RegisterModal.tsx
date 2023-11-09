@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Divider, Typography } from '@mui/material';
 import { RegisterData } from '../../interfaces/registerInterfaces';
 import { apiCall } from '../../helpers/apiHelper';
 import { BaseAuthModal, BaseAuthModalProps } from '../BaseAuthModal';
@@ -70,56 +70,63 @@ const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   return (
     <BaseAuthModal open={open} onClose={onClose} title='Register'>
       {
-        <form onSubmit={handleSubmit}>
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            label='Email'
-            name='email'
-            type='email'
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            label='Name'
-            name='name'
-            value={formData.name}
-            onChange={handleChange}
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            name='password'
-            label='Password'
-            type='password'
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <TextField
-            margin='normal'
-            required
-            fullWidth
-            name='confirmPassword'
-            label='ConfirmPassword'
-            type='password'
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-          <Button
-            type='submit'
-            fullWidth
-            variant='contained'
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Register
-          </Button>
-          <Link to='/login'>I have an account</Link>
-        </form>
+        <>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              label='Email'
+              name='email'
+              type='email'
+              value={formData.email}
+              onChange={handleChange}
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              label='Name'
+              name='name'
+              value={formData.name}
+              onChange={handleChange}
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              name='confirmPassword'
+              label='ConfirmPassword'
+              type='password'
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Register
+            </Button>
+          </form>
+          <Divider />
+          <Link style={{ textDecoration: 'none' }} to='/login'>
+            <Typography sx={{ mt: 1, color: '#D33753' }} variant='subtitle1'>
+              {'I have an account'}
+            </Typography>
+          </Link>
+        </>
       }
     </BaseAuthModal>
   );
