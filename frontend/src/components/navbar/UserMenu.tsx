@@ -1,15 +1,4 @@
-/**
- * This will have:
- * profile picture button and hamburger
- * open up menu
- * menu has:
- * log in, log out, register
- * if logged in:
- * my listings navigation
- * create listing -> modal
- */
-
-import { House, Login, Logout, PersonAdd } from '@mui/icons-material';
+import { AddHome, House, Login, Logout, PersonAdd } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -23,6 +12,7 @@ import {
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
+// import picture from './../../assets/default-pfp.jpg';
 
 export const UserMenu = () => {
   const { authToken, logout } = useContext(AuthContext);
@@ -60,7 +50,7 @@ export const UserMenu = () => {
             aria-haspopup='true'
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>R</Avatar>
+            <Avatar src='./../../assets/default-pfp.jpg' />
           </IconButton>
         </Tooltip>
       </Box>
@@ -115,6 +105,12 @@ export const UserMenu = () => {
               </ListItemIcon>
               My Listings
             </MenuItem>
+            <MenuItem onClick={handleMyListingsBtn}>
+              <ListItemIcon>
+                <AddHome fontSize='small' />
+              </ListItemIcon>
+              Add Listing
+            </MenuItem>
           </div>
         ) : (
           <div>
@@ -136,14 +132,3 @@ export const UserMenu = () => {
     </React.Fragment>
   );
 };
-
-/**
- * This will have:
- * profile picture button and hamburger
- * open up menu
- * menu has:
- * log in, log out, register
- * if logged in:
- * my listings navigation
- * create listing -> modal
- */
