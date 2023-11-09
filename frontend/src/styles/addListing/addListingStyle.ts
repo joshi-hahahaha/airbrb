@@ -20,5 +20,5 @@ export const textFormContainer: CSSProperties = {
 export const imageFormContainer: CSSProperties = {
   width: '45%',
   height: '100%',
-  backgroundColor: 'red',
+  // backgroundColor: 'red',
 };
