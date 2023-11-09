@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
-import { LoginData, LoginRes } from '../interfaces/loginInterfaces';
-import { apiCall } from '../helpers/apiHelper';
-import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
-import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import { LoginData, LoginRes } from '../../interfaces/loginInterfaces';
+import { apiCall } from '../../helpers/apiHelper';
+import { BaseAuthModal, BaseAuthModalProps } from '../BaseAuthModal';
+import { ApiResponse, HttpMethod } from '../../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import AuthContext from '../../contexts/AuthContext';
 
 const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
