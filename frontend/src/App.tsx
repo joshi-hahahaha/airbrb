@@ -1,8 +1,8 @@
 import React from 'react';
 import theme from './assets/theme';
 import { ThemeProvider } from '@mui/material/styles';
-import RegisterModal from './components/RegisterModal';
-import LoginModal from './components/LoginModal';
+import RegisterModal from './components/authModals/RegisterModal';
+import LoginModal from './components/authModals/LoginModal';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import AuthProvider from './contexts/AuthProvider';
 

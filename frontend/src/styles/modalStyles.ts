@@ -1,10 +1,9 @@
-const modalStyle = {
+import { CSSProperties } from 'react';
+
+export const modalStyle = {
   position: 'fixed',
-  top: 0,
-  left: 0,
-  // transform: 'translate(-50%, -50%)',
-  width: '100vw',
-  height: '100vh',
+  width: '60vw',
+  height: 'auto',
   bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
@@ -12,4 +11,8 @@ const modalStyle = {
   boxSizing: 'border-box',
 };
 
-export default modalStyle;
+export const modalBackdrop: CSSProperties = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+};

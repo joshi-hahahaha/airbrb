@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, Box, Typography, IconButton, Backdrop } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import modalStyle from '../styles/modalStyles';
+import { modalBackdrop, modalStyle } from '../styles/modalStyles';
 import { useNavigate } from 'react-router-dom';
 
 export interface BaseAuthModalProps {
@@ -26,6 +26,7 @@ export const BaseAuthModal: React.FC<BaseAuthModalProps> = ({
   return (
     <Modal
       open={modalOpen}
+      sx={modalBackdrop}
       onClose={handleModalClose}
       closeAfterTransition
       components={{ Backdrop }}

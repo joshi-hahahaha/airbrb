@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { TextField, Button } from '@mui/material';
-import { RegisterData } from '../interfaces/registerInterfaces';
-import { apiCall } from '../helpers/apiHelper';
-import { BaseAuthModal, BaseAuthModalProps } from './BaseAuthModal';
-import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
+import { RegisterData } from '../../interfaces/registerInterfaces';
+import { apiCall } from '../../helpers/apiHelper';
+import { BaseAuthModal, BaseAuthModalProps } from '../BaseAuthModal';
+import { ApiResponse, HttpMethod } from '../../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import AuthContext from '../../contexts/AuthContext';
 
 interface RegisterRes {
   token: string;
@@ -19,7 +19,7 @@ const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
     email: '',
     name: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,15 +68,15 @@ const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   };
 
   return (
-    <BaseAuthModal open={open} onClose={onClose} title="Register">
+    <BaseAuthModal open={open} onClose={onClose} title='Register'>
       {
         <form onSubmit={handleSubmit}>
           <TextField
             margin='normal'
             required
             fullWidth
-            label="Email"
-            name="email"
+            label='Email'
+            name='email'
             type='email'
             value={formData.email}
             onChange={handleChange}
@@ -85,8 +85,8 @@ const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
             margin='normal'
             required
             fullWidth
-            label="Name"
-            name="name"
+            label='Name'
+            name='name'
             value={formData.name}
             onChange={handleChange}
           />
@@ -101,12 +101,12 @@ const RegisterModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
             onChange={handleChange}
           />
           <TextField
-            margin="normal"
+            margin='normal'
             required
             fullWidth
-            name="confirmPassword"
-            label="ConfirmPassword"
-            type="password"
+            name='confirmPassword'
+            label='ConfirmPassword'
+            type='password'
             value={formData.confirmPassword}
             onChange={handleChange}
           />
