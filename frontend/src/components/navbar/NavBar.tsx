@@ -13,17 +13,17 @@ export const NavBar: React.FC = () => {
       <Logo />
       <SearchBar />
       <div>
-        {authToken
-          ? (
+        {/*eslint-disable*/}
+        {authToken ? (
           <Button onClick={logout} variant='outlined'>
             Logout
           </Button>
-            )
-          : (
-          <Button onClick={logout} variant='outlined'>
-            Login
-          </Button>
-            )}
+        ) : (
+          <div>
+            <Button variant='outlined'>Login</Button>
+            <Button variant='outlined'>Login</Button>
+          </div>
+        )}
       </div>
     </nav>
   );
