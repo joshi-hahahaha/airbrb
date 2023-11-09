@@ -12,7 +12,7 @@ import { AllListingsPage } from './pages/AllListingsPage';
 import { BookingsPage } from './pages/BookingsPage';
 import { EditListingPage } from './pages/EditListingPage';
 import { ListingPage } from './pages/ListingPage';
-import { HostedListingsPage } from './pages/HostedListingsPage';
+import { MyListingsPage } from './pages/MyListingsPage';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/login' element={<LoginModal />} />
           <Route path='/register' element={<RegisterModal />} />
-          <Route path='/hosted-listings' element={<HostedListingsPage />} />
+          <Route path='/my-listings' element={<MyListingsPage />} />
           <Route path='/edit/:listingId' element={<EditListingPage />} />
           <Route path='/' element={<AllListingsPage />} />
           <Route path='/listings' element={<Navigate to='/' replace />} />
