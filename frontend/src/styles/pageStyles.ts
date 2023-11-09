@@ -12,4 +12,5 @@ export const contentContainer: CSSProperties = {
   // backgroundColor: 'black',
   minHeight: 'calc(100vh - 80px)',
   marginTop: '80px',
+  padding: '20px 80px',
 };
