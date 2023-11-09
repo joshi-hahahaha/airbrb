@@ -37,7 +37,7 @@ export const UserMenu = () => {
     navigate('/my-listings');
   };
   const handleAddListingBtn = () => {
-    navigate('/add-listings');
+    navigate('/add-listing');
   };
 
   return (

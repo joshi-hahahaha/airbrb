@@ -9,8 +9,8 @@ export const page: CSSProperties = {
 
 export const contentContainer: CSSProperties = {
   overflowY: 'auto',
-  // backgroundColor: 'black',
-  minHeight: 'calc(100vh - 80px)',
+  height: 'calc(100vh - 80px)',
   marginTop: '80px',
-  padding: '20px 80px',
+  // padding: '20px 80px',
+  padding: '0 80px',
 };
