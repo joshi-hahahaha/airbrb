@@ -9,6 +9,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
+  Divider,
   TextField,
   Typography,
 } from '@mui/material';
@@ -83,10 +84,15 @@ export const AddListingForm = () => {
                 aria-controls='panel1a-content'
                 id='panel1a-header'
               >
-                <Typography variant='subtitle1' gutterBottom>
-                  Address
+                <Typography
+                  variant='subtitle1'
+                  sx={{ color: 'gray' }}
+                  gutterBottom
+                >
+                  Address *
                 </Typography>
               </AccordionSummary>
+              <Divider />
               <AccordionDetails>
                 <TextField
                   margin='normal'

@@ -8,7 +8,19 @@ export interface Address {
 
 interface Review {}
 
-interface Metadata {}
+interface Ammenity {}
+
+interface Photo {}
+
+type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
+
+interface Metadata {
+  ammenities: Ammenity[];
+  photos: Photo[];
+  propertyType: PropertyType;
+}
+
+interface Availability {}
 
 export interface Listing {
   id: number;
@@ -18,6 +30,10 @@ export interface Listing {
   thumbnail: string;
   price: number;
   reviews: Review[];
+  metaData?: Metadata;
+  availability?: Availability;
+  published?: boolean;
+  postedOn?: Date;
 }
 
 export interface ListingRes {
