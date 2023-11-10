@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
 export const formContentDiv: CSSProperties = {
-  width: '100%',
+  width: '80%',
   height: '100%',
   // backgroundColor: 'black',
 };

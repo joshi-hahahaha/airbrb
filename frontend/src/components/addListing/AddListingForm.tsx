@@ -4,11 +4,20 @@ import {
   imageFormContainer,
   textFormContainer,
 } from '../../styles/addListing/addListingStyle';
-import { Button, TextField, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  TextField,
+  Typography,
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Address } from '../../interfaces/listingInterfaces';
 
 interface NewListingFormData {
   title: string;
-  address: string;
+  address: Address;
   price: number;
   thumbnail: string;
   metadata: object;
@@ -17,6 +26,7 @@ interface NewListingFormData {
 export const AddListingForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Handle form submission logic here
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,9 +34,26 @@ export const AddListingForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, thumbnail: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const [formData, setFormData] = useState<NewListingFormData>({
     title: '',
-    address: '',
+    address: {
+      street: '',
+      city: '',
+      state: '',
+      postcode: '',
+      country: '',
+    },
     price: 0,
     thumbnail: '',
     metadata: {},
@@ -45,27 +72,96 @@ export const AddListingForm = () => {
               required
               fullWidth
               label='Property title'
-              name='property-title'
+              name='title'
               type='text'
               value={formData.title}
               onChange={handleChange}
             />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              label='Address'
-              name='address'
-              type='text'
-              value={formData.address}
-              onChange={handleChange}
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls='panel1a-content'
+                id='panel1a-header'
+              >
+                <Typography variant='subtitle1' gutterBottom>
+                  Address
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  label='Street'
+                  name='street'
+                  type='text'
+                  value={formData.address.street}
+                  onChange={handleChange}
+                />
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  label='City'
+                  name='city'
+                  type='text'
+                  value={formData.address.city}
+                  onChange={handleChange}
+                />
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  label='State'
+                  name='state'
+                  type='text'
+                  value={formData.address.state}
+                  onChange={handleChange}
+                />
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  label='Postcode'
+                  name='postcode'
+                  type='text'
+                  value={formData.address.postcode}
+                  onChange={handleChange}
+                />
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  label='Country'
+                  name='country'
+                  type='text'
+                  value={formData.address.country}
+                  onChange={handleChange}
+                />
+              </AccordionDetails>
+            </Accordion>
+
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleFileChange}
+              multiple
+              style={{ margin: '20px 0', width: '100%' }}
             />
             <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
               Create
             </Button>
           </form>
         </div>
-        <div style={imageFormContainer}>right div for images</div>
+        <div style={imageFormContainer}>
+          {formData.thumbnail && (
+            <img
+              src={formData.thumbnail}
+              alt='Thumbnail'
+              style={{ width: '100%' }}
+            />
+          )}
+        </div>
       </div>
     </>
   );

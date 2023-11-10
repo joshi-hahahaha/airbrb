@@ -13,4 +13,7 @@ export const contentContainer: CSSProperties = {
   marginTop: '80px',
   // padding: '20px 80px',
   padding: '0 80px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
