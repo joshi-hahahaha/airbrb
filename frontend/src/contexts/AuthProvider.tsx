@@ -6,37 +6,50 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+interface AuthProviderState {
+  authToken: string | null;
+  email: string | null;
+}
+
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [authState, setAuthState] = useState<AuthProviderState>({
+    authToken: null,
+    email: null,
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setAuthToken(token);
-      console.log('token set');
+    const storedData = localStorage.getItem('authData');
+    if (storedData) {
+      const { authToken, email } = JSON.parse(storedData);
+      setAuthState({ authToken, email });
+      console.log('Authentication data loaded');
     }
   }, []);
 
   useEffect(() => {
+    const { authToken, email } = authState;
     if (authToken) {
-      localStorage.setItem('token', authToken);
-      console.log('token accquired from server');
+      localStorage.setItem('authData', JSON.stringify({ authToken, email }));
+      console.log('Authentication data saved');
     } else {
-      localStorage.removeItem('token');
-      console.log('token not found');
+      localStorage.removeItem('authData');
+      console.log('Authentication data removed');
     }
-  }, [authToken]);
+  }, [authState]);
+
+  const setAuthToken = (token: string | null, email: string | null) => {
+    setAuthState({ authToken: token, email });
+  };
 
   const logout = () => {
-    setAuthToken(null);
-    localStorage.removeItem('token');
-    console.log('logged out');
+    setAuthToken(null, null);
+    console.log('Logged out');
     navigate('/');
   };
 
   return (
-    <AuthContext.Provider value={{ authToken, setAuthToken, logout }}>
+    <AuthContext.Provider value={{ ...authState, setAuthToken, logout }}>
       {children}
     </AuthContext.Provider>
   );

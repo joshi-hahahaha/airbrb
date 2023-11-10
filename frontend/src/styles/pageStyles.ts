@@ -17,3 +17,14 @@ export const contentContainer: CSSProperties = {
   justifyContent: 'center',
   alignItems: 'center',
 };
+
+export const listingContainer: CSSProperties = {
+  flex: '1',
+  width: '80%',
+  height: '100%',
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-around',
+  alignItems: 'flex-start',
+  // padding: '80px',
+};
