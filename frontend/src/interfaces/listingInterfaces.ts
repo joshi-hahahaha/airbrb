@@ -12,13 +12,18 @@ interface Ammenity {}
 
 interface Photo {}
 
+interface Bedroom {
+  beds: number;
+}
+
 type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
 
 export interface Metadata {
   ammenities: Ammenity[];
   photos: Photo[];
   propertyType: PropertyType;
-  numBeds: number;
+  bedrooms: Bedroom[];
+  bathrooms: number;
 }
 
 interface Availability {}

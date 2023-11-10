@@ -61,7 +61,8 @@ export const AddListingForm = () => {
       ammenities: [],
       photos: [],
       propertyType: 'House',
-      numBeds: 0,
+      bedrooms: [],
+      bathrooms: 0,
     },
   });
 
@@ -154,23 +155,32 @@ export const AddListingForm = () => {
             <TextField
               margin='normal'
               required
-              fullWidth
-              label='Price'
+              label='Price per night'
               name='price'
               type='number'
               value={formData.price}
               onChange={handleChange}
             />
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              label='Number of Beds'
-              name='beds'
-              type='number'
-              value={formData.metadata.numBeds}
-              onChange={handleChange}
-            />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <TextField
+                margin='normal'
+                required
+                label='Bedrooms'
+                name='beds'
+                type='number'
+                value={formData.metadata.bedrooms.length}
+                onChange={handleChange}
+              />
+              <TextField
+                margin='normal'
+                required
+                label='Bathrooms'
+                name='bathrooms'
+                type='number'
+                value={formData.metadata.bathrooms}
+                onChange={handleChange}
+              />
+            </div>
             <input
               type='file'
               accept='image/*'
