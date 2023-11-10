@@ -49,7 +49,11 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
       // Handle successful res
       console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
-      setAuthToken(localStorage.getItem('token'));
+      localStorage.setItem('email', formData.email);
+      setAuthToken(
+        localStorage.getItem('token'),
+        localStorage.getItem('email')
+      );
       navigate('/');
     } else {
       console.log('Unexpected response structure:', res);
