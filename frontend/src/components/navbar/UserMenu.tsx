@@ -145,6 +145,13 @@ export const UserMenu = () => {
               </ListItemIcon>
               Sign Up
             </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleAllListingsBtn}>
+              <ListItemIcon>
+                <OtherHouses fontSize='small' />
+              </ListItemIcon>
+              All Listings
+            </MenuItem>
           </div>
         )}
       </Menu>
