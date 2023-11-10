@@ -15,19 +15,21 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Address, Metadata } from '../../interfaces/listingInterfaces';
-
-interface NewListingFormData {
-  title: string;
-  address: Address;
-  price: number;
-  thumbnail: string;
-  metadata: Metadata;
-}
+import {
+  Address,
+  Metadata,
+  NewListingFormData,
+} from '../../interfaces/listingInterfaces';
+import { addListing } from '../../helpers/listingApiHelpers';
 
 export const AddListingForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const body: NewListingFormData = { ...formData };
+    console.log(body);
+
+    addListing(body);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +42,19 @@ export const AddListingForm = () => {
       ...prevData,
       address: {
         ...prevData.address,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleMetadataChange = (
+    name: keyof Metadata,
+    value: string | number
+  ) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      metadata: {
+        ...prevData.metadata,
         [name]: value,
       },
     }));
@@ -71,7 +86,8 @@ export const AddListingForm = () => {
       ammenities: [],
       photos: [],
       propertyType: 'House',
-      bedrooms: [],
+      bedrooms: 0,
+      beds: 0,
       bathrooms: 0,
     },
   });
@@ -180,7 +196,9 @@ export const AddListingForm = () => {
               type='number'
               value={formData.price}
               onChange={handleChange}
+              InputProps={{ inputProps: { min: 0 } }}
             />
+            <Divider />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
                 margin='normal'
@@ -188,19 +206,37 @@ export const AddListingForm = () => {
                 label='Bedrooms'
                 name='beds'
                 type='number'
-                value={formData.metadata.bedrooms.length}
-                onChange={handleChange}
+                value={formData.metadata.bedrooms}
+                onChange={(event) =>
+                  handleMetadataChange('bedrooms', event.target.value)
+                }
+                InputProps={{ inputProps: { min: 0 } }}
               />
               <TextField
                 margin='normal'
                 required
-                label='Bathrooms'
-                name='bathrooms'
+                label='Bedrooms'
+                name='beds'
                 type='number'
-                value={formData.metadata.bathrooms}
-                onChange={handleChange}
+                value={formData.metadata.beds}
+                onChange={(event) =>
+                  handleMetadataChange('beds', event.target.value)
+                }
+                InputProps={{ inputProps: { min: 0 } }}
               />
             </div>
+            <TextField
+              margin='normal'
+              required
+              label='Bathrooms'
+              name='bathrooms'
+              type='number'
+              value={formData.metadata.bathrooms}
+              onChange={(event) =>
+                handleMetadataChange('bathrooms', +event.target.value)
+              }
+              InputProps={{ inputProps: { min: 0 } }}
+            />
             <input
               type='file'
               accept='image/*'

@@ -2,7 +2,10 @@
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import { apiCall } from './apiHelper';
 // import AuthContext from '../contexts/AuthContext';
-import { ListingRes } from '../interfaces/listingInterfaces';
+import {
+  ListingRes,
+  NewListingFormData,
+} from '../interfaces/listingInterfaces';
 
 export const getListings = async (
   authToken: string | null
@@ -32,4 +35,8 @@ export const getListings = async (
   }
 
   return { listings: [] };
+};
+
+export const addListing = async (body: NewListingFormData) => {
+  console.log(body);
 };

@@ -17,17 +17,14 @@ type Ammenity =
 
 interface Photo {}
 
-interface Bedroom {
-  beds: number;
-}
-
 type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
 
 export interface Metadata {
   ammenities: Ammenity[];
   photos: Photo[];
   propertyType: PropertyType;
-  bedrooms: Bedroom[];
+  bedrooms: number;
+  beds: number;
   bathrooms: number;
 }
 
@@ -54,4 +51,13 @@ export interface Listing {
 
 export interface ListingRes {
   listings: Listing[];
+}
+
+/** New Listing Form */
+export interface NewListingFormData {
+  title: string;
+  address: Address;
+  price: number;
+  thumbnail: string;
+  metadata: Metadata;
 }
