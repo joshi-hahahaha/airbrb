@@ -35,6 +35,16 @@ export const AddListingForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleAddressChange = (name: keyof Address, value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        [name]: value,
+      },
+    }));
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -108,7 +118,9 @@ export const AddListingForm = () => {
                   name='street'
                   type='text'
                   value={formData.address.street}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('street', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -118,7 +130,9 @@ export const AddListingForm = () => {
                   name='city'
                   type='text'
                   value={formData.address.city}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('city', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -128,7 +142,9 @@ export const AddListingForm = () => {
                   name='state'
                   type='text'
                   value={formData.address.state}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('state', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -138,7 +154,9 @@ export const AddListingForm = () => {
                   name='postcode'
                   type='text'
                   value={formData.address.postcode}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('postcode', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -148,7 +166,9 @@ export const AddListingForm = () => {
                   name='country'
                   type='text'
                   value={formData.address.country}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('country', event.target.value)
+                  }
                 />
               </AccordionDetails>
             </Accordion>

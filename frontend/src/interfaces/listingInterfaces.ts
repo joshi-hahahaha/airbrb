@@ -34,14 +34,19 @@ export interface Metadata {
 interface Availability {}
 
 export interface Listing {
+  // id
   id?: number;
+
+  // always
   title: string;
-  owner: string;
   address: Address;
   thumbnail: string;
   price: number;
+
+  // optionals
   reviews?: Review[];
-  metaData?: Metadata;
+  owner?: string;
+  metadata?: Metadata;
   availability?: Availability;
   published?: boolean;
   postedOn?: Date;
