@@ -146,7 +146,16 @@ export const AddListingForm = () => {
                 />
               </AccordionDetails>
             </Accordion>
-
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              label='Price'
+              name='price'
+              type='number'
+              value={formData.price}
+              onChange={handleChange}
+            />
             <input
               type='file'
               accept='image/*'
