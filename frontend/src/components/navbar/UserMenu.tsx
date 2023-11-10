@@ -1,4 +1,11 @@
-import { AddHome, House, Login, Logout, PersonAdd } from '@mui/icons-material';
+import {
+  AddHome,
+  House,
+  Login,
+  Logout,
+  OtherHouses,
+  PersonAdd,
+} from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -38,6 +45,9 @@ export const UserMenu = () => {
   };
   const handleAddListingBtn = () => {
     navigate('/add-listing');
+  };
+  const handleAllListingsBtn = () => {
+    navigate('/');
   };
 
   return (
@@ -99,6 +109,13 @@ export const UserMenu = () => {
                 <Logout fontSize='small' />
               </ListItemIcon>
               Logout
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleAllListingsBtn}>
+              <ListItemIcon>
+                <OtherHouses fontSize='small' />
+              </ListItemIcon>
+              All Listings
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleMyListingsBtn}>
