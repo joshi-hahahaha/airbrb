@@ -6,15 +6,17 @@ import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 
 export const MyListingsPage: React.FC = () => {
-  const { authToken } = useContext(AuthContext);
+  const { authToken, email } = useContext(AuthContext);
 
   const [listings, setListings] = useState<Listing[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getListings(authToken);
-        setListings(data.listings);
-        console.log(data);
+        const userOwnedListings = data.listings.filter(
+          (listing) => listing.owner === email
+        );
+        setListings(userOwnedListings);
       } catch (error) {
         console.error('Error fetching listings:', error);
       }
