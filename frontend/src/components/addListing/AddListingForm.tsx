@@ -10,6 +10,7 @@ import {
   AccordionSummary,
   Button,
   Divider,
+  InputLabel,
   TextField,
   Typography,
 } from '@mui/material';
@@ -27,7 +28,6 @@ interface NewListingFormData {
 export const AddListingForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission logic here
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,6 +188,7 @@ export const AddListingForm = () => {
               multiple
               style={{ margin: '20px 0', width: '100%' }}
             />
+            <InputLabel id='amenities-label'>Amenities</InputLabel>
             <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
               Create
             </Button>

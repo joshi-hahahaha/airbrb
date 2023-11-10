@@ -8,7 +8,12 @@ export interface Address {
 
 interface Review {}
 
-interface Ammenity {}
+type Ammenity =
+  | 'Swimming Pool'
+  | 'Gym'
+  | 'Parking'
+  | 'WiFi'
+  | 'Air Conditioning';
 
 interface Photo {}
 
