@@ -14,22 +14,23 @@ interface Photo {}
 
 type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
 
-interface Metadata {
+export interface Metadata {
   ammenities: Ammenity[];
   photos: Photo[];
   propertyType: PropertyType;
+  numBeds: number;
 }
 
 interface Availability {}
 
 export interface Listing {
-  id: number;
+  id?: number;
   title: string;
   owner: string;
   address: Address;
   thumbnail: string;
   price: number;
-  reviews: Review[];
+  reviews?: Review[];
   metaData?: Metadata;
   availability?: Availability;
   published?: boolean;

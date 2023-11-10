@@ -14,14 +14,14 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Address } from '../../interfaces/listingInterfaces';
+import { Address, Metadata } from '../../interfaces/listingInterfaces';
 
 interface NewListingFormData {
   title: string;
   address: Address;
   price: number;
   thumbnail: string;
-  metadata: object;
+  metadata: Metadata;
 }
 
 export const AddListingForm = () => {
@@ -57,7 +57,12 @@ export const AddListingForm = () => {
     },
     price: 0,
     thumbnail: '',
-    metadata: {},
+    metadata: {
+      ammenities: [],
+      photos: [],
+      propertyType: 'House',
+      numBeds: 0,
+    },
   });
 
   return (
@@ -154,6 +159,16 @@ export const AddListingForm = () => {
               name='price'
               type='number'
               value={formData.price}
+              onChange={handleChange}
+            />
+            <TextField
+              margin='normal'
+              required
+              fullWidth
+              label='Number of Beds'
+              name='beds'
+              type='number'
+              value={formData.metadata.numBeds}
               onChange={handleChange}
             />
             <input
