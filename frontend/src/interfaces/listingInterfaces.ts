@@ -6,42 +6,49 @@ export interface Address {
   country: string;
 }
 
-interface Review {}
+export interface Review {}
 
-type Ammenity =
+export type Ammenity =
   | 'Swimming Pool'
   | 'Gym'
   | 'Parking'
   | 'WiFi'
   | 'Air Conditioning';
 
-interface Photo {}
+export interface Photo {}
 
-interface Bedroom {
-  beds: number;
-}
-
-type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
+export type PropertyType =
+  | 'House'
+  | 'Apartment'
+  | 'Resort'
+  | 'Mansion'
+  | 'Hotel';
 
 export interface Metadata {
   ammenities: Ammenity[];
   photos: Photo[];
   propertyType: PropertyType;
-  bedrooms: Bedroom[];
+  bedrooms: number;
+  beds: number;
   bathrooms: number;
 }
 
-interface Availability {}
+export interface Availability {}
 
 export interface Listing {
+  // id
   id?: number;
+
+  // always
   title: string;
-  owner: string;
   address: Address;
   thumbnail: string;
   price: number;
+
+  // optionals
   reviews?: Review[];
-  metaData?: Metadata;
+  owner?: string;
+  metadata?: Metadata;
   availability?: Availability;
   published?: boolean;
   postedOn?: Date;
@@ -49,4 +56,17 @@ export interface Listing {
 
 export interface ListingRes {
   listings: Listing[];
+}
+
+/** New Listing Form */
+export interface NewListingFormData {
+  title: string;
+  address: Address;
+  price: number;
+  thumbnail: string;
+  metadata: Metadata;
+}
+
+export interface AddListingRes {
+  listingId: number;
 }

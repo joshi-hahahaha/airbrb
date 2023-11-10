@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -15,24 +15,50 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Address, Metadata } from '../../interfaces/listingInterfaces';
-
-interface NewListingFormData {
-  title: string;
-  address: Address;
-  price: number;
-  thumbnail: string;
-  metadata: Metadata;
-}
+import {
+  Address,
+  Metadata,
+  NewListingFormData,
+} from '../../interfaces/listingInterfaces';
+import { addListing } from '../../helpers/listingApiHelpers';
+import AuthContext from '../../contexts/AuthContext';
 
 export const AddListingForm = () => {
+  const { authToken } = useContext(AuthContext);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    console.log(authToken);
+
+    addListing(authToken, formData);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handleAddressChange = (name: keyof Address, value: string) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      address: {
+        ...prevData.address,
+        [name]: value,
+      },
+    }));
+  };
+
+  const handleMetadataChange = (
+    name: keyof Metadata,
+    value: string | number
+  ) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      metadata: {
+        ...prevData.metadata,
+        [name]: value,
+      },
+    }));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +87,8 @@ export const AddListingForm = () => {
       ammenities: [],
       photos: [],
       propertyType: 'House',
-      bedrooms: [],
+      bedrooms: 0,
+      beds: 0,
       bathrooms: 0,
     },
   });
@@ -108,7 +135,9 @@ export const AddListingForm = () => {
                   name='street'
                   type='text'
                   value={formData.address.street}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('street', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -118,7 +147,9 @@ export const AddListingForm = () => {
                   name='city'
                   type='text'
                   value={formData.address.city}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('city', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -128,7 +159,9 @@ export const AddListingForm = () => {
                   name='state'
                   type='text'
                   value={formData.address.state}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('state', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -138,7 +171,9 @@ export const AddListingForm = () => {
                   name='postcode'
                   type='text'
                   value={formData.address.postcode}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('postcode', event.target.value)
+                  }
                 />
                 <TextField
                   margin='normal'
@@ -148,7 +183,9 @@ export const AddListingForm = () => {
                   name='country'
                   type='text'
                   value={formData.address.country}
-                  onChange={handleChange}
+                  onChange={(event) =>
+                    handleAddressChange('country', event.target.value)
+                  }
                 />
               </AccordionDetails>
             </Accordion>
@@ -160,7 +197,9 @@ export const AddListingForm = () => {
               type='number'
               value={formData.price}
               onChange={handleChange}
+              InputProps={{ inputProps: { min: 0 } }}
             />
+            <Divider />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <TextField
                 margin='normal'
@@ -168,19 +207,37 @@ export const AddListingForm = () => {
                 label='Bedrooms'
                 name='beds'
                 type='number'
-                value={formData.metadata.bedrooms.length}
-                onChange={handleChange}
+                value={formData.metadata.bedrooms}
+                onChange={(event) =>
+                  handleMetadataChange('bedrooms', event.target.value)
+                }
+                InputProps={{ inputProps: { min: 0 } }}
               />
               <TextField
                 margin='normal'
                 required
-                label='Bathrooms'
-                name='bathrooms'
+                label='Beds'
+                name='beds'
                 type='number'
-                value={formData.metadata.bathrooms}
-                onChange={handleChange}
+                value={formData.metadata.beds}
+                onChange={(event) =>
+                  handleMetadataChange('beds', event.target.value)
+                }
+                InputProps={{ inputProps: { min: 0 } }}
               />
             </div>
+            <TextField
+              margin='normal'
+              required
+              label='Bathrooms'
+              name='bathrooms'
+              type='number'
+              value={formData.metadata.bathrooms}
+              onChange={(event) =>
+                handleMetadataChange('bathrooms', +event.target.value)
+              }
+              InputProps={{ inputProps: { min: 0 } }}
+            />
             <input
               type='file'
               accept='image/*'
