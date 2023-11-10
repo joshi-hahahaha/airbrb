@@ -6,18 +6,23 @@ export interface Address {
   country: string;
 }
 
-interface Review {}
+export interface Review {}
 
-type Ammenity =
+export type Ammenity =
   | 'Swimming Pool'
   | 'Gym'
   | 'Parking'
   | 'WiFi'
   | 'Air Conditioning';
 
-interface Photo {}
+export interface Photo {}
 
-type PropertyType = 'House' | 'Apartment' | 'Resort' | 'Mansion' | 'Hotel';
+export type PropertyType =
+  | 'House'
+  | 'Apartment'
+  | 'Resort'
+  | 'Mansion'
+  | 'Hotel';
 
 export interface Metadata {
   ammenities: Ammenity[];
@@ -28,7 +33,7 @@ export interface Metadata {
   bathrooms: number;
 }
 
-interface Availability {}
+export interface Availability {}
 
 export interface Listing {
   // id
@@ -60,4 +65,8 @@ export interface NewListingFormData {
   price: number;
   thumbnail: string;
   metadata: Metadata;
+}
+
+export interface AddListingRes {
+  listingId: number;
 }

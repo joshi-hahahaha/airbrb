@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -21,15 +21,16 @@ import {
   NewListingFormData,
 } from '../../interfaces/listingInterfaces';
 import { addListing } from '../../helpers/listingApiHelpers';
+import AuthContext from '../../contexts/AuthContext';
 
 export const AddListingForm = () => {
+  const { authToken } = useContext(AuthContext);
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const body: NewListingFormData = { ...formData };
-    console.log(body);
+    console.log(authToken);
 
-    addListing(body);
+    addListing(authToken, formData);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,7 +216,7 @@ export const AddListingForm = () => {
               <TextField
                 margin='normal'
                 required
-                label='Bedrooms'
+                label='Beds'
                 name='beds'
                 type='number'
                 value={formData.metadata.beds}
