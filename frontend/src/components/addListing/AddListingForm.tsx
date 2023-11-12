@@ -10,6 +10,8 @@ import {
   AccordionSummary,
   Button,
   Divider,
+  ImageList,
+  ImageListItem,
   InputLabel,
   TextField,
   Typography,
@@ -271,12 +273,20 @@ export const AddListingForm = () => {
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
             Add Property Photos
           </Typography>
+          <Typography
+            variant='subtitle1'
+            gutterBottom
+            style={{ marginTop: '10px' }}
+          >
+            Add Thumbnail
+          </Typography>
           <input
             type='file'
             accept='image/*'
             onChange={handleThumbnailChange}
             style={{ marginBottom: '20px', width: '100%' }}
           />
+          <Divider />
           {formData.thumbnail && (
             <img
               src={formData.thumbnail}
@@ -284,22 +294,34 @@ export const AddListingForm = () => {
               style={{ width: '100%' }}
             />
           )}
+          <Typography
+            variant='subtitle1'
+            gutterBottom
+            style={{ marginTop: '10px' }}
+          >
+            Add Photos
+          </Typography>
           <input
             type='file'
             accept='image/*'
             onChange={handlePhotosChange}
             style={{ marginBottom: '20px', width: '100%' }}
-            multiple // Allow multiple file selection
+            multiple
           />
-          {formData.metadata.photos.map((photo, index) => (
-            <div key={index}>
-              <img
-                src={photo}
-                alt={`Photo ${index + 1}`}
-                style={{ width: '100%' }}
-              />
-            </div>
-          ))}
+          <Divider />
+          <div style={{ height: '300px', overflowY: 'auto' }}>
+            <ImageList variant='masonry' cols={3} gap={8}>
+              {formData.metadata.photos.map((photo, index) => (
+                <ImageListItem key={index}>
+                  <img
+                    src={photo}
+                    alt={`Photo ${index + 1}`}
+                    style={{ width: '100%', cursor: 'pointer' }}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </div>
         </div>
       </form>
     </>
