@@ -1,14 +1,34 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Listing } from '../interfaces/listingInterfaces';
 
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import AuthContext from '../contexts/AuthContext';
+import { getListing } from '../helpers/listingApiHelpers';
 
 export const ListingCard: React.FC<Listing> = ({ ...props }) => {
-  console.log(props);
+  const { authToken } = useContext(AuthContext);
+
+  const [listing, setListing] = useState<Listing>();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getListing(authToken, props.id);
+        setListing(listing);
+        console.log(data);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      }
+    };
+
+    fetchData();
+  }, [authToken]);
 
   const handleCardClick = () => {
     console.log(`Card pressed: ${props.title}`);
   };
+
+  console.log(props);
+  console.log(listing);
 
   return (
     <Card
@@ -16,6 +36,7 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
         minWidth: '225px',
         width: '18%',
         cursor: 'pointer',
+        mt: '15px',
       }}
       onClick={handleCardClick}
     >
@@ -25,7 +46,7 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
         image={props.thumbnail}
         sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
       />
-      <CardContent>
+      <CardContent sx={{ fontFamily: 'Samsung-Light' }}>
         {/* Title */}
         <Typography gutterBottom variant='h6' component='div'>
           {props.title}
@@ -36,7 +57,7 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
         </Typography>
         {/* Type */}
         <Typography gutterBottom variant='body1' component='div'>
-          Type
+          {`${listing?.metadata?.propertyType}`}
         </Typography>
         {/* No. of beds, bedrooms, bathrooms */}
         <Typography gutterBottom variant='body1' component='div'>
@@ -44,7 +65,7 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
         </Typography>
         {/* No. reviews + ratings */}
         <Typography gutterBottom variant='body1' component='div'>
-          {props.title}
+          {props.reviews === undefined ? '0' : `${props.reviews.length}`}
         </Typography>
         {/* Price */}
         <Typography variant='body1' color='text.primary'>
