@@ -75,7 +75,11 @@ export const AddListingForm = () => {
    */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    const isNumber = ['price'].includes(name);
+    setFormData({
+      ...formData,
+      [name]: isNumber ? Number(value) : value
+    });
   };
 
   const handleAddressChange = (name: keyof Address, value: string) => {
@@ -92,11 +96,12 @@ export const AddListingForm = () => {
     name: keyof Metadata,
     value: string | number
   ) => {
+    const isNumber = ['bedrooms', 'beds', 'bathrooms'].includes(name);
     setFormData((prevData) => ({
       ...prevData,
       metadata: {
         ...prevData.metadata,
-        [name]: value,
+        [name]: isNumber ? Number(value) : value,
       },
     }));
   };
@@ -324,7 +329,7 @@ export const AddListingForm = () => {
             type='number'
             value={formData.metadata.bathrooms}
             onChange={(event) =>
-              handleMetadataChange('bathrooms', +event.target.value)
+              handleMetadataChange('bathrooms', event.target.value)
             }
             InputProps={{ inputProps: { min: 0 } }}
           />
