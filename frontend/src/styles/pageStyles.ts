@@ -11,7 +11,6 @@ export const contentContainer: CSSProperties = {
   overflowY: 'auto',
   height: 'calc(100vh - 80px)',
   marginTop: '80px',
-  // padding: '20px 80px',
   padding: '0 80px',
   display: 'flex',
   justifyContent: 'center',
@@ -19,11 +18,12 @@ export const contentContainer: CSSProperties = {
 };
 
 export const listingContainer: CSSProperties = {
-  flex: '1',
   width: '80%',
   height: '100%',
+  flex: '1',
   display: 'flex',
   flexWrap: 'wrap',
-  justifyContent: 'space-around',
-  alignItems: 'space around',
+  justifyContent: 'flex-start',
+  // justifyContent: 'space-around',
+  // alignItems: 'space-around',
 };
