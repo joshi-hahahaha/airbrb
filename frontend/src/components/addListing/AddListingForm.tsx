@@ -26,15 +26,41 @@ import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
 
 export const AddListingForm = () => {
+  // Authorisation
   const { authToken } = useContext(AuthContext);
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
 
-    console.log(authToken);
+  // FormData state
+  const [formData, setFormData] = useState<NewListingFormData>({
+    title: '',
+    address: {
+      street: '',
+      city: '',
+      state: '',
+      postcode: '',
+      country: '',
+    },
+    price: 0,
+    thumbnail: '',
+    metadata: {
+      ammenities: [],
+      photos: [],
+      propertyType: 'House',
+      bedrooms: 0,
+      beds: 0,
+      bathrooms: 0,
+    },
+  });
 
-    addListing(authToken, formData);
-  };
-
+  /**
+   * Form change handlers
+   * 1. Standard form inputs
+   * 2. Nested form inputs:
+   *  a. Address properties
+   *  b. Metadata properties
+   * 3. Photos
+   *  a. Thumbnail - standard
+   *  b. Multiple photos - nested within metadata
+   */
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
@@ -99,26 +125,12 @@ export const AddListingForm = () => {
     }
   };
 
-  const [formData, setFormData] = useState<NewListingFormData>({
-    title: '',
-    address: {
-      street: '',
-      city: '',
-      state: '',
-      postcode: '',
-      country: '',
-    },
-    price: 0,
-    thumbnail: '',
-    metadata: {
-      ammenities: [],
-      photos: [],
-      propertyType: 'House',
-      bedrooms: 0,
-      beds: 0,
-      bathrooms: 0,
-    },
-  });
+  // Form submission
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    addListing(authToken, formData);
+  };
 
   return (
     <>
