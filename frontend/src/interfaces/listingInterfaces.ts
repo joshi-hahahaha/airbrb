@@ -54,7 +54,7 @@ export interface Listing {
   postedOn?: Date;
 }
 
-export interface ListingRes {
+export interface ListingsRes {
   listings: Listing[];
 }
 

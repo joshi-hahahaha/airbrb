@@ -2,3 +2,33 @@ body {
   padding: 0;
   margin: 0;
 }
+
+@font-face {
+  font-family: 'Samsung-Light';
+  src: local('SamsungSans-Light'),
+    url('./../fonts/SamsungSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Samsung-Bold';
+  src: local('SamsungSans-Bold'),
+    url('./../fonts/SamsungSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Samsung-Medium';
+  src: local('SamsungSans-Medium'),
+    url('./../fonts/SamsungSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Samsung-Regular';
+  src: local('SamsungSans-Regular'),
+    url('./../fonts/SamsungSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Samsung-Thin';
+  src: local('SamsungSans-Thin'),
+    url('./../fonts/SamsungSans-Thin.ttf') format('truetype');
+}

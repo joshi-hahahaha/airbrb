@@ -7,6 +7,9 @@ const theme = createTheme({
     },
     // 你可以在这里添加更多的颜色
   },
+  typography: {
+    fontFamily: '"Samsung-Light","Samsung-Regular"',
+  },
   // 你也可以添加其他主题选项
 });
 

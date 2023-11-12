@@ -4,20 +4,21 @@ import { apiCall } from './apiHelper';
 // import AuthContext from '../contexts/AuthContext';
 import {
   AddListingRes,
-  ListingRes,
+  Listing,
+  ListingsRes,
   NewListingFormData,
 } from '../interfaces/listingInterfaces';
 
 export const getListings = async (
   authToken: string | null
-): Promise<ListingRes> => {
+): Promise<ListingsRes> => {
   const path: string = '/listings';
   const method: HttpMethod = 'GET';
   const body: null = null;
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
-  const res: ApiResponse<ListingRes> = await apiCall<ListingRes>(
+  const res: ApiResponse<ListingsRes> = await apiCall<ListingsRes>(
     path,
     method,
     body,
@@ -34,6 +35,35 @@ export const getListings = async (
   }
 
   return { listings: [] };
+};
+
+export const getListing = async (
+  authToken: string | null,
+  id: number | undefined
+) => {
+  const path: string = `/listings/${id}`;
+  const method: HttpMethod = 'GET';
+  const body: null = null;
+  const token: string | null = authToken;
+  const queryStr: string | undefined = undefined;
+
+  const res: ApiResponse<Listing> = await apiCall<Listing>(
+    path,
+    method,
+    body,
+    token,
+    queryStr
+  );
+
+  console.log(res);
+
+  if (res.error) {
+    console.log(res.error);
+  } else if (res.data) {
+    return res.data;
+  } else {
+    console.log('Unexpected response structure:', res);
+  }
 };
 
 export const addListing = async (
