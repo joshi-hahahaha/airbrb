@@ -34,7 +34,7 @@ export const apiCall = async <T>(
     config
   );
 
-  console.log(response);
+  // console.log(response);
   const data = await response.json();
 
   if (!response.ok) {
