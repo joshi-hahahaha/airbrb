@@ -61,7 +61,9 @@ export const AddListingForm = () => {
     }));
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleThumbnailChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -69,6 +71,29 @@ export const AddListingForm = () => {
         setFormData({ ...formData, thumbnail: reader.result as string });
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handlePhotosChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files) {
+      const fileArray: string[] = [];
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        fileArray.push(reader.result as string);
+        setFormData((prevData) => ({
+          ...prevData,
+          metadata: {
+            ...prevData.metadata,
+            photos: [...prevData.metadata.photos, ...fileArray],
+          },
+        }));
+      };
+
+      for (let i = 0; i < files.length; i++) {
+        reader.readAsDataURL(files[i]);
+      }
     }
   };
 
@@ -237,19 +262,21 @@ export const AddListingForm = () => {
             }
             InputProps={{ inputProps: { min: 0 } }}
           />
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleFileChange}
-            multiple
-            style={{ margin: '20px 0', width: '100%' }}
-          />
           <InputLabel id='amenities-label'>Amenities</InputLabel>
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
             Create
           </Button>
         </div>
         <div style={imageFormContainer}>
+          <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
+            Add Property Photos
+          </Typography>
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handleThumbnailChange}
+            style={{ marginBottom: '20px', width: '100%' }}
+          />
           {formData.thumbnail && (
             <img
               src={formData.thumbnail}
@@ -257,6 +284,22 @@ export const AddListingForm = () => {
               style={{ width: '100%' }}
             />
           )}
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handlePhotosChange}
+            style={{ marginBottom: '20px', width: '100%' }}
+            multiple // Allow multiple file selection
+          />
+          {formData.metadata.photos.map((photo, index) => (
+            <div key={index}>
+              <img
+                src={photo}
+                alt={`Photo ${index + 1}`}
+                style={{ width: '100%' }}
+              />
+            </div>
+          ))}
         </div>
       </form>
     </>
