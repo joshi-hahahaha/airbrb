@@ -98,158 +98,156 @@ export const AddListingForm = () => {
       <Typography variant='h5' gutterBottom style={{ marginTop: '40px' }}>
         Create A New Listing
       </Typography>
-      <div style={formContainer}>
+      <form onSubmit={handleSubmit} style={formContainer}>
         <div style={textFormContainer}>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              margin='normal'
-              required
-              fullWidth
-              label='Property title'
-              name='title'
-              type='text'
-              value={formData.title}
-              onChange={handleChange}
-            />
-            <Accordion>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls='panel1a-content'
-                id='panel1a-header'
+          <TextField
+            margin='normal'
+            required
+            fullWidth
+            label='Property title'
+            name='title'
+            type='text'
+            value={formData.title}
+            onChange={handleChange}
+          />
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls='panel1a-content'
+              id='panel1a-header'
+            >
+              <Typography
+                variant='subtitle1'
+                sx={{ color: 'gray' }}
+                gutterBottom
               >
-                <Typography
-                  variant='subtitle1'
-                  sx={{ color: 'gray' }}
-                  gutterBottom
-                >
-                  Address *
-                </Typography>
-              </AccordionSummary>
-              <Divider />
-              <AccordionDetails>
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='Street'
-                  name='street'
-                  type='text'
-                  value={formData.address.street}
-                  onChange={(event) =>
-                    handleAddressChange('street', event.target.value)
-                  }
-                />
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='City'
-                  name='city'
-                  type='text'
-                  value={formData.address.city}
-                  onChange={(event) =>
-                    handleAddressChange('city', event.target.value)
-                  }
-                />
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='State'
-                  name='state'
-                  type='text'
-                  value={formData.address.state}
-                  onChange={(event) =>
-                    handleAddressChange('state', event.target.value)
-                  }
-                />
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='Postcode'
-                  name='postcode'
-                  type='text'
-                  value={formData.address.postcode}
-                  onChange={(event) =>
-                    handleAddressChange('postcode', event.target.value)
-                  }
-                />
-                <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  label='Country'
-                  name='country'
-                  type='text'
-                  value={formData.address.country}
-                  onChange={(event) =>
-                    handleAddressChange('country', event.target.value)
-                  }
-                />
-              </AccordionDetails>
-            </Accordion>
-            <TextField
-              margin='normal'
-              required
-              label='Price per night'
-              name='price'
-              type='number'
-              value={formData.price}
-              onChange={handleChange}
-              InputProps={{ inputProps: { min: 0 } }}
-            />
+                Address *
+              </Typography>
+            </AccordionSummary>
             <Divider />
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <AccordionDetails>
               <TextField
                 margin='normal'
                 required
-                label='Bedrooms'
-                name='beds'
-                type='number'
-                value={formData.metadata.bedrooms}
+                fullWidth
+                label='Street'
+                name='street'
+                type='text'
+                value={formData.address.street}
                 onChange={(event) =>
-                  handleMetadataChange('bedrooms', event.target.value)
+                  handleAddressChange('street', event.target.value)
                 }
-                InputProps={{ inputProps: { min: 0 } }}
               />
               <TextField
                 margin='normal'
                 required
-                label='Beds'
-                name='beds'
-                type='number'
-                value={formData.metadata.beds}
+                fullWidth
+                label='City'
+                name='city'
+                type='text'
+                value={formData.address.city}
                 onChange={(event) =>
-                  handleMetadataChange('beds', event.target.value)
+                  handleAddressChange('city', event.target.value)
                 }
-                InputProps={{ inputProps: { min: 0 } }}
               />
-            </div>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='State'
+                name='state'
+                type='text'
+                value={formData.address.state}
+                onChange={(event) =>
+                  handleAddressChange('state', event.target.value)
+                }
+              />
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Postcode'
+                name='postcode'
+                type='text'
+                value={formData.address.postcode}
+                onChange={(event) =>
+                  handleAddressChange('postcode', event.target.value)
+                }
+              />
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Country'
+                name='country'
+                type='text'
+                value={formData.address.country}
+                onChange={(event) =>
+                  handleAddressChange('country', event.target.value)
+                }
+              />
+            </AccordionDetails>
+          </Accordion>
+          <TextField
+            margin='normal'
+            required
+            label='Price per night'
+            name='price'
+            type='number'
+            value={formData.price}
+            onChange={handleChange}
+            InputProps={{ inputProps: { min: 0 } }}
+          />
+          <Divider />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <TextField
               margin='normal'
               required
-              label='Bathrooms'
-              name='bathrooms'
+              label='Bedrooms'
+              name='beds'
               type='number'
-              value={formData.metadata.bathrooms}
+              value={formData.metadata.bedrooms}
               onChange={(event) =>
-                handleMetadataChange('bathrooms', +event.target.value)
+                handleMetadataChange('bedrooms', event.target.value)
               }
               InputProps={{ inputProps: { min: 0 } }}
             />
-            <input
-              type='file'
-              accept='image/*'
-              onChange={handleFileChange}
-              multiple
-              style={{ margin: '20px 0', width: '100%' }}
+            <TextField
+              margin='normal'
+              required
+              label='Beds'
+              name='beds'
+              type='number'
+              value={formData.metadata.beds}
+              onChange={(event) =>
+                handleMetadataChange('beds', event.target.value)
+              }
+              InputProps={{ inputProps: { min: 0 } }}
             />
-            <InputLabel id='amenities-label'>Amenities</InputLabel>
-            <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
-              Create
-            </Button>
-          </form>
+          </div>
+          <TextField
+            margin='normal'
+            required
+            label='Bathrooms'
+            name='bathrooms'
+            type='number'
+            value={formData.metadata.bathrooms}
+            onChange={(event) =>
+              handleMetadataChange('bathrooms', +event.target.value)
+            }
+            InputProps={{ inputProps: { min: 0 } }}
+          />
+          <input
+            type='file'
+            accept='image/*'
+            onChange={handleFileChange}
+            multiple
+            style={{ margin: '20px 0', width: '100%' }}
+          />
+          <InputLabel id='amenities-label'>Amenities</InputLabel>
+          <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
+            Create
+          </Button>
         </div>
         <div style={imageFormContainer}>
           {formData.thumbnail && (
@@ -260,7 +258,7 @@ export const AddListingForm = () => {
             />
           )}
         </div>
-      </div>
+      </form>
     </>
   );
 };
