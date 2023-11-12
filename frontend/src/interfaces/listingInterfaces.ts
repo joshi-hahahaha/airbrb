@@ -15,8 +15,6 @@ export type Ammenity =
   | 'WiFi'
   | 'Air Conditioning';
 
-export interface Photo {}
-
 export type PropertyType =
   | 'House'
   | 'Apartment'
@@ -26,7 +24,7 @@ export type PropertyType =
 
 export interface Metadata {
   ammenities: Ammenity[];
-  photos: Photo[];
+  photos: string[];
   propertyType: PropertyType;
   bedrooms: number;
   beds: number;
