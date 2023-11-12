@@ -15,7 +15,6 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
       sx={{
         minWidth: '225px',
         width: '18%',
-        height: '400px',
         cursor: 'pointer',
       }}
       onClick={handleCardClick}
@@ -27,9 +26,27 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
         sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
       />
       <CardContent>
-        <Typography gutterBottom variant='h5' component='div'>
+        {/* Title */}
+        <Typography gutterBottom variant='h6' component='div'>
           {props.title}
         </Typography>
+        {/* State, Country */}
+        <Typography gutterBottom variant='body1' component='div'>
+          {`${props.address.city}, ${props.address.country}`}
+        </Typography>
+        {/* Type */}
+        <Typography gutterBottom variant='body1' component='div'>
+          Type
+        </Typography>
+        {/* No. of beds, bedrooms, bathrooms */}
+        <Typography gutterBottom variant='body1' component='div'>
+          No. of beds, bedrooms, bathrooms
+        </Typography>
+        {/* No. reviews + ratings */}
+        <Typography gutterBottom variant='body1' component='div'>
+          {props.title}
+        </Typography>
+        {/* Price */}
         <Typography variant='body1' color='text.primary'>
           ${props.price} / night
         </Typography>
@@ -37,3 +54,13 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
     </Card>
   );
 };
+
+/**
+ * Needs to display:
+ * 1. Title - title
+ * 2. Location - subtitle
+ * 3. Type
+ * 4. No. of beds, No. of bedrooms. No. of baths
+ * 5. No. of Reviews + Rating
+ * 6. Price - bit bigger text
+ */

@@ -15,6 +15,12 @@ import { ListingPage } from './pages/ListingPage';
 import { MyListingsPage } from './pages/MyListingsPage';
 import { AddListingPage } from './pages/AddListingPage';
 
+import './fonts/SamsungSans-Light.ttf';
+import './fonts/SamsungSans-Bold.ttf';
+import './fonts/SamsungSans-Medium.ttf';
+import './fonts/SamsungSans-Regular.ttf';
+import './fonts/SamsungSans-Thin.ttf';
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
