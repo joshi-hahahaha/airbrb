@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { contentContainer, page } from '../styles/pageStyles';
+import { contentContainer, listingContainer, page } from '../styles/pageStyles';
 import { getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
@@ -26,9 +26,11 @@ export const AllListingsPage: React.FC = () => {
   return (
     <div style={page}>
       <div style={contentContainer}>
-        {listings.map((listing) => (
-          <ListingCard key={listing.id} {...listing} />
-        ))}
+        <div style={listingContainer}>
+          {listings.map((listing) => (
+            <ListingCard key={listing.id} {...listing} />
+          ))}
+        </div>
       </div>
     </div>
   );

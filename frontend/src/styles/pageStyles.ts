@@ -25,6 +25,4 @@ export const listingContainer: CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'space-around',
-  alignItems: 'flex-start',
-  // padding: '80px',
 };

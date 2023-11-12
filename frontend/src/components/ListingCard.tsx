@@ -12,14 +12,19 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
 
   return (
     <Card
-      sx={{ maxWidth: 250, minWidth: 200, cursor: 'pointer' }}
+      sx={{
+        minWidth: '225px',
+        width: '18%',
+        height: '400px',
+        cursor: 'pointer',
+      }}
       onClick={handleCardClick}
     >
       <CardMedia
         component='img'
         alt={props.title}
         image={props.thumbnail}
-        sx={{ borderRadius: '5px' }}
+        sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
       />
       <CardContent>
         <Typography gutterBottom variant='h5' component='div'>
