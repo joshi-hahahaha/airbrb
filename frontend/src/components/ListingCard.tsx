@@ -34,9 +34,11 @@ export const ListingCard: React.FC<Listing> = ({ ...props }) => {
     <Card
       sx={{
         minWidth: '225px',
-        width: '18%',
+        // maxWidth: 'calc(20% - 30px)',
+        height: '500px',
         cursor: 'pointer',
-        mt: '15px',
+        m: '15px',
+        flex: '1',
       }}
       onClick={handleCardClick}
     >
