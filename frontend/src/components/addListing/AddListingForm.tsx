@@ -15,15 +15,27 @@ import {
   InputLabel,
   TextField,
   Typography,
+  Checkbox,
+  FormControl,
+  MenuItem,
+  Select
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Address,
   Metadata,
   NewListingFormData,
+  Amenity,
+  PropertyType
 } from '../../interfaces/listingInterfaces';
 import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
+
+import PoolIcon from '@mui/icons-material/Pool';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import WifiIcon from '@mui/icons-material/Wifi';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -87,6 +99,22 @@ export const AddListingForm = () => {
         [name]: value,
       },
     }));
+  };
+
+  const handleAmenitiesChange = (event: React.ChangeEvent<HTMLInputElement>, checkedAmenity: Amenity) => {
+    setFormData((prevData) => {
+      const updatedAmenities = event.target.checked
+        ? [...prevData.metadata.amenities, checkedAmenity]
+        : prevData.metadata.amenities.filter((amenity) => amenity !== checkedAmenity);
+
+      return {
+        ...prevData,
+        metadata: {
+          ...prevData.metadata,
+          amenities: updatedAmenities,
+        },
+      };
+    });
   };
 
   const handleThumbnailChange = (
@@ -227,6 +255,30 @@ export const AddListingForm = () => {
               />
             </AccordionDetails>
           </Accordion>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="property-type-label">Property Type</InputLabel>
+            <Select
+              labelId="property-type-label"
+              id="property-type-select"
+              value={formData.metadata.propertyType}
+              label="Property Type"
+              onChange={(event) => {
+                setFormData({
+                  ...formData,
+                  metadata: {
+                    ...formData.metadata,
+                    propertyType: event.target.value as PropertyType,
+                  },
+                });
+              }}
+            >
+              <MenuItem value="House">House</MenuItem>
+              <MenuItem value="Apartment">Apartment</MenuItem>
+              <MenuItem value="Resort">Resort</MenuItem>
+              <MenuItem value="Mansion">Mansion</MenuItem>
+              <MenuItem value="Hotel">Hotel</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             margin='normal'
             required
@@ -276,7 +328,44 @@ export const AddListingForm = () => {
             }
             InputProps={{ inputProps: { min: 0 } }}
           />
-          <InputLabel id='amenities-label'>Amenities</InputLabel>
+          <div>
+            <InputLabel id='amenities-label'>Amenities</InputLabel>
+            <Checkbox
+              icon={<PoolIcon />}
+              checkedIcon={<PoolIcon />}
+              checked={formData.metadata.amenities.includes('Swimming Pool')}
+              onChange={(event) => handleAmenitiesChange(event, 'Swimming Pool')}
+              value='Swimming Pool'
+            />
+            <Checkbox
+              icon={<FitnessCenterIcon />}
+              checkedIcon={<FitnessCenterIcon />}
+              checked={formData.metadata.amenities.includes('Gym')}
+              onChange={(event) => handleAmenitiesChange(event, 'Gym')}
+              value='Gym'
+            />
+            <Checkbox
+              icon={<LocalParkingIcon />}
+              checkedIcon={<LocalParkingIcon />}
+              checked={formData.metadata.amenities.includes('Parking')}
+              onChange={(event) => handleAmenitiesChange(event, 'Parking')}
+              value='Parking'
+            />
+            <Checkbox
+              icon={<WifiIcon/>}
+              checkedIcon={<WifiIcon/>}
+              checked={formData.metadata.amenities.includes('WiFi')}
+              onChange={(event) => handleAmenitiesChange(event, 'WiFi')}
+              value='WiFi'
+            />
+            <Checkbox
+              icon={<AcUnitIcon/>}
+              checkedIcon={<AcUnitIcon />}
+              checked={formData.metadata.amenities.includes('Air Conditioning')}
+              onChange={(event) => handleAmenitiesChange(event, 'Air Conditioning')}
+              value='Air Conditioning'
+            />
+          </div>
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
             Create
           </Button>
