@@ -1,6 +1,6 @@
 import React from 'react';
 import { navBar } from '../../styles/navbar/navBarStyle';
-import Logo from '../../assets/airbrbLogo';
+import Logo from '../../assets/AirbrbLogo';
 import { SearchBar } from './SearchBar';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
