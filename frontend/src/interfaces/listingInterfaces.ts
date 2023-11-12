@@ -8,7 +8,7 @@ export interface Address {
 
 export interface Review {}
 
-export type Ammenity =
+export type Amenity =
   | 'Swimming Pool'
   | 'Gym'
   | 'Parking'
@@ -23,7 +23,7 @@ export type PropertyType =
   | 'Hotel';
 
 export interface Metadata {
-  ammenities: Ammenity[];
+  amenities: Amenity[];
   photos: string[];
   propertyType: PropertyType;
   bedrooms: number;

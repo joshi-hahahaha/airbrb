@@ -42,7 +42,7 @@ export const AddListingForm = () => {
     price: 0,
     thumbnail: '',
     metadata: {
-      ammenities: [],
+      amenities: [],
       photos: [],
       propertyType: 'House',
       bedrooms: 0,
