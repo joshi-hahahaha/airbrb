@@ -11,6 +11,8 @@ import {
   Typography,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import BedIcon from '@mui/icons-material/Bed';
+import BathtubIcon from '@mui/icons-material/Bathtub';
 
 import AuthContext from '../contexts/AuthContext';
 import { getListing } from '../helpers/listingApiHelpers';
@@ -122,45 +124,66 @@ export const ListingCard: React.FC<ListingCardProps> = ({
           <></>
         )}
 
-        <CardContent sx={{ fontFamily: 'Samsung-Light' }}>
-          {/* Title */}
-          <Typography gutterBottom variant='h6' component='div'>
-            {props.title}
-          </Typography>
-          {/* State, Country */}
-          <Typography gutterBottom variant='body1' component='div'>
-            {`${props.address.city}, ${props.address.country}`}
-          </Typography>
-          {/* Type */}
-          <Typography gutterBottom variant='body1' component='div'>
-            {`${listing?.metadata?.propertyType}`}
-          </Typography>
-          {/* No. of beds, bedrooms, bathrooms */}
-          <Typography gutterBottom variant='body1' component='div'>
-            No. of beds, bedrooms, bathrooms
-          </Typography>
-          {/* No. reviews + ratings */}
-          <Typography gutterBottom variant='body1' component='div'>
-            {props.reviews === undefined ? '0' : `${props.reviews.length}`}
-          </Typography>
-          {/* Price */}
-          <Typography variant='body1' color='text.primary'>
-            ${props.price} / night
-          </Typography>
-          <Menu
-            id='long-menu'
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleAnchorClose}
-          >
-            <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-            <MenuItem onClick={handleOpenModal}>Edit Availabilities</MenuItem>
-            <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
-            <MenuItem onClick={handleAnchorClose}>Delete</MenuItem>
-          </Menu>
+        <CardContent sx={{ fontFamily: 'Samsung-Light', display: 'flex' }}>
+          <div style={{ width: '85%' }}>
+            {/* Title */}
+            <Typography
+              sx={{ fontFamily: 'Samsung-Regular' }}
+              gutterBottom
+              variant='h6'
+              component='div'
+            >
+              {props.title}
+            </Typography>
+
+            {/* State, Country */}
+            <Typography gutterBottom variant='body1' component='div'>
+              {`${props.address.city}, ${props.address.country}`}
+            </Typography>
+
+            {/* Type */}
+            <Typography gutterBottom variant='body1' component='div'>
+              {`${listing?.metadata?.propertyType}`}
+            </Typography>
+
+            {/* No. of beds, bedrooms, bathrooms */}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <Typography gutterBottom variant='body1' component='div'>
+                <BedIcon />
+                {`${listing?.metadata?.beds}`}
+              </Typography>
+              <Typography gutterBottom variant='body1' component='div'>
+                <BathtubIcon />
+                {`${listing?.metadata?.bathrooms}`}
+              </Typography>
+            </div>
+
+            {/* Price */}
+            <Typography variant='body1' color='text.primary'>
+              ${props.price} / night
+            </Typography>
+          </div>
+
+          <div style={{ width: '15%' }}>
+            {/* No. reviews + ratings */}
+            <Typography gutterBottom variant='body1' component='div'>
+              {props.reviews === undefined ? '0' : `${props.reviews.length}`}
+            </Typography>
+          </div>
         </CardContent>
       </Card>
+      <Menu
+        id='long-menu'
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleAnchorClose}
+      >
+        <MenuItem onClick={handleEditClick}>Edit</MenuItem>
+        <MenuItem onClick={handleOpenModal}>Edit Availabilities</MenuItem>
+        <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
+        <MenuItem onClick={handleAnchorClose}>Delete</MenuItem>
+      </Menu>
       <LiveDatesModal open={liveDatesModalOpen} onClose={handleCloseModal} />
     </>
   );
