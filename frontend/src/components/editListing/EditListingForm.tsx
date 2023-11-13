@@ -182,7 +182,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   return (
     <>
       <Typography variant='h5' gutterBottom style={{ marginTop: '40px' }}>
-        Create A New Listing
+        Edit Listing
       </Typography>
       <form onSubmit={handleSubmit} style={formContainer}>
         <div style={textFormContainer}>
