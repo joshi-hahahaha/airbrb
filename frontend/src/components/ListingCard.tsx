@@ -73,6 +73,8 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     navigate(`/edit/${props.id}`);
   };
 
+  const handleListingDelete = () => {};
+
   // Card on My Listings page navigates to bookings,
   // On all listings nav to viewing the listing
   const handleCardClick = () => {
@@ -191,7 +193,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
         <MenuItem onClick={handleOpenModal}>Add Availabilities</MenuItem>
         <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
-        <MenuItem onClick={handleAnchorClose}>Delete</MenuItem>
+        <MenuItem onClick={handleListingDelete}>Delete</MenuItem>
       </Menu>
       <LiveDatesModal open={liveDatesModalOpen} onClose={handleCloseModal} />
     </>
