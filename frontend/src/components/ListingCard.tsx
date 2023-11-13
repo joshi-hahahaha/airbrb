@@ -86,7 +86,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       <Card
         sx={{
           minWidth: '225px',
-          height: '500px',
+          // height: '500px',
           cursor: 'pointer',
           m: '15px',
           flex: '1',
@@ -185,7 +185,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         onClose={handleAnchorClose}
       >
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-        <MenuItem onClick={handleOpenModal}>Edit Availabilities</MenuItem>
+        <MenuItem onClick={handleOpenModal}>Add Availabilities</MenuItem>
         <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
         <MenuItem onClick={handleAnchorClose}>Delete</MenuItem>
       </Menu>
