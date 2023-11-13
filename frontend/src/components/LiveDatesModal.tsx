@@ -1,11 +1,7 @@
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useState } from 'react';
-import {
-  Box,
-  Modal,
-  Button,
-} from '@mui/material';
+import { Box, Modal, Button } from '@mui/material';
 
 interface LiveDatesModalProps {
   open: boolean;
@@ -37,7 +33,7 @@ const LiveDatesModal = ({ open, onClose }: LiveDatesModalProps) => {
             width: 400, // 模态宽度
             bgcolor: 'background.paper', // 背景色
             boxShadow: 24, // 阴影
-            p: 4 // 内边距
+            p: 4, // 内边距
           }}
         >
           <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -48,11 +44,11 @@ const LiveDatesModal = ({ open, onClose }: LiveDatesModalProps) => {
             />
           </LocalizationProvider>
           <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleSubmit}
           >
             Submit
           </Button>

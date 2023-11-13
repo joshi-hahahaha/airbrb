@@ -28,7 +28,7 @@ export const AllListingsPage: React.FC = () => {
       <div style={contentContainer}>
         <div style={listingContainer}>
           {listings.map((listing) => (
-            <ListingCard key={listing.id} {...listing} />
+            <ListingCard key={listing.id} myListing={false} {...listing} />
           ))}
         </div>
       </div>

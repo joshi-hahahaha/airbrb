@@ -3,7 +3,8 @@ import { contentContainer, listingContainer, page } from '../styles/pageStyles';
 import AuthContext from '../contexts/AuthContext';
 import { getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
-import { MyListingCard } from '../components/MyListingCard';
+// import { MyListingCard } from '../components/MyListingCard';
+import { ListingCard } from '../components/ListingCard';
 
 export const MyListingsPage: React.FC = () => {
   const { authToken, email } = useContext(AuthContext);
@@ -30,7 +31,7 @@ export const MyListingsPage: React.FC = () => {
       <div style={contentContainer}>
         <div style={listingContainer}>
           {listings.map((listing) => (
-            <MyListingCard key={listing.id} {...listing} />
+            <ListingCard key={listing.id} myListing={true} {...listing} />
           ))}
         </div>
       </div>
