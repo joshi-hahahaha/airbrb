@@ -27,11 +27,11 @@ export const getListings = async (
   );
 
   if (res.error) {
-    console.log(res.error);
+    // console.log(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    console.log('Unexpected response structure:', res);
+    // console.log('Unexpected response structure:', res);
   }
 
   return { listings: [] };
@@ -47,7 +47,7 @@ export const getListing = async (
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
-  const res: ApiResponse<Listing> = await apiCall<Listing>(
+  const res: ApiResponse<{ listing: Listing }> = await apiCall<{ listing: Listing }>(
     path,
     method,
     body,
@@ -55,14 +55,14 @@ export const getListing = async (
     queryStr
   );
 
-  console.log(res);
+  // console.log(res);
 
   if (res.error) {
-    console.log(res.error);
-  } else if (res.data) {
-    return res.data;
+    // console.log(res.error);
+  } else if (res.data && res.data.listing) {
+    return res.data.listing;
   } else {
-    console.log('Unexpected response structure:', res);
+    // console.log('Unexpected response structure:', res);
   }
 };
 
@@ -76,7 +76,7 @@ export const addListing = async (
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
-  console.log(body);
+  // console.log(body);
 
   const res: ApiResponse<AddListingRes> = await apiCall<AddListingRes>(
     path,
@@ -87,11 +87,11 @@ export const addListing = async (
   );
 
   if (res.error) {
-    console.log(res.error);
+    // console.log(res.error);
   } else if (res.data) {
-    console.log(res.data);
+    // console.log(res.data);
     return res.data;
   } else {
-    console.log('Unexpected response structure:', res);
+    // console.log('Unexpected response structure:', res);
   }
 };

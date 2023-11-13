@@ -5,12 +5,26 @@ const theme = createTheme({
     primary: {
       main: '#D33753',
     },
-    // 你可以在这里添加更多的颜色
+
   },
   typography: {
     fontFamily: '"Samsung-Light","Samsung-Regular"',
   },
-  // 你也可以添加其他主题选项
+  components: {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          '&.MuiBedIcon-root': {
+            color: '#757575',
+          },
+          '&.MuiBathtubIcon-root': {
+            color: '#757575',
+          },
+        },
+      },
+    },
+  },
+
 });
 
 export default theme;

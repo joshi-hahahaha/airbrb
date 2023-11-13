@@ -23,6 +23,7 @@ import AuthContext from '../../contexts/AuthContext';
 export const UserMenu = () => {
   const { authToken, logout } = useContext(AuthContext);
 
+  // anchor Element
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
