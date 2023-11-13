@@ -29,7 +29,7 @@ import {
   PropertyType,
   Listing,
 } from '../../interfaces/listingInterfaces';
-import { addListing, getListing } from '../../helpers/listingApiHelpers';
+import { editListing, getListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
 
 import PoolIcon from '@mui/icons-material/Pool';
@@ -220,7 +220,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    addListing(authToken, formData);
+    editListing(authToken, parsedId, formData);
   };
 
   return (

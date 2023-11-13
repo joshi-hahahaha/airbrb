@@ -68,3 +68,5 @@ export interface NewListingFormData {
 export interface AddListingRes {
   listingId: number;
 }
+
+export interface EditListingRes {}

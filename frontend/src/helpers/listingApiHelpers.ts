@@ -4,6 +4,7 @@ import { apiCall } from './apiHelper';
 // import AuthContext from '../contexts/AuthContext';
 import {
   AddListingRes,
+  EditListingRes,
   Listing,
   ListingsRes,
   NewListingFormData,
@@ -47,13 +48,9 @@ export const getListing = async (
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
-  const res: ApiResponse<{ listing: Listing }> = await apiCall<{ listing: Listing }>(
-    path,
-    method,
-    body,
-    token,
-    queryStr
-  );
+  const res: ApiResponse<{ listing: Listing }> = await apiCall<{
+    listing: Listing;
+  }>(path, method, body, token, queryStr);
 
   // console.log(res);
 
@@ -90,6 +87,34 @@ export const addListing = async (
     // console.log(res.error);
   } else if (res.data) {
     // console.log(res.data);
+    return res.data;
+  } else {
+    // console.log('Unexpected response structure:', res);
+  }
+};
+
+export const editListing = async (
+  authToken: string | null,
+  listingId: number,
+  formData: NewListingFormData
+) => {
+  const path: string = `/listings/${listingId}`;
+  const method: HttpMethod = 'PUT';
+  const body: NewListingFormData = { ...formData };
+  const token: string | null = authToken;
+  const queryStr: string | undefined = undefined;
+
+  const res: ApiResponse<EditListingRes> = await apiCall<EditListingRes>(
+    path,
+    method,
+    body,
+    token,
+    queryStr
+  );
+
+  if (res.error) {
+    // console.log(res.error)
+  } else if (res.data) {
     return res.data;
   } else {
     // console.log('Unexpected response structure:', res);
