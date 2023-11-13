@@ -38,6 +38,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
 
   const handleOpenModal = () => {
     setLiveDatesModalOpen(true);
+    setAnchorEl(null);
   };
 
   const handleCloseModal = () => {

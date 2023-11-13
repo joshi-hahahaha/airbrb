@@ -1,24 +1,38 @@
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useState } from 'react';
-import { Box, Modal, Button } from '@mui/material';
+import { Box, Modal, Button, Stack, Typography, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 interface LiveDatesModalProps {
   open: boolean;
   onClose: () => void;
 }
 
+interface DateRange {
+  startDate: Date | null;
+  endDate: Date | null;
+}
+
 const LiveDatesModal = ({ open, onClose }: LiveDatesModalProps) => {
   // availabilities edit modal
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [dateRanges, setDateRanges] = useState<DateRange[]>([
+    { startDate: null, endDate: null },
+  ]);
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  const handleDateChange = (index: number, field: 'startDate' | 'endDate', date: Date | null) => {
+    const newDateRanges = [...dateRanges];
+    newDateRanges[index][field] = date;
+    setDateRanges(newDateRanges);
+  };
+
+  const handleAddDateRange = () => {
+    setDateRanges([...dateRanges, { startDate: null, endDate: null }]);
   };
 
   const handleSubmit = () => {
-    // 提交日期到后端
-    console.log(selectedDate);
+    console.log(dateRanges);
+    onClose();
   };
 
   return (
@@ -26,23 +40,41 @@ const LiveDatesModal = ({ open, onClose }: LiveDatesModalProps) => {
       <Modal open={open} onClose={onClose}>
         <Box
           sx={{
-            position: 'absolute', // 使用绝对定位
-            top: '50%', // 垂直居中
-            left: '50%', // 水平居中
-            transform: 'translate(-50%, -50%)', // 偏移以确保完全居中
-            width: 400, // 模态宽度
-            bgcolor: 'background.paper', // 背景色
-            boxShadow: 24, // 阴影
-            p: 4, // 内边距
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
           }}
         >
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              value={selectedDate}
-              onChange={handleDateChange}
-              sx={{ mt: 3, mb: 2 }}
-            />
+            {dateRanges.map((range, index) => (
+              <Stack key={index} spacing={2} sx={{ mb: 2 }}>
+                <Typography variant="subtitle1">Available Dates {index + 1}</Typography>
+                <div>
+                  <DatePicker
+                    label="Start Date"
+                    value={range.startDate}
+                    onChange={(date) => handleDateChange(index, 'startDate', date)}
+                  />
+                  <DatePicker
+                    label="End Date"
+                    value={range.endDate}
+                    onChange={(date) => handleDateChange(index, 'endDate', date)}
+                    minDate={range.startDate || undefined}
+                  />
+                </div>
+              </Stack>
+            ))}
           </LocalizationProvider>
+          {dateRanges.length < 3 && (
+          <IconButton onClick={handleAddDateRange} sx={{ mb: 2 }}>
+          <AddIcon />
+        </IconButton>
+          )}
           <Button
             type='submit'
             fullWidth
@@ -50,7 +82,7 @@ const LiveDatesModal = ({ open, onClose }: LiveDatesModalProps) => {
             sx={{ mt: 3, mb: 2 }}
             onClick={handleSubmit}
           >
-            Submit
+            Add Availabilities
           </Button>
         </Box>
       </Modal>
