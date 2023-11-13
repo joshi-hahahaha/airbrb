@@ -37,7 +37,15 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 
-export const AddListingForm = () => {
+interface EditListingFormProps {
+  listingId: string | undefined;
+}
+
+export const EditListingForm: React.FC<EditListingFormProps> = ({
+  listingId,
+}) => {
+  console.log(listingId);
+
   // Authorisation
   const { authToken } = useContext(AuthContext);
 
@@ -174,7 +182,7 @@ export const AddListingForm = () => {
   return (
     <>
       <Typography variant='h5' gutterBottom style={{ marginTop: '40px' }}>
-        Create A New Listing
+        Edit Listing
       </Typography>
       <form onSubmit={handleSubmit} style={formContainer}>
         <div style={textFormContainer}>
@@ -382,7 +390,7 @@ export const AddListingForm = () => {
             />
           </div>
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
-            Create
+            Edit
           </Button>
         </div>
         <div style={imageFormContainer}>
