@@ -32,7 +32,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
 
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // 3 dot menu
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
 

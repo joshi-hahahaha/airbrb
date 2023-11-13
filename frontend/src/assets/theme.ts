@@ -5,7 +5,9 @@ const theme = createTheme({
     primary: {
       main: '#D33753',
     },
-
+    error: {
+      main: '#d32f2f',
+    },
   },
   typography: {
     fontFamily: '"Samsung-Light","Samsung-Regular"',
@@ -24,7 +26,6 @@ const theme = createTheme({
       },
     },
   },
-
 });
 
 export default theme;

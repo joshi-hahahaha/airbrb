@@ -19,6 +19,7 @@ import {
   FormControl,
   MenuItem,
   Select,
+  IconButton,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -31,11 +32,13 @@ import {
 import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
 
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PoolIcon from '@mui/icons-material/Pool';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import theme from '../../assets/theme';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -162,6 +165,22 @@ export const AddListingForm = () => {
         reader.readAsDataURL(files[i]);
       }
     }
+  };
+
+  // Remove photo from image list
+  const handleRemovePhoto = (index: number) => {
+    setFormData((prevData) => {
+      const updatedPhotos = [...prevData.metadata.photos];
+      updatedPhotos.splice(index, 1);
+
+      return {
+        ...prevData,
+        metadata: {
+          ...prevData.metadata,
+          photos: updatedPhotos,
+        },
+      };
+    });
   };
 
   // Form submission
@@ -433,7 +452,22 @@ export const AddListingForm = () => {
           <div style={{ height: '300px', overflowY: 'auto' }}>
             <ImageList variant='masonry' cols={3} gap={8}>
               {formData.metadata.photos.map((photo, index) => (
-                <ImageListItem key={index}>
+                <ImageListItem key={index} style={{ position: 'relative' }}>
+                  <IconButton
+                    aria-label='more'
+                    color='error'
+                    onClick={() => handleRemovePhoto(index)}
+                    style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      backgroundColor: theme.palette.error.main,
+                      opacity: '0.8',
+                      color: '#fff',
+                    }}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
                   <img
                     src={photo}
                     alt={`Photo ${index + 1}`}
