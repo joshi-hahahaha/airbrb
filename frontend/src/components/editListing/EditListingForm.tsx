@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -27,8 +27,9 @@ import {
   NewListingFormData,
   Amenity,
   PropertyType,
+  Listing,
 } from '../../interfaces/listingInterfaces';
-import { addListing } from '../../helpers/listingApiHelpers';
+import { addListing, getListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
 
 import PoolIcon from '@mui/icons-material/Pool';
@@ -49,7 +50,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   // Authorisation
   const { authToken } = useContext(AuthContext);
 
-  // FormData state
+  // FormData DEFAULT state
   const [formData, setFormData] = useState<NewListingFormData>({
     title: '',
     address: {
@@ -70,6 +71,29 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
       bathrooms: 0,
     },
   });
+
+  // Listing information handling
+  const parsedId: number = parseInt(listingId ?? '0', 10);
+
+  const [listing, setListing] = useState<Listing>();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getListing(authToken, parsedId);
+        setListing(data);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      }
+    };
+
+    fetchData();
+  }, [authToken, listingId]);
+
+  // Update formData with old listing info
+  useEffect(() => {
+    // Log the updated listing state
+    console.log(listing);
+  }, [listing]);
 
   /**
    * Form change handlers
