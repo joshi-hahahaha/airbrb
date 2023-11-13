@@ -31,7 +31,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const { authToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  // console.log('Props in ListingCard:', props);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // 3 dot menu
 
@@ -39,6 +38,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
 
   const handleOpenModal = () => {
     setLiveDatesModalOpen(true);
+    setAnchorEl(null);
   };
 
   const handleCloseModal = () => {
