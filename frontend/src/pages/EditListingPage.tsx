@@ -11,7 +11,6 @@ export const EditListingPage: React.FC = () => {
     <div style={page}>
       <div style={contentContainer}>
         <div style={formContentDiv}>
-          <h2>Edit Listing {listingId}</h2>
           <EditListingForm listingId={listingId} />
         </div>
       </div>
