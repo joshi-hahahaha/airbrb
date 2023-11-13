@@ -60,6 +60,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   }, [authToken, props.id]);
 
   const handleAnchorClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
@@ -71,13 +72,17 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     navigate(`/edit/${props.id}`);
   };
 
+  // Card on My Listings page navigates to bookings,
+  // On all listings nav to viewing the listing
   const handleCardClick = () => {
-    console.log(`Card pressed: ${props.title}`);
-    console.log(myListing);
+    // console.log(`Card pressed: ${props.title}`);
+    // console.log(myListing);
+    if (myListing) {
+      navigate(`/bookings/${props.id}`);
+    } else {
+      navigate(`/listings/${props.id}`);
+    }
   };
-
-  console.log(props);
-  console.log(listing);
 
   return (
     <>
