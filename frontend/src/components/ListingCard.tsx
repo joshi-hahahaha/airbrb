@@ -166,7 +166,12 @@ export const ListingCard: React.FC<ListingCardProps> = ({
 
           <div style={{ width: '15%' }}>
             {/* No. reviews + ratings */}
-            <Typography gutterBottom variant='body1' component='div'>
+            <Typography
+              style={{ textAlign: 'right' }}
+              gutterBottom
+              variant='body1'
+              component='div'
+            >
               {props.reviews === undefined ? '0' : `${props.reviews.length}`}
             </Typography>
           </div>
