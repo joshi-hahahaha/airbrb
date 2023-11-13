@@ -31,9 +31,8 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const { authToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
-  // console.log('Props in ListingCard:', props);
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // 3 dot menu
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
 
@@ -61,7 +60,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   }, [authToken, props.id]);
 
   const handleAnchorClick = (event: React.MouseEvent<HTMLElement>) => {
-    // event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 

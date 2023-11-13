@@ -19,7 +19,9 @@ import {
   FormControl,
   MenuItem,
   Select,
+  IconButton,
 } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Address,
@@ -37,6 +39,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
+import theme from '../../assets/theme';
 
 interface EditListingFormProps {
   listingId: string | undefined;
@@ -216,9 +219,26 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
     }
   };
 
+  // Remove photo from image list
+  const handleRemovePhoto = (index: number) => {
+    setFormData((prevData) => {
+      const updatedPhotos = [...prevData.metadata.photos];
+      updatedPhotos.splice(index, 1);
+
+      return {
+        ...prevData,
+        metadata: {
+          ...prevData.metadata,
+          photos: updatedPhotos,
+        },
+      };
+    });
+  };
+
   // Form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(formData);
 
     editListing(authToken, parsedId, formData);
   };
@@ -459,7 +479,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
             <img
               src={formData.thumbnail}
               alt='Thumbnail'
-              style={{ width: '100%' }}
+              style={{ width: '100%', cursor: 'pointer' }}
             />
           )}
           <Typography
@@ -480,7 +500,22 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
           <div style={{ height: '300px', overflowY: 'auto' }}>
             <ImageList variant='masonry' cols={3} gap={8}>
               {formData.metadata.photos.map((photo, index) => (
-                <ImageListItem key={index}>
+                <ImageListItem key={index} style={{ position: 'relative' }}>
+                  <IconButton
+                    aria-label='more'
+                    color='error'
+                    onClick={() => handleRemovePhoto(index)}
+                    style={{
+                      position: 'absolute',
+                      top: '10px',
+                      right: '10px',
+                      backgroundColor: theme.palette.error.main,
+                      opacity: '0.8',
+                      color: '#fff',
+                    }}
+                  >
+                    <DeleteForeverIcon />
+                  </IconButton>
                   <img
                     src={photo}
                     alt={`Photo ${index + 1}`}
