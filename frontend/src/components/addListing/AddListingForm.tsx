@@ -168,6 +168,11 @@ export const AddListingForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!formData.thumbnail) {
+      console.log('must upload thumbnail');
+      return;
+    }
+
     addListing(authToken, formData);
   };
 
