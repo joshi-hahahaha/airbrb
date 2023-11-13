@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -27,8 +27,9 @@ import {
   NewListingFormData,
   Amenity,
   PropertyType,
+  Listing,
 } from '../../interfaces/listingInterfaces';
-import { addListing } from '../../helpers/listingApiHelpers';
+import { editListing, getListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
 
 import PoolIcon from '@mui/icons-material/Pool';
@@ -49,7 +50,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   // Authorisation
   const { authToken } = useContext(AuthContext);
 
-  // FormData state
+  // FormData DEFAULT state
   const [formData, setFormData] = useState<NewListingFormData>({
     title: '',
     address: {
@@ -70,6 +71,49 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
       bathrooms: 0,
     },
   });
+
+  // Listing information handling
+  const parsedId: number = parseInt(listingId ?? '0', 10);
+
+  const [listing, setListing] = useState<Listing>();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getListing(authToken, parsedId);
+        setListing(data);
+      } catch (error) {
+        console.error('Error fetching listings:', error);
+      }
+    };
+
+    fetchData();
+  }, [authToken, listingId]);
+
+  // Update formData with old listing info
+  useEffect(() => {
+    // Log the updated listing state
+    console.log(listing);
+    setFormData({
+      title: listing?.title || '',
+      address: {
+        street: listing?.address?.street || '',
+        city: listing?.address?.city || '',
+        state: listing?.address?.state || '',
+        postcode: listing?.address?.postcode || '',
+        country: listing?.address?.country || '',
+      },
+      price: listing?.price || 0,
+      thumbnail: listing?.thumbnail || '',
+      metadata: {
+        amenities: listing?.metadata?.amenities || [],
+        photos: listing?.metadata?.photos || [],
+        propertyType: listing?.metadata?.propertyType || 'House',
+        bedrooms: listing?.metadata?.bedrooms || 0,
+        beds: listing?.metadata?.beds || 0,
+        bathrooms: listing?.metadata?.bathrooms || 0,
+      },
+    });
+  }, [listing]);
 
   /**
    * Form change handlers
@@ -176,7 +220,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    addListing(authToken, formData);
+    editListing(authToken, parsedId, formData);
   };
 
   return (
@@ -390,19 +434,19 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
             />
           </div>
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
-            Edit
+            Make Changes
           </Button>
         </div>
         <div style={imageFormContainer}>
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
-            Add Property Photos
+            Change Property Photos
           </Typography>
           <Typography
             variant='subtitle1'
             gutterBottom
             style={{ marginTop: '10px' }}
           >
-            Add Thumbnail
+            Change Thumbnail
           </Typography>
           <input
             type='file'
@@ -423,7 +467,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
             gutterBottom
             style={{ marginTop: '10px' }}
           >
-            Add Photos
+            Change Photos
           </Typography>
           <input
             type='file'
