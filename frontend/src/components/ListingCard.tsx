@@ -188,13 +188,3 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     </>
   );
 };
-
-/**
- * Needs to display:
- * 1. Title - title
- * 2. Location - subtitle
- * 3. Type
- * 4. No. of beds, No. of bedrooms. No. of baths
- * 5. No. of Reviews + Rating
- * 6. Price - bit bigger text
- */
