@@ -93,6 +93,26 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
   useEffect(() => {
     // Log the updated listing state
     console.log(listing);
+    setFormData({
+      title: listing?.title || '',
+      address: {
+        street: listing?.address?.street || '',
+        city: listing?.address?.city || '',
+        state: listing?.address?.state || '',
+        postcode: listing?.address?.postcode || '',
+        country: listing?.address?.country || '',
+      },
+      price: listing?.price || 0,
+      thumbnail: listing?.thumbnail || '',
+      metadata: {
+        amenities: listing?.metadata?.amenities || [],
+        photos: listing?.metadata?.photos || [],
+        propertyType: listing?.metadata?.propertyType || 'House',
+        bedrooms: listing?.metadata?.bedrooms || 0,
+        beds: listing?.metadata?.beds || 0,
+        bathrooms: listing?.metadata?.bathrooms || 0,
+      },
+    });
   }, [listing]);
 
   /**
@@ -414,19 +434,19 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
             />
           </div>
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
-            Edit
+            Make Changes
           </Button>
         </div>
         <div style={imageFormContainer}>
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
-            Add Property Photos
+            Change Property Photos
           </Typography>
           <Typography
             variant='subtitle1'
             gutterBottom
             style={{ marginTop: '10px' }}
           >
-            Add Thumbnail
+            Change Thumbnail
           </Typography>
           <input
             type='file'
@@ -447,7 +467,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
             gutterBottom
             style={{ marginTop: '10px' }}
           >
-            Add Photos
+            Change Photos
           </Typography>
           <input
             type='file'
