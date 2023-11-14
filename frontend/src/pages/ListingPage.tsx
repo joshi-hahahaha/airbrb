@@ -6,6 +6,11 @@ import { ListingHeader } from '../components/listingPage/ListingHeader';
 import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
+import { ListingImage } from '../components/listingPage/ListingImage';
+
+export interface ListingHeaderProps {
+  listing: Listing;
+}
 
 export const ListingPage: React.FC = () => {
   // Authorisation
@@ -38,6 +43,7 @@ export const ListingPage: React.FC = () => {
         <div style={formContentDiv}>
           {listingId}
           <ListingHeader listing={listing} />
+          <ListingImage listing={listing} />
         </div>
       </div>
     </div>
