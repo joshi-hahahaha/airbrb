@@ -24,6 +24,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const { authToken, email } = JSON.parse(storedData);
       setAuthState({ authToken, email });
       console.log('Authentication data loaded');
+      console.log(authToken);
     }
   }, []);
 

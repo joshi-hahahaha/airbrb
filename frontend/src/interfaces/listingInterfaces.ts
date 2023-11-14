@@ -31,7 +31,10 @@ export interface Metadata {
   bathrooms: number;
 }
 
-export interface Availability {}
+export interface Availability {
+  startDate: string;
+  endDate:string;
+}
 
 export interface Listing {
   // id
@@ -47,7 +50,7 @@ export interface Listing {
   reviews?: Review[];
   owner?: string;
   metadata?: Metadata;
-  availability?: Availability;
+  availability?: Availability[];
   published?: boolean;
   postedOn?: Date;
 }
@@ -56,13 +59,19 @@ export interface ListingsRes {
   listings: Listing[];
 }
 
-/** New Listing Form */
+/** New and Edit (from edit page) Listing Form */
 export interface NewListingFormData {
   title: string;
   address: Address;
   price: number;
   thumbnail: string;
   metadata: Metadata;
+}
+
+export interface EditListingFormData extends NewListingFormData {}
+
+export interface AvailabilityAdd {
+  availability: Availability[];
 }
 
 export interface AddListingRes {

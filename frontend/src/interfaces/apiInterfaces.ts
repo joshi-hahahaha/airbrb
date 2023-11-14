@@ -15,7 +15,7 @@ export interface ApiBody {
   reviews?: Review[];
   owner?: string;
   metadata?: Metadata;
-  availability?: Availability;
+  availability?: Availability[];
   published?: boolean;
   postedOn?: Date;
 }

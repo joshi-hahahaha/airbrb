@@ -3,8 +3,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useState, useContext } from 'react';
 import { Box, Modal, Button, Stack, Typography, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { editListing } from '../helpers/listingApiHelpers';
+import { addAvailability } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
+import { AvailabilityAdd } from '../interfaces/listingInterfaces';
 
 interface LiveDatesModalProps {
   open: boolean;
@@ -33,6 +34,7 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
     const newDateRanges = [...dateRanges];
     newDateRanges[index][field] = date;
     setDateRanges(newDateRanges);
+    console.log(newDateRanges);
   };
 
   const handleAddDateRange = () => {
@@ -42,12 +44,14 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
   };
 
   const handleSubmit = () => {
-    const formatDates = dateRanges.map(range => ({
-      startDate: range.startDate ? range.startDate.toISOString().split('T')[0] : null,
-      endDate: range.endDate ? range.endDate.toISOString().split('T')[0] : null
-    }));
+    const formatDates = dateRanges
+      .filter(range => range.startDate && range.endDate)
+      .map(range => ({
+        startDate: range.startDate!.toISOString().split('T')[0],
+        endDate: range.endDate!.toISOString().split('T')[0]
+      }));
 
-    const body = {
+    const body: AvailabilityAdd = {
       availability: formatDates
     };
 
@@ -57,7 +61,7 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
     }
 
     console.log(dateRanges);
-    editListing(authToken, listingId, body);
+    addAvailability(authToken, listingId, body);
     setDateRanges(initialDateRanges);
     onClose();
   };
