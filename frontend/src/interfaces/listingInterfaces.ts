@@ -55,7 +55,7 @@ export interface Listing {
   metadata?: Metadata;
   availability?: Availability[];
   published?: boolean;
-  postedOn?: Date;
+  postedOn?: string;
 }
 
 export interface ListingsRes {
