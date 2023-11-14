@@ -1,6 +1,7 @@
 import React from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 import { Divider, Typography } from '@mui/material';
+import { AmentityIconText } from '../AmentityIconText';
 
 export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
   listing,
@@ -30,7 +31,7 @@ export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
       {listing?.metadata?.amenities && (
         <div>
           {listing.metadata.amenities.map((amenity, index) => (
-            <Typography key={index}>{amenity}</Typography>
+            <AmentityIconText key={index} amenity={amenity} />
           ))}
         </div>
       )}
