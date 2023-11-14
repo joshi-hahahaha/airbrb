@@ -4,6 +4,7 @@ import { apiCall } from './apiHelper';
 // import AuthContext from '../contexts/AuthContext';
 import {
   AddListingRes,
+  DeleteListingRes,
   EditListingRes,
   Listing,
   ListingsRes,
@@ -105,6 +106,33 @@ export const editListing = async (
   const queryStr: string | undefined = undefined;
 
   const res: ApiResponse<EditListingRes> = await apiCall<EditListingRes>(
+    path,
+    method,
+    body,
+    token,
+    queryStr
+  );
+
+  if (res.error) {
+    // console.log(res.error)
+  } else if (res.data) {
+    return res.data;
+  } else {
+    // console.log('Unexpected response structure:', res);
+  }
+};
+
+export const deleteListing = async (
+  authToken: string | null,
+  listingId: number
+) => {
+  const path: string = `/listings/${listingId}`;
+  const method: HttpMethod = 'DELETE';
+  const body: null = null;
+  const token: string | null = authToken;
+  const queryStr: string | undefined = undefined;
+
+  const res: ApiResponse<DeleteListingRes> = await apiCall<DeleteListingRes>(
     path,
     method,
     body,
