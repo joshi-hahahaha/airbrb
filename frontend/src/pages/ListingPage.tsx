@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { contentContainer, page } from '../styles/pageStyles';
+import { contentContainer, infoContainer, page } from '../styles/pageStyles';
 import { useParams } from 'react-router-dom';
-import { formContentDiv } from '../styles/addListing/addListingStyle';
 import { ListingHeader } from '../components/listingPage/ListingHeader';
 import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
@@ -40,7 +39,7 @@ export const ListingPage: React.FC = () => {
   return listing ? (
     <div style={page}>
       <div style={contentContainer}>
-        <div style={formContentDiv}>
+        <div style={infoContainer}>
           {listingId}
           <ListingHeader listing={listing} />
           <ListingImage listing={listing} />
