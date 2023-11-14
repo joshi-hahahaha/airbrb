@@ -15,7 +15,6 @@ export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
   >(null);
 
   useEffect(() => {
-    // Calculate the height of the listing thumbnail container
     if (thumbnailContainerRef.current) {
       setThumbnailContainerHeight(thumbnailContainerRef.current.clientHeight);
     }
