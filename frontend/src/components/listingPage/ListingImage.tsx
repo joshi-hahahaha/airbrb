@@ -1,57 +1,71 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 import {
-  listingImageContainer,
-  listingImageListContainer,
-  listingThumbnailContainer,
-  thumbnail,
+  containerStyle,
+  halfStyle,
+  quarterStyle,
 } from '../../styles/imageStyles';
-import { ImageList, ImageListItem } from '@mui/material';
+import { Button } from '@mui/material';
+import CollectionsIcon from '@mui/icons-material/Collections';
 
 export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
-  const thumbnailContainerRef = useRef<HTMLDivElement>(null);
-  const [thumbnailContainerHeight, setThumbnailContainerHeight] = useState<
-    number | null
-  >(null);
+  console.log(listing);
 
-  useEffect(() => {
-    if (thumbnailContainerRef.current) {
-      setThumbnailContainerHeight(thumbnailContainerRef.current.clientHeight);
-    }
-  }, []);
+  const firstFourPhotos = listing.metadata
+    ? listing.metadata.photos.slice(0, 4)
+    : [];
+
+  const handleShowPhotos = () => {
+    console.log('show photos');
+  };
 
   return (
-    <div style={listingImageContainer}>
-      <div ref={thumbnailContainerRef} style={listingThumbnailContainer}>
-        <img src={listing.thumbnail} alt='Thumbnail' style={thumbnail} />
+    <div style={containerStyle}>
+      <div style={{ ...halfStyle, left: 0, background: 'blue' }}>
+        <img
+          src={listing.thumbnail}
+          alt='Thumbnail'
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
       </div>
       <div
         style={{
-          ...listingImageListContainer,
-          height: thumbnailContainerHeight + 'px',
+          ...halfStyle,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignContent: 'space-between',
+          flexWrap: 'wrap',
         }}
       >
-        <ImageList
-          sx={{ width: 500, height: 275, m: 0 }}
-          cols={2}
-          rowHeight={150}
+        {/* Render quarter style divs for the first 4 photos */}
+        {firstFourPhotos.map((photo, index) => (
+          <div key={index} style={quarterStyle}>
+            <img
+              src={photo}
+              alt={`Photo ${index + 1}`}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+        ))}
+
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            padding: '10px',
+          }}
         >
-          {/* eslint-disable-next-line multiline-ternary */}
-          {listing.metadata ? (
-            listing.metadata.photos.map((photo, index) => (
-              <ImageListItem key={index}>
-                <img
-                  src={photo}
-                  alt={`Photo ${index + 1}`}
-                  style={{ width: '100%', cursor: 'pointer' }}
-                />
-                {'hi'}
-              </ImageListItem>
-            ))
-          ) : (
-            <>hi</>
-          )}
-        </ImageList>
+          <Button
+            variant='contained'
+            color='primary'
+            style={{ opacity: '0.9' }}
+            onClick={handleShowPhotos}
+          >
+            <CollectionsIcon />
+          </Button>
+        </div>
       </div>
     </div>
   );

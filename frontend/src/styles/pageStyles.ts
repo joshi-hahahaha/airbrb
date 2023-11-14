@@ -24,6 +24,9 @@ export const listingContainer: CSSProperties = {
   display: 'flex',
   flexWrap: 'wrap',
   justifyContent: 'flex-start',
-  // justifyContent: 'space-around',
-  // alignItems: 'space-around',
+};
+
+export const infoContainer: CSSProperties = {
+  width: '60%',
+  height: '100%',
 };
