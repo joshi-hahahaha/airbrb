@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
-import { Typography } from '@mui/material';
-import AuthContext from '../../contexts/AuthContext';
+import { Divider, Typography } from '@mui/material';
 
 export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
   listing,
 }) => {
-  const { email } = useContext(AuthContext);
   return (
     <div style={{ width: '60%' }}>
       <div>
         <Typography
           variant='h6'
           style={{ fontFamily: 'Samsung-Regular' }}
-        >{`${listing.metadata?.propertyType} hosted by ${email}`}</Typography>
+        >{`${listing.metadata?.propertyType} in ${listing.address.city}, ${listing.address.country}`}</Typography>
         <Typography>{`${listing.metadata?.bedrooms} ${
           listing.metadata?.bedrooms === 1 ? 'bedroom' : 'bedrooms'
         } • ${listing.metadata?.beds} ${
@@ -22,11 +20,20 @@ export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
           listing.metadata?.bathrooms === 1 ? 'bathroom' : 'bathrooms'
         }`}</Typography>
       </div>
+      <Divider />
       <div>
         <Typography variant='h6' style={{ fontFamily: 'Samsung-Regular' }}>
           What this place offers
         </Typography>
       </div>
+      {/* eslint-disable-next-line multiline-ternary */}
+      {listing?.metadata?.amenities && (
+        <div>
+          {listing.metadata.amenities.map((amenity, index) => (
+            <Typography key={index}>{amenity}</Typography>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
