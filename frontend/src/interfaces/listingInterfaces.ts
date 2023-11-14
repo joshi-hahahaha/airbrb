@@ -79,3 +79,5 @@ export interface AddListingRes {
 }
 
 export interface EditListingRes {}
+
+export interface DeleteListingRes {}
