@@ -1,6 +1,16 @@
 import React from 'react';
-import { page } from '../styles/pageStyles';
+import { contentContainer, page } from '../styles/pageStyles';
+import { useParams } from 'react-router-dom';
+import { formContentDiv } from '../styles/addListing/addListingStyle';
 
 export const ListingPage: React.FC = () => {
-  return <div style={page}></div>;
+  const { listingId } = useParams();
+
+  return (
+    <div style={page}>
+      <div style={contentContainer}>
+        <div style={formContentDiv}>{listingId}</div>
+      </div>
+    </div>
+  );
 };
