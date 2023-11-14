@@ -193,7 +193,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
         <MenuItem onClick={handleAnchorClose}>Delete</MenuItem>
       </Menu>
-      <LiveDatesModal open={liveDatesModalOpen} onClose={handleCloseModal} />
+      <LiveDatesModal open={liveDatesModalOpen} onClose={handleCloseModal} listingId={props.id} />
     </>
   );
 };
