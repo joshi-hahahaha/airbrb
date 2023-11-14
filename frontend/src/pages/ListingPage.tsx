@@ -6,6 +6,8 @@ import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
 import { ListingImage } from '../components/listingPage/ListingImage';
+import { ListingAmmenities } from '../components/listingPage/ListingAmenities';
+import { ListingReserveForm } from '../components/listingPage/ListingReserveForm';
 
 export interface ListingHeaderProps {
   listing: Listing;
@@ -40,9 +42,12 @@ export const ListingPage: React.FC = () => {
     <div style={page}>
       <div style={contentContainer}>
         <div style={infoContainer}>
-          {listingId}
           <ListingHeader listing={listing} />
           <ListingImage listing={listing} />
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ListingAmmenities listing={listing} />
+            <ListingReserveForm listing={listing} />
+          </div>
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
 
   return (
     <div style={containerStyle}>
-      <div style={{ ...halfStyle, left: 0, background: 'blue' }}>
+      <div style={{ ...halfStyle, left: 0 }}>
         <img
           src={listing.thumbnail}
           alt='Thumbnail'
@@ -48,24 +48,28 @@ export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
             />
           </div>
         ))}
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            right: 0,
-            padding: '10px',
-          }}
-        >
-          <Button
-            variant='contained'
-            color='primary'
-            style={{ opacity: '0.9' }}
-            onClick={handleShowPhotos}
+        {/* eslint-disable-next-line multiline-ternary */}
+        {listing.metadata?.photos.length !== 0 ? (
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 0,
+              right: 0,
+              padding: '10px',
+            }}
           >
-            <CollectionsIcon />
-          </Button>
-        </div>
+            <Button
+              variant='contained'
+              color='primary'
+              style={{ opacity: '0.9' }}
+              onClick={handleShowPhotos}
+            >
+              <CollectionsIcon />
+            </Button>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

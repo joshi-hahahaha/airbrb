@@ -8,7 +8,9 @@ export const ListingHeader: React.FC<ListingHeaderProps> = ({ listing }) => {
   return (
     <div>
       <div>
-        <Typography variant='h3'>{listing.title}</Typography>
+        <Typography variant='h4' style={{ fontFamily: 'Samsung-Regular' }}>
+          {listing.title}
+        </Typography>
       </div>
       <Typography
         variant='h6'
