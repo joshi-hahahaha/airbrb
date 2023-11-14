@@ -6,7 +6,10 @@ export interface Address {
   country: string;
 }
 
-export interface Review {}
+export interface Review {
+  rating: number;
+  reviewMsg: string;
+}
 
 export type Amenity =
   | 'Swimming Pool'
@@ -33,7 +36,7 @@ export interface Metadata {
 
 export interface Availability {
   startDate: string;
-  endDate:string;
+  endDate: string;
 }
 
 export interface Listing {
