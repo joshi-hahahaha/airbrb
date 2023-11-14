@@ -51,7 +51,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       try {
         const data = await getListing(authToken, props.id);
         setListing(data);
-        console.log(data);
+        // console.log(data);
       } catch (error) {
         console.error('Error fetching listings:', error);
       }
