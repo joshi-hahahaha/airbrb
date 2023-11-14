@@ -25,10 +25,10 @@ const BookingsHeader: React.FC<BookingsProps> = ({ bookings, listing }) => {
     // less than 1 day rounded up to 1 day
     let result = '';
     if (days < 1) days = 1;
-    result += `Been up online for ${days} days`;
+    result += `Been up online for ${days} day${days > 1 ? 's' : ''}`;
     // don't show if less than 1
-    if (months >= 1) result += `, ${months} months`;
-    if (years >= 1) result += `, ${years} years`;
+    if (months >= 1) result += `, ${months} months${months > 1 ? 's' : ''}`;
+    if (years >= 1) result += `, ${years} years${years > 1 ? 's' : ''}`;
 
     return result;
   }
