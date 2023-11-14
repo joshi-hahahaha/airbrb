@@ -7,6 +7,10 @@ import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
 
+export interface ListingHeaderProps {
+  listing: Listing;
+}
+
 export const ListingPage: React.FC = () => {
   // Authorisation
   const { authToken } = useContext(AuthContext);

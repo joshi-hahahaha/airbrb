@@ -1,11 +1,7 @@
 import React from 'react';
-import { Listing } from '../../interfaces/listingInterfaces';
 import { Typography } from '@mui/material';
 import { calcRating } from '../../helpers/reviewsHelper';
-
-interface ListingHeaderProps {
-  listing: Listing;
-}
+import { ListingHeaderProps } from '../../pages/ListingPage';
 
 export const ListingHeader: React.FC<ListingHeaderProps> = ({ listing }) => {
   console.log(listing);
@@ -24,8 +20,3 @@ export const ListingHeader: React.FC<ListingHeaderProps> = ({ listing }) => {
     </div>
   );
 };
-
-/**
- * 1. Title
- * 2. Rating . no. of reviews --- > location
- */
