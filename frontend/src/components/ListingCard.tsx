@@ -22,10 +22,12 @@ import theme from '../assets/theme';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
+  onDelete?: () => void;
 }
 
 export const ListingCard: React.FC<ListingCardProps> = ({
   myListing,
+  onDelete,
   ...props
 }) => {
   const { authToken } = useContext(AuthContext);
@@ -73,7 +75,9 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     navigate(`/edit/${props.id}`);
   };
 
-  const handleListingDelete = () => {};
+  const handleListingDelete = () => {
+    if (onDelete) onDelete();
+  };
 
   // Card on My Listings page navigates to bookings,
   // On all listings nav to viewing the listing
@@ -195,7 +199,11 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
         <MenuItem onClick={handleListingDelete}>Delete</MenuItem>
       </Menu>
-      <LiveDatesModal open={liveDatesModalOpen} onClose={handleCloseModal} listingId={props.id} />
+      <LiveDatesModal
+        open={liveDatesModalOpen}
+        onClose={handleCloseModal}
+        listingId={props.id}
+      />
     </>
   );
 };
