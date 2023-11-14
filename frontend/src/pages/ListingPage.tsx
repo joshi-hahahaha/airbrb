@@ -6,7 +6,7 @@ import { ListingHeader } from '../components/listingPage/ListingHeader';
 import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
-import { ListingImage } from '../components/listingPage/ListingImages';
+import { ListingImage } from '../components/listingPage/ListingImage';
 
 export interface ListingHeaderProps {
   listing: Listing;

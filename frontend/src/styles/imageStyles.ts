@@ -6,8 +6,12 @@ export const listingImageContainer: CSSProperties = {
   justifyContent: 'space-between',
 };
 
-export const listingImageContainerChild: CSSProperties = {
+export const listingThumbnailContainer: CSSProperties = {
   width: '49%',
+};
+
+export const listingImageListContainer: CSSProperties = {
+  overflowY: 'auto',
 };
 
 export const thumbnail: CSSProperties = {
