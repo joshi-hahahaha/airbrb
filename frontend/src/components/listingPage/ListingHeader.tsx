@@ -18,7 +18,9 @@ export const ListingHeader: React.FC<ListingHeaderProps> = ({ listing }) => {
         variant='h6'
         gutterBottom
       >{`${listing.address.city}, ${listing.address.state}, ${listing.address.country}`}</Typography>
-      <div>{`★${listing.reviews ? calcRating(listing.reviews) : 0}`}</div>
+      <Typography>{`★${listing.reviews ? calcRating(listing.reviews) : 0} • ${
+        listing.reviews?.length
+      } reviews`}</Typography>
     </div>
   );
 };
