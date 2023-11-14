@@ -96,7 +96,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       <Card
         sx={{
           minWidth: '225px',
-          // height: '500px',
+          height: '440px',
           cursor: 'pointer',
           m: '15px',
           flex: '1',
@@ -142,6 +142,9 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               gutterBottom
               variant='h6'
               component='div'
+              overflow='hidden'
+              textOverflow='ellipsis'
+              whiteSpace='nowrap'
             >
               {props.title}
             </Typography>
