@@ -8,7 +8,7 @@ export interface Booking {
   owner: string;
   dateRange: DateRange;
   totalPrice: number;
-  listingId: number;
+  listingId: string;
   status: 'accepted' | 'denied' | 'pending';
 }
 

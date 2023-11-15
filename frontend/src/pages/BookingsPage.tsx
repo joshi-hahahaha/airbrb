@@ -12,6 +12,7 @@ import BookingsHistory from '../components/bookingsPage/bookingsHistory';
 import BookingsPending from '../components/bookingsPage/bookingsPending';
 
 export interface BookingsProps {
+  listingId: string | undefined;
   bookings: Booking[];
   listing: Listing;
   processedBookings: number[];
@@ -35,11 +36,16 @@ export const BookingsPage: React.FC = () => {
     const fetchData = async () => {
       try {
         const bookingsData = await getBookings(authToken);
-        setBookings(bookingsData.bookings.filter(
-          booking => booking.listingId === parsedId
-        ));
 
         const listingData = await getListing(authToken, parsedId);
+        console.log(listingData);
+        console.log(listing);
+        console.log(parsedId);
+        console.log(typeof bookingsData, bookingsData);
+        console.log(typeof bookingsData.bookings[0], bookingsData.bookings[0]);
+        setBookings(bookingsData.bookings.filter(
+          booking => booking.listingId === listingId
+        ));
         setListing(listingData);
       } catch (error) {
         console.log(error);
@@ -64,6 +70,7 @@ export const BookingsPage: React.FC = () => {
     <div style={contentContainer}>
       <div style={formContentDiv}>
         <BookingsHeader
+          listingId={listingId}
           bookings={bookings}
           listing={listing}
           processedBookings={processedBookings}
@@ -71,6 +78,7 @@ export const BookingsPage: React.FC = () => {
           handleBookingStatusChange={handleBookingStatusChange}
         />
         <BookingsPending
+          listingId={listingId}
           bookings={bookings}
           listing={listing}
           processedBookings={processedBookings}
@@ -78,6 +86,7 @@ export const BookingsPage: React.FC = () => {
           handleBookingStatusChange={handleBookingStatusChange}
         />
         <BookingsHistory
+          listingId={listingId}
           bookings={bookings}
           listing={listing}
           processedBookings={processedBookings}

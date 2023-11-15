@@ -4,13 +4,15 @@ import { BookingsProps } from '../../pages/BookingsPage';
 import { handleBooking } from '../../helpers/bookingsApiHelper';
 
 const BookingsPending: React.FC<BookingsProps> = ({
+  listingId,
   bookings,
   listing,
   processedBookings,
   setProcessedBookings,
   handleBookingStatusChange
 }) => {
-  console.log(listing.id);
+  console.log(listing.title);
+  console.log(listingId);
   const { authToken } = useContext(AuthContext);
 
   const pendingBookings = bookings.filter(

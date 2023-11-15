@@ -3,6 +3,7 @@ import { BookingsProps } from '../../pages/BookingsPage';
 
 // All accepted/denied bookings
 const BookingsHistory: React.FC<BookingsProps> = ({
+  listingId,
   bookings,
   listing,
 }) => {
@@ -10,7 +11,10 @@ const BookingsHistory: React.FC<BookingsProps> = ({
     booking => booking.status === 'accepted' ||
     booking.status === 'denied'
   );
-  console.log(listing.id);
+  console.log(listing.title);
+  console.log(listingId);
+  console.log(historyBookings);
+  console.log(bookings);
 
   return <>
   {historyBookings.map((historyBooking) => (
