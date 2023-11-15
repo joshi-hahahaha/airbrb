@@ -18,7 +18,7 @@ export const makeBookingRequest = async (
 ) => {
   const path: string = `/bookings/new/${listingId}`;
   const method: HttpMethod = 'POST';
-  const body: BookingReq = bookingReqObj;
+  const body: BookingReq = { ...bookingReqObj };
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
