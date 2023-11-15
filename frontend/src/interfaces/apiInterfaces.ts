@@ -1,3 +1,4 @@
+import { DateRange } from './bookingsInterfaces';
 import { Address, Availability, Metadata, Review } from './listingInterfaces';
 
 export interface ApiBody {
@@ -18,6 +19,10 @@ export interface ApiBody {
   availability?: Availability[];
   published?: boolean;
   postedOn?: Date;
+
+  // Bookings
+  dateRange?: DateRange;
+  totalPrice?: number;
 }
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
