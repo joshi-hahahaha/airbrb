@@ -8,6 +8,7 @@ import AuthContext from '../contexts/AuthContext';
 import { Booking } from '../interfaces/bookingsInterfaces';
 import { Listing } from '../interfaces/listingInterfaces';
 import { getListing } from '../helpers/listingApiHelpers';
+import BookingsHistory from '../components/bookingsPage/bookingsHistory';
 
 export interface BookingsProps {
   bookings: Booking[];
@@ -46,6 +47,7 @@ export const BookingsPage: React.FC = () => {
     <div style={contentContainer}>
       <div style={formContentDiv}>
         <BookingsHeader bookings={bookings} listing={listing} />
+        <BookingsHistory bookings={bookings} listing={listing} />
       </div>
     </div>
   </div>

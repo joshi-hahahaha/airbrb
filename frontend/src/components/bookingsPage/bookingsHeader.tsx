@@ -1,9 +1,11 @@
 import React from 'react';
 import { BookingsProps } from '../../pages/BookingsPage';
+import { Booking } from '../../interfaces/bookingsInterfaces';
 
 const BookingsHeader: React.FC<BookingsProps> = ({ bookings, listing }) => {
-  const calculateOnlineDuration = (postedOn: string): string => {
-    const start = new Date(postedOn);
+  // The duration of the listing been online
+  const calculatedOnlineDuration = (startDate: string): string => {
+    const start = new Date(startDate);
     const today = new Date();
 
     // can be negative values
@@ -33,12 +35,41 @@ const BookingsHeader: React.FC<BookingsProps> = ({ bookings, listing }) => {
     return result;
   }
 
+  const currentYearBookings = bookings.filter(
+    booking => booking.listingId === listing.id &&
+    new Date(booking.dateRange.startDate).getFullYear() === new Date().getFullYear()
+  );
+
+  // How many days this year has the listing been booked for
+  const daysThisYear = (bookings: Booking[]): number => {
+    let totalDays = 0;
+
+    for (const booking of bookings) {
+      const start = new Date(booking.dateRange.startDate);
+      const end = new Date(booking.dateRange.endDate);
+
+      const difference = Math.round(
+        (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
+      );
+
+      totalDays += difference;
+    }
+    return totalDays;
+  }
+
+  const days: number = daysThisYear(currentYearBookings);
+
+  // How much profit has this listing made the owner this year
+  const profit: number = listing.price * days;
+
   return <>
     <h1>{listing.title}</h1>
     {bookings}
     {listing.postedOn && (
-      <p>{calculateOnlineDuration(listing.postedOn)}</p>
+      <p>{calculatedOnlineDuration(listing.postedOn)}</p>
     )}
+    <p>{days}</p>
+    <p>{profit}</p>
   </>
 };
 
