@@ -6,22 +6,33 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 import { Box, Button, Typography } from '@mui/material';
 import AuthContext from '../../contexts/AuthContext';
+import {
+  BookingReq,
+  makeBookingRequest,
+} from '../../helpers/makeBookingHelpers';
+import { DateRange } from '../../interfaces/bookingsInterfaces';
 
-interface DateRange {
+interface DateRangeForm {
   startDate: Date | null;
   endDate: Date | null;
 }
 
-export const ListingReserveForm: React.FC<ListingHeaderProps> = ({
+interface ListingReserveFormProps extends ListingHeaderProps {
+  listingId: number;
+}
+
+export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
   listing,
+  listingId,
 }) => {
   const { authToken } = useContext(AuthContext);
-  console.log(authToken);
+  console.log(listingId);
+  console.log(typeof listingId);
 
   const today = new Date();
   const tomorrow = new Date(today.getDate() + 1);
 
-  const [dateRange, setDateRange] = useState<DateRange>({
+  const [dateRange, setDateRange] = useState<DateRangeForm>({
     startDate: today,
     endDate: tomorrow,
   });
@@ -36,6 +47,18 @@ export const ListingReserveForm: React.FC<ListingHeaderProps> = ({
 
   const handleSubmit = () => {
     console.log(dateRange);
+
+    if (dateRange.startDate && dateRange.endDate) {
+      const dateRangeObj: DateRange = {
+        startDate: dateRange.startDate.toISOString(),
+        endDate: dateRange.endDate.toISOString(),
+      };
+      const bookingReqObj: BookingReq = {
+        dateRange: dateRangeObj,
+        totalPrice: listing.price,
+      };
+      makeBookingRequest(authToken, bookingReqObj, listingId);
+    }
   };
 
   return (

@@ -4,7 +4,6 @@ import { calcRating } from '../../helpers/reviewsHelper';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 
 export const ListingHeader: React.FC<ListingHeaderProps> = ({ listing }) => {
-  console.log(listing);
   return (
     <div>
       <div>

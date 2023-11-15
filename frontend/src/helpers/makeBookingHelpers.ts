@@ -6,7 +6,7 @@ interface BookingRes {
   bookingId: number;
 }
 
-interface BookingReq {
+export interface BookingReq {
   dateRange: DateRange;
   totalPrice: number;
 }
@@ -15,7 +15,7 @@ export const makeBookingRequest = async (
   authToken: string | null,
   bookingReqObj: BookingReq,
   listingId: number | undefined
-): Promise<BookingRes> => {
+) => {
   const path: string = `/bookings/new/${listingId}`;
   const method: HttpMethod = 'POST';
   const body: BookingReq = bookingReqObj;

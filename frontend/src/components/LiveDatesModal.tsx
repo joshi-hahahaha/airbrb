@@ -1,7 +1,14 @@
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useState, useContext } from 'react';
-import { Box, Modal, Button, Stack, Typography, IconButton } from '@mui/material';
+import {
+  Box,
+  Modal,
+  Button,
+  Stack,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { addAvailability } from '../helpers/listingApiHelpers';
 import AuthContext from '../contexts/AuthContext';
@@ -21,7 +28,7 @@ interface DateRange {
 const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
   open,
   onClose,
-  listingId
+  listingId,
 }: LiveDatesModalProps) => {
   const { authToken } = useContext(AuthContext);
 
@@ -30,7 +37,11 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
   const [dateRanges, setDateRanges] = useState<DateRange[]>(initialDateRanges);
   const today = new Date();
 
-  const handleDateChange = (index: number, field: 'startDate' | 'endDate', date: Date | null) => {
+  const handleDateChange = (
+    index: number,
+    field: 'startDate' | 'endDate',
+    date: Date | null
+  ) => {
     const newDateRanges = [...dateRanges];
     newDateRanges[index][field] = date;
     setDateRanges(newDateRanges);
@@ -45,14 +56,14 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
 
   const handleSubmit = () => {
     const formatDates = dateRanges
-      .filter(range => range.startDate && range.endDate)
-      .map(range => ({
+      .filter((range) => range.startDate && range.endDate)
+      .map((range) => ({
         startDate: range.startDate!.toISOString().split('T')[0],
-        endDate: range.endDate!.toISOString().split('T')[0]
+        endDate: range.endDate!.toISOString().split('T')[0],
       }));
 
     const body: AvailabilityAdd = {
-      availability: formatDates
+      availability: formatDates,
     };
 
     if (typeof listingId === 'undefined') {
@@ -103,18 +114,24 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             {dateRanges.map((range, index) => (
               <Stack key={index} spacing={2} sx={{ mb: 2 }}>
-                <Typography variant="subtitle1">Available Dates {index + 1}</Typography>
+                <Typography variant='subtitle1'>
+                  Available Dates {index + 1}
+                </Typography>
                 <div>
                   <DatePicker
-                    label="Start Date"
+                    label='Start Date'
                     value={range.startDate}
-                    onChange={(date) => handleDateChange(index, 'startDate', date)}
+                    onChange={(date) =>
+                      handleDateChange(index, 'startDate', date)
+                    }
                     minDate={today}
                   />
                   <DatePicker
-                    label="End Date"
+                    label='End Date'
                     value={range.endDate}
-                    onChange={(date) => handleDateChange(index, 'endDate', date)}
+                    onChange={(date) =>
+                      handleDateChange(index, 'endDate', date)
+                    }
                     minDate={range.startDate || undefined}
                   />
                 </div>
@@ -122,9 +139,9 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
             ))}
           </LocalizationProvider>
           {dateRanges.length < 3 && (
-          <IconButton onClick={handleAddDateRange} sx={{ mb: 2 }}>
-          <AddIcon />
-        </IconButton>
+            <IconButton onClick={handleAddDateRange} sx={{ mb: 2 }}>
+              <AddIcon />
+            </IconButton>
           )}
           <Button
             type='submit'

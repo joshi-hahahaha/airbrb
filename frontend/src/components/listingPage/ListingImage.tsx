@@ -9,8 +9,6 @@ import { Button } from '@mui/material';
 import CollectionsIcon from '@mui/icons-material/Collections';
 
 export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
-  console.log(listing);
-
   const firstFourPhotos = listing.metadata
     ? listing.metadata.photos.slice(0, 4)
     : [];

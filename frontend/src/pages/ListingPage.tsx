@@ -38,7 +38,7 @@ export const ListingPage: React.FC = () => {
   useEffect(() => console.log(listing), [listing]);
 
   /* eslint-disable-next-line multiline-ternary */
-  return listing ? (
+  return listing && parsedId ? (
     <div style={page}>
       <div style={contentContainer}>
         <div style={{ ...infoContainer, marginTop: '20px' }}>
@@ -46,7 +46,7 @@ export const ListingPage: React.FC = () => {
           <ListingImage listing={listing} />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <ListingAmmenities listing={listing} />
-            <ListingReserveForm listing={listing} />
+            <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
         </div>
       </div>
