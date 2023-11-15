@@ -41,7 +41,7 @@ export const ListingPage: React.FC = () => {
   return listing ? (
     <div style={page}>
       <div style={contentContainer}>
-        <div style={infoContainer}>
+        <div style={{ ...infoContainer, marginTop: '20px' }}>
           <ListingHeader listing={listing} />
           <ListingImage listing={listing} />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

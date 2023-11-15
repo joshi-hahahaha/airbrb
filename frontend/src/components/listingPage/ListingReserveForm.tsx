@@ -4,7 +4,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { ListingHeaderProps } from '../../pages/ListingPage';
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import AuthContext from '../../contexts/AuthContext';
 
 // interface DateRange {
@@ -24,7 +24,7 @@ export const ListingReserveForm: React.FC<ListingHeaderProps> = ({
 
   return (
     <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end' }}>
-      <Box sx={{ width: '90%', boxShadow: 3, borderRadius: '25px', p: '10px' }}>
+      <Box sx={{ width: '90%', boxShadow: 3, borderRadius: '25px', p: '15px' }}>
         <div style={{ width: '100%' }}>
           <Typography
             variant='h6'
@@ -40,17 +40,21 @@ export const ListingReserveForm: React.FC<ListingHeaderProps> = ({
               label='Start Date'
               value={today}
               minDate={today}
-              sx={{ width: '100%', mt: '5px', mb: '5px' }}
+              sx={{ width: '100%', my: '10px' }}
             />
             <DatePicker
               label='End Date'
               value={tomorrow}
               minDate={today}
-              sx={{ width: '100%', mt: '5px', mb: '5px' }}
+              sx={{ width: '100%', my: '10px' }}
             />
           </LocalizationProvider>
         </div>
-        <div>button</div>
+        <div style={{ width: '100%', margin: '10px 0' }}>
+          <Button variant='contained' fullWidth>
+            Make Booking
+          </Button>
+        </div>
       </Box>
     </div>
   );

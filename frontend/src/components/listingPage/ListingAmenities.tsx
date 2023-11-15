@@ -7,7 +7,7 @@ export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
   listing,
 }) => {
   return (
-    <div style={{ width: '60%' }}>
+    <div style={{ width: '50%' }}>
       <div>
         <Typography
           variant='h6'
