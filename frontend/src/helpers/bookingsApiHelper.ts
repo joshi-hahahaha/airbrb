@@ -2,7 +2,7 @@ import {
   ApiResponse,
 } from '../interfaces/apiInterfaces';
 import { apiCall } from './apiHelper';
-import { BookingsRes } from '../interfaces/bookingsInterfaces';
+import { BookingsRes, HandleBookingRes } from '../interfaces/bookingsInterfaces';
 
 export const getBookings = async (
   authToken: string | null
@@ -26,4 +26,26 @@ export const getBookings = async (
   }
 
   return { bookings: [] };
+}
+
+export const handleBooking = async (
+  authToken: string | null,
+  bookingId: number,
+  response: string
+) => {
+  const token: string | null = authToken;
+
+  const res: ApiResponse<HandleBookingRes> = await apiCall<BookingsRes>(
+    `/bookings/${response}/${bookingId}`,
+    'PUT',
+    null,
+    token,
+    undefined
+  );
+
+  if (res.error) {
+    console.log(res.error);
+  } else if (res.data) {
+    return res.data;
+  }
 }

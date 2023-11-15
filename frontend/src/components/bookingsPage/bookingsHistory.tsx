@@ -11,14 +11,14 @@ const BookingsHistory: React.FC<BookingsProps> = ({ bookings, listing }) => {
   );
 
   return <>
-  {historyBookings.map((booking) => (
-    <div key={booking.id}>
-      {booking.dateRange.startDate}
-      {booking.dateRange.endDate}
-      {booking.status === 'accepted' && (
-        <div className="totalPrice">Total Price: {booking.totalPrice}</div>
+  {historyBookings.map((historyBooking) => (
+    <div key={historyBooking.id}>
+      {historyBooking.dateRange.startDate}
+      {historyBooking.dateRange.endDate}
+      {historyBooking.status === 'accepted' && (
+        <div className="totalPrice">Total Price: {historyBooking.totalPrice}</div>
       )}
-      {booking.status}
+      {historyBooking.status}
     </div>
   ))}
   </>

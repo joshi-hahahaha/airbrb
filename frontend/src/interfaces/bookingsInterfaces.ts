@@ -9,9 +9,11 @@ export interface Booking {
   dateRange: DateRange;
   totalPrice: number;
   listingId: number;
-  status: string;
+  status: 'accepted' | 'denied' | 'pending';
 }
 
 export interface BookingsRes {
   bookings: Booking[];
 }
+
+export interface HandleBookingRes {}
