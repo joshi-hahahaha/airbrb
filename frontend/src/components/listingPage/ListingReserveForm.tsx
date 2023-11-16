@@ -26,14 +26,12 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
   listingId,
 }) => {
   const { authToken } = useContext(AuthContext);
-  console.log(listingId);
-  console.log(typeof listingId);
 
   const today = new Date();
 
   const [dateRange, setDateRange] = useState<DateRangeForm>({
     startDate: today,
-    endDate: today
+    endDate: today,
   });
 
   const handleDateChange = (
@@ -84,7 +82,11 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
             <DatePicker
               label='End Date'
               value={dateRange.endDate}
-              minDate={dateRange.startDate ? new Date(dateRange.startDate.getTime() + 86400000) : today}
+              minDate={
+                dateRange.startDate
+                  ? new Date(dateRange.startDate.getTime() + 86400000)
+                  : today
+              }
               onChange={(date) => handleDateChange('endDate', date)}
               sx={{ width: '100%', my: '10px' }}
             />

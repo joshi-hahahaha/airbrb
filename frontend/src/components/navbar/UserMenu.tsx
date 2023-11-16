@@ -16,12 +16,13 @@ import {
   MenuItem,
   Tooltip,
 } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 
 export const UserMenu = () => {
-  const { authToken, logout } = useContext(AuthContext);
+  const { authToken, email, logout } = useContext(AuthContext);
 
   // anchor Element
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -105,6 +106,13 @@ export const UserMenu = () => {
         {/* eslint-disable */}
         {authToken ? (
           <div>
+            <MenuItem>
+              <ListItemIcon>
+                <PersonIcon fontSize='small' />
+              </ListItemIcon>
+              {email}
+            </MenuItem>
+            <Divider />
             <MenuItem onClick={logout}>
               <ListItemIcon>
                 <Logout fontSize='small' />
