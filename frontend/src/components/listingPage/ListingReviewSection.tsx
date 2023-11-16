@@ -23,12 +23,16 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
         const data = await getBookings(authToken);
         if (data !== undefined) {
           const filteredBookings = data.bookings.filter(
-            (booking) => booking.listingId === String(listingId)
+            (booking) =>
+              booking.listingId === String(listingId) &&
+              booking.status === 'accepted'
           );
 
           const userBooking = filteredBookings.find(
             (booking) => booking.owner === email
           );
+
+          console.log(filteredBookings);
 
           userBooking ? setBookingId(userBooking.id) : setBookingId(0);
         }
