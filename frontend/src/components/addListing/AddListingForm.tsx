@@ -41,6 +41,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import theme from '../../assets/theme';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 import { CustomError } from '../../classes/CustomError';
+import { useNavigate } from 'react-router-dom';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -195,6 +196,8 @@ export const AddListingForm = () => {
     setAlertData({ message, severity, show });
   };
 
+  const navigate = useNavigate();
+
   // Form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -206,6 +209,8 @@ export const AddListingForm = () => {
       }
 
       await addListing(authToken, formData);
+      handleAlert('Success', 'success', true);
+      navigate('/my-listings');
     } catch (error) {
       if (error instanceof CustomError) {
         handleAlert(error.message, 'error', true);
