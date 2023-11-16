@@ -1,14 +1,16 @@
 import React from 'react';
-import { Box, Fade, Modal, Typography } from '@mui/material';
+import { Box, Fade, ImageList, ImageListItem, Modal } from '@mui/material';
 
 interface LiveDatesModalProps {
   open: boolean;
   onClose: () => void;
+  photos: string[] | undefined;
 }
 
 export const ImageListModal: React.FC<LiveDatesModalProps> = ({
   open,
   onClose,
+  photos,
 }) => {
   return (
     <div>
@@ -20,18 +22,31 @@ export const ImageListModal: React.FC<LiveDatesModalProps> = ({
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: 500,
+              height: '80%',
+              width: '60%',
               bgcolor: 'background.paper',
               boxShadow: 24,
               p: 4,
+              borderRadius: '10px',
+              overflowY: 'auto',
             }}
           >
-            <Typography id='transition-modal-title' variant='h6' component='h2'>
-              Text in a modal
-            </Typography>
-            <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <ImageList
+              sx={{ width: '100%', height: '100%' }}
+              cols={3}
+              rowHeight={164}
+            >
+              {/* eslint-disable-next-line multiline-ternary */}
+              {photos ? (
+                photos.map((photo, index) => (
+                  <ImageListItem key={index}>
+                    <img src={photo} loading='lazy' />
+                  </ImageListItem>
+                ))
+              ) : (
+                <>No photos...</>
+              )}
+            </ImageList>
           </Box>
         </Fade>
       </Modal>

@@ -49,7 +49,11 @@ export const ListingPage: React.FC = () => {
   return listing && parsedId ? (
     <div style={page}>
       <div style={contentContainer}>
-        <ImageListModal open={imageListModalOpen} onClose={handleCloseModal} />
+        <ImageListModal
+          open={imageListModalOpen}
+          onClose={handleCloseModal}
+          photos={listing.metadata?.photos}
+        />
         <div style={{ ...infoContainer, marginTop: '20px' }}>
           <ListingHeader listing={listing} />
           <ListingImage
