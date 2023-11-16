@@ -88,7 +88,13 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
         handleAlert('Your booking request has been made.', 'success', true);
       } catch (error) {
         if (error instanceof CustomError) {
-          handleAlert(error.message, 'error', true);
+          if (error.message === 'Invalid Token') {
+            handleAlert(
+              'Please Login or Sign Up to make a booking.',
+              'error',
+              true
+            );
+          }
         }
       }
     } else if (dateRange.startDate === dateRange.endDate) {
