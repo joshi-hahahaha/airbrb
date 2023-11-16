@@ -6,9 +6,7 @@ import AuthContext from '../contexts/AuthContext';
 /**
  * Get a list of bookings given a listingId
  */
-export const getBookingsForListingId = async (
-  listingId: number
-): Promise<Booking[]> => {
+export const getBookingsForListingId = async (listingId: number) => {
   const { authToken } = useContext(AuthContext);
   const bookings: Booking[] = (await getBookings(authToken)).bookings;
 

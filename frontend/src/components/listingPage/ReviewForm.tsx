@@ -14,9 +14,13 @@ import { CustomError } from '../../classes/CustomError';
 
 interface ListingReviewFormProps {
   listingId: number;
+  bookingId: number;
 }
 
-export const ReviewForm: React.FC<ListingReviewFormProps> = ({ listingId }) => {
+export const ReviewForm: React.FC<ListingReviewFormProps> = ({
+  listingId,
+  bookingId,
+}) => {
   const [reviewMsg, setReviewMsg] = useState<string>('');
   const [ratingValue, setRatingValue] = useState<number>(0);
   const { authToken } = useContext(AuthContext);
@@ -45,10 +49,8 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({ listingId }) => {
       },
     };
 
-    console.log(reviewObj);
-    // Change 4th param to bookingid
     try {
-      await makeReview(authToken, reviewObj, listingId, listingId);
+      await makeReview(authToken, reviewObj, listingId, bookingId);
     } catch (error) {
       if (error instanceof CustomError) {
         handleAlert(error.message, 'error', true);
