@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -54,6 +54,25 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
     setDateRange(newDateRange);
   };
 
+  const [totalPrice, setTotalPrice] = useState<number>(listing.price);
+  const [numNights, setNumNights] = useState<number>(1);
+  const calcNights = () => {
+    if (dateRange.startDate && dateRange.endDate) {
+      const oneDay = 24 * 60 * 60 * 1000;
+      const numNights: number = Math.round(
+        dateRange.endDate.getTime() / oneDay -
+          dateRange.startDate.getTime() / oneDay
+      );
+      return numNights === 0 ? 1 : numNights;
+    }
+    return 1;
+  };
+
+  useEffect(() => {
+    setNumNights(calcNights());
+    setTotalPrice(listing.price * calcNights());
+  }, [dateRange]);
+
   const handleSubmit = async () => {
     if (dateRange.startDate && dateRange.endDate) {
       const dateRangeObj: DateRange = {
@@ -62,7 +81,7 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
       };
       const bookingReqObj: BookingReq = {
         dateRange: dateRangeObj,
-        totalPrice: listing.price,
+        totalPrice: totalPrice,
       };
       try {
         await makeBookingRequest(authToken, bookingReqObj, listingId);
@@ -80,13 +99,23 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
   return (
     <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end' }}>
       <Box sx={{ width: '90%', boxShadow: 3, borderRadius: '25px', p: '15px' }}>
-        <div style={{ width: '100%' }}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography
             variant='h6'
             style={{ fontFamily: 'Samsung-Regular' }}
             gutterBottom
           >
-            {`$${listing.price} per night`}
+            {`$${totalPrice} for ${numNights}🌙`}
+          </Typography>
+          <Typography variant='body1' gutterBottom>
+            {`($${listing.price}/night)`}
           </Typography>
         </div>
         <div style={{ width: '100%' }}>
