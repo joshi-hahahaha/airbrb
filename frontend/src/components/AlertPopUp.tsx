@@ -41,7 +41,6 @@ export const AlertPopUp: React.FC<
               <CloseIcon fontSize='inherit' />
             </IconButton>
           }
-          sx={{ mb: 2 }}
         >
           {message}
         </Alert>

@@ -36,7 +36,8 @@ export const ListingReviewSection: React.FC<ListingHeaderProps> = ({
     { rating: 3.5, reviewMsg: 'third' },
     { rating: 1.0, reviewMsg: 'first' },
   ];
-  return (
+  /* eslint-disable-next-line multiline-ternary */
+  return listing ? (
     <div style={{ width: '100%' }}>
       <Typography
         variant='h6'
@@ -61,7 +62,9 @@ export const ListingReviewSection: React.FC<ListingHeaderProps> = ({
           <></>
         )}
       </div>
-      <ReviewForm />
+      <ReviewForm listingId={listing.id ? listing.id : 0} />
     </div>
+  ) : (
+    <></>
   );
 };

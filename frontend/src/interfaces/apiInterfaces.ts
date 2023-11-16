@@ -23,6 +23,8 @@ export interface ApiBody {
   // Bookings
   dateRange?: DateRange;
   totalPrice?: number;
+
+  review?: Review;
 }
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
