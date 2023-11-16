@@ -10,6 +10,7 @@ import { ListingAmmenities } from '../components/listingPage/ListingAmenities';
 import { ListingReserveForm } from '../components/listingPage/ListingReserveForm';
 import { ListingReviewSection } from '../components/listingPage/ListingReviewSection';
 import { ImageListModal } from '../components/listingPage/ImageListModal';
+import { ListingBookingSection } from '../components/listingPage/ListingBookingSection';
 
 export interface ListingHeaderProps {
   listing: Listing;
@@ -22,10 +23,6 @@ export const ListingPage: React.FC = () => {
   const parsedId: number = parseInt(listingId ?? '0', 10);
 
   const [imageListModalOpen, setImageListModalOpen] = useState<boolean>(false);
-
-  // const handleOpenModal = () => {
-  //   setImageListModalOpen(true);
-  // };
 
   const handleCloseModal = () => {
     setImageListModalOpen(false);
@@ -60,10 +57,17 @@ export const ListingPage: React.FC = () => {
             listing={listing}
             openModal={() => setImageListModalOpen(true)}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '20px',
+            }}
+          >
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
+          <ListingBookingSection listingId={parsedId} />
           <ListingReviewSection listing={listing} listingId={parsedId} />
         </div>
       </div>
