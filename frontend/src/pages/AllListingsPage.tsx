@@ -4,9 +4,25 @@ import { getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 import AuthContext from '../contexts/AuthContext';
+import { CustomError } from '../classes/CustomError';
+import {
+  AlertPopUp,
+  AlertPopUpProps,
+  Severity,
+} from '../components/AlertPopUp';
 
 export const AllListingsPage: React.FC = () => {
   const { authToken } = useContext(AuthContext);
+
+  const [alertData, setAlertData] = useState<AlertPopUpProps>({
+    show: false,
+    message: '',
+    severity: 'error',
+  });
+
+  const handleAlert = (message: string, severity: Severity, show: boolean) => {
+    setAlertData({ message, severity, show });
+  };
 
   const [listings, setListings] = useState<Listing[]>([]);
   useEffect(() => {
@@ -14,9 +30,10 @@ export const AllListingsPage: React.FC = () => {
       try {
         const data = await getListings(authToken);
         setListings(data.listings);
-        console.log(data);
       } catch (error) {
-        console.error('Error fetching listings:', error);
+        if (error instanceof CustomError) {
+          handleAlert(error.message, 'error', true);
+        }
       }
     };
 
@@ -25,6 +42,12 @@ export const AllListingsPage: React.FC = () => {
 
   return (
     <div style={page}>
+      <AlertPopUp
+        message={alertData.message}
+        severity={alertData.severity}
+        show={alertData.show}
+        onAlertClose={() => handleAlert('', 'error', false)}
+      />
       <div style={contentContainer}>
         <div style={listingContainer}>
           {listings.map((listing) => (

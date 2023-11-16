@@ -39,6 +39,9 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import theme from '../../assets/theme';
+import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
+import { CustomError } from '../../classes/CustomError';
+import { useNavigate } from 'react-router-dom';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -183,16 +186,36 @@ export const AddListingForm = () => {
     });
   };
 
+  const [alertData, setAlertData] = useState<AlertPopUpProps>({
+    show: false,
+    message: '',
+    severity: 'error',
+  });
+
+  const handleAlert = (message: string, severity: Severity, show: boolean) => {
+    setAlertData({ message, severity, show });
+  };
+
+  const navigate = useNavigate();
+
   // Form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!formData.thumbnail) {
-      console.log('must upload thumbnail');
-      return;
-    }
+    try {
+      if (!formData.thumbnail) {
+        handleAlert('Thumbnail is missing. Please add one.', 'error', true);
+        return;
+      }
 
-    addListing(authToken, formData);
+      await addListing(authToken, formData);
+      handleAlert('Success', 'success', true);
+      navigate('/my-listings');
+    } catch (error) {
+      if (error instanceof CustomError) {
+        handleAlert(error.message, 'error', true);
+      }
+    }
   };
 
   return (
@@ -408,6 +431,12 @@ export const AddListingForm = () => {
           <Button type='submit' variant='contained' sx={{ mt: 3, mb: 2 }}>
             Create
           </Button>
+          <AlertPopUp
+            message={alertData.message}
+            severity={alertData.severity}
+            show={alertData.show}
+            onAlertClose={() => handleAlert('', 'error', false)}
+          />
         </div>
         <div style={imageFormContainer}>
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
