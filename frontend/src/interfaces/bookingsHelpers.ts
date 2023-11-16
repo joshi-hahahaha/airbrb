@@ -1,17 +1,20 @@
 import { useContext } from 'react';
 import { getBookings } from '../helpers/bookingsApiHelper';
-import { Booking, BookingsRes } from './bookingsInterfaces';
+import { Booking } from './bookingsInterfaces';
 import AuthContext from '../contexts/AuthContext';
 
 /**
  * Get a list of bookings given a listingId
  */
-export const getBookingsForListingId = (listingId: number): Booking[] => {
+export const getBookingsForListingId = async (
+  listingId: number
+): Promise<Booking[]> => {
   const { authToken } = useContext(AuthContext);
-  const bookings: Promise<BookingsRes> = getBookings(authToken);
+  const bookings: Booking[] = (await getBookings(authToken)).bookings;
 
-  console.log(bookings);
-  console.log(listingId);
+  const filteredBookings = bookings.filter(
+    (booking) => booking.listingId === String(listingId)
+  );
 
-  return [];
+  return filteredBookings;
 };
