@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { BookingsProps } from '../../pages/BookingsPage';
 import { handleBooking } from '../../helpers/bookingsApiHelper';
+import { Paper, Typography, Button, Box } from '@mui/material';
 
 const BookingsPending: React.FC<BookingsProps> = ({
   listingId,
@@ -15,13 +16,15 @@ const BookingsPending: React.FC<BookingsProps> = ({
   console.log(listingId);
   const { authToken } = useContext(AuthContext);
 
+  const formattedDate = (date: string) => {
+    return date.split('T')[0];
+  }
+
   const pendingBookings = bookings.filter(
     booking => booking.status === 'pending'
   );
   // On this screen, a list of booking requests are provided for the listing they
   // are viewing. For each booking request, the host is able to accept/deny it.
-
-  // const [accept, setAccept] = useState<boolean>();
 
   // handle accept/decline
   const handleRequest = async (bookingId: number, response: string) => {
@@ -42,19 +45,39 @@ const BookingsPending: React.FC<BookingsProps> = ({
     }
     return (
       <div key={pendingBooking.id}>
-        {pendingBooking.dateRange.startDate}
-        {pendingBooking.dateRange.endDate}
-        {pendingBooking.totalPrice}
-        <button
-          onClick={() => handleRequest(pendingBooking.id, 'accept')}
-        >
-          Accept
-        </button>
-        <button
-          onClick={() => handleRequest(pendingBooking.id, 'decline')}
-        >
-          Decline
-        </button>
+        <Paper elevation={3} sx={{ padding: 2, marginY: 3 }}>
+          <Typography variant='h6'>{pendingBooking.owner} wants a stay</Typography>
+          <Box display='flex' justifyContent='space-between' alignItems='center'>
+            <Box display='flex' justifyContent='space-between' alignItems='center'>
+              <Typography variant='body1' marginRight={2}>
+                From {formattedDate(pendingBooking.dateRange.startDate)}
+              </Typography>
+              <Typography variant='body1' marginRight={2}>
+                To {formattedDate(pendingBooking.dateRange.endDate)}
+              </Typography>
+              <Typography variant='body1'>
+                {`You'll make: $${pendingBooking.totalPrice} in total.`}
+              </Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between' alignItems='center'>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={() => handleRequest(pendingBooking.id, 'accept')}
+                sx={{ marginRight: 1 }}
+              >
+                Accept
+              </Button>
+              <Button
+                variant='outlined'
+                color='secondary'
+                onClick={() => handleRequest(pendingBooking.id, 'decline')}
+              >
+                Decline
+              </Button>
+            </Box>
+          </Box>
+        </Paper>
       </div>
     );
   })}
