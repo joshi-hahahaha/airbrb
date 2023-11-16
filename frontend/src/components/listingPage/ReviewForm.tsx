@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   TextareaAutosize,
   Button,
@@ -8,10 +8,18 @@ import {
   Divider,
 } from '@mui/material';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
+import { ReviewReqObj, makeReview } from '../../helpers/reviewApiHelpers';
+import AuthContext from '../../contexts/AuthContext';
+import { CustomError } from '../../classes/CustomError';
 
-export const ReviewForm: React.FC = () => {
+interface ListingReviewFormProps {
+  listingId: number;
+}
+
+export const ReviewForm: React.FC<ListingReviewFormProps> = ({ listingId }) => {
   const [reviewMsg, setReviewMsg] = useState<string>('');
   const [ratingValue, setRatingValue] = useState<number>(0);
+  const { authToken } = useContext(AuthContext);
 
   const handleReviewMsgChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
@@ -23,14 +31,29 @@ export const ReviewForm: React.FC = () => {
     if (newValue !== null) setRatingValue(newValue);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (reviewMsg === '') {
       handleAlert('Review was empty. Please make a review.', 'error', true);
     } else if (ratingValue === null) {
       handleAlert('Invalid rating. Please give a rating.', 'error', true);
     }
-    console.log('Review:', reviewMsg);
-    console.log('Rating:', ratingValue);
+
+    const reviewObj: ReviewReqObj = {
+      review: {
+        reviewMsg: reviewMsg,
+        rating: ratingValue,
+      },
+    };
+
+    console.log(reviewObj);
+    // Change 4th param to bookingid
+    try {
+      await makeReview(authToken, reviewObj, listingId, listingId);
+    } catch (error) {
+      if (error instanceof CustomError) {
+        handleAlert(error.message, 'error', true);
+      }
+    }
   };
 
   const [alertData, setAlertData] = useState<AlertPopUpProps>({

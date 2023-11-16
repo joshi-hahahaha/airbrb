@@ -5,19 +5,19 @@ import { apiCall } from './apiHelper';
 
 interface ReviewRes {}
 
-export interface reviewReqObj {
+export interface ReviewReqObj {
   review: Review;
 }
 
 export const makeReview = async (
   authToken: string | null,
-  reviewObj: reviewReqObj,
+  reviewObj: ReviewReqObj,
   listingId: number | undefined,
   bookingId: number | undefined
 ) => {
   const path: string = `/listings/${listingId}/review/${bookingId}`;
   const method: HttpMethod = 'PUT';
-  const body: reviewReqObj = { ...reviewObj };
+  const body: ReviewReqObj = { ...reviewObj };
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
