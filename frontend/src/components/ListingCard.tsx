@@ -136,73 +136,88 @@ export const ListingCard: React.FC<ListingCardProps> = ({
           <></>
         )}
 
-        <CardContent sx={{ fontFamily: 'Samsung-Light', display: 'flex' }}>
-          <div style={{ width: '85%' }}>
-            {/* Title */}
-            <Typography
-              sx={{ fontFamily: 'Samsung-Regular' }}
-              gutterBottom
-              variant='h6'
-              component='div'
-              overflow='hidden'
-              textOverflow='ellipsis'
-              whiteSpace='nowrap'
-            >
-              {props.title}
-            </Typography>
-
-            {/* Type + State, Country */}
-            <Typography gutterBottom variant='body1' component='div'>
-              {`${listing?.metadata?.propertyType} located in ${props.address.city}, ${props.address.country}`}
-            </Typography>
-
-            {/* No. of beds, bedrooms, bathrooms */}
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+        <CardContent
+          sx={{ fontFamily: 'Samsung-Light', display: 'flex', height: '160px' }}
+        >
+          <div
+            style={{
+              width: '85%',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div>
+              {/* Title */}
               <Typography
+                sx={{ fontFamily: 'Samsung-Regular' }}
                 gutterBottom
-                variant='body1'
+                variant='h5'
                 component='div'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  paddingRight: '4px',
-                }}
+                overflow='hidden'
+                textOverflow='ellipsis'
+                whiteSpace='nowrap'
               >
-                {`${listing?.metadata?.beds}`}
-                <BedIcon />
+                {props.title}
               </Typography>
-              <Typography
-                gutterBottom
-                variant='body1'
-                component='div'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  paddingRight: '4px',
-                }}
-              >
-                {`${listing?.metadata?.bedrooms}`}
-                <BedroomParentIcon />
+
+              {/* Type + State, Country */}
+              <Typography gutterBottom variant='body1' component='div'>
+                {`${listing?.metadata?.propertyType} located in ${props.address.city}, ${props.address.country}`}
               </Typography>
+
+              {/* No. of beds, bedrooms, bathrooms */}
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Typography
+                  gutterBottom
+                  variant='body1'
+                  component='div'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingRight: '4px',
+                  }}
+                >
+                  {`${listing?.metadata?.beds}`}
+                  <BedIcon />
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant='body1'
+                  component='div'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingRight: '4px',
+                  }}
+                >
+                  {`${listing?.metadata?.bedrooms}`}
+                  <BedroomParentIcon />
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant='body1'
+                  component='div'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingRight: '4px',
+                  }}
+                >
+                  {`${listing?.metadata?.bathrooms}`}
+                  <BathtubIcon />
+                </Typography>
+              </div>
+            </div>
+            <div>
+              {/* Price */}
               <Typography
-                gutterBottom
-                variant='body1'
-                component='div'
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  paddingRight: '4px',
-                }}
+                variant='h6'
+                style={{ fontFamily: 'Samsung-Regular' }}
               >
-                {`${listing?.metadata?.bathrooms}`}
-                <BathtubIcon />
+                ${props.price} / night
               </Typography>
             </div>
-
-            {/* Price */}
-            <Typography variant='body1' color='text.primary'>
-              ${props.price} / night
-            </Typography>
           </div>
 
           <div style={{ width: '15%' }}>
