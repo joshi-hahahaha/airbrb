@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { TextField, Button, Divider, Typography } from '@mui/material';
 import { LoginData, LoginRes } from '../../interfaces/loginInterfaces';
 import { apiCall } from '../../helpers/apiHelper';
@@ -32,10 +32,6 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
     setAlertData({ message, severity, show });
   };
 
-  useEffect(() => {
-    console.log(alertData);
-  });
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('Submitted login data:', formData);
@@ -59,12 +55,9 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
 
     if (res.error) {
       // Handle error res
-      console.log(res.error);
       handleAlert(res.error, 'error', true);
-      console.log(alertData);
     } else if (res.data) {
       // Handle successful res
-      console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('email', formData.email);
       setAuthToken(
@@ -121,6 +114,7 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
             message={alertData.message}
             severity={alertData.severity}
             show={alertData.show}
+            onAlertClose={() => handleAlert('', 'error', false)}
           />
         </>
       }

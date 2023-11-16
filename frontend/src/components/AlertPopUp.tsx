@@ -12,18 +12,19 @@ export interface AlertPopUpProps {
   severity: Severity;
   show: boolean;
 }
-
-export const AlertPopUp: React.FC<AlertPopUpProps> = ({
-  message,
-  severity,
-  show,
-}) => {
+export const AlertPopUp: React.FC<
+  AlertPopUpProps & { onAlertClose: () => void }
+> = ({ message, severity, show, onAlertClose }) => {
   const [open, setOpen] = React.useState<boolean>(show);
 
   React.useEffect(() => {
-    console.log(show);
     setOpen(show);
   }, [show]);
+
+  const handleClose = () => {
+    setOpen(false);
+    onAlertClose();
+  };
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -35,9 +36,7 @@ export const AlertPopUp: React.FC<AlertPopUpProps> = ({
               aria-label='close'
               color='inherit'
               size='small'
-              onClick={() => {
-                setOpen(false);
-              }}
+              onClick={handleClose}
             >
               <CloseIcon fontSize='inherit' />
             </IconButton>
