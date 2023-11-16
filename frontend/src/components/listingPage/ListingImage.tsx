@@ -15,11 +15,6 @@ export const ListingImage: React.FC<
     ? listing.metadata.photos.slice(0, 4)
     : [];
 
-  // const handleShowPhotos = () => {
-  //   console.log('show photos');
-  //   openModal;
-  // };
-
   return (
     <div style={containerStyle}>
       <div style={{ ...halfStyle, left: 0 }}>
