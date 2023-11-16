@@ -1,5 +1,12 @@
 import React from 'react';
-import { Box, Fade, ImageList, ImageListItem, Modal } from '@mui/material';
+import {
+  Box,
+  Button,
+  Fade,
+  ImageList,
+  ImageListItem,
+  Modal,
+} from '@mui/material';
 
 interface LiveDatesModalProps {
   open: boolean;
@@ -39,9 +46,11 @@ export const ImageListModal: React.FC<LiveDatesModalProps> = ({
               {/* eslint-disable-next-line multiline-ternary */}
               {photos ? (
                 photos.map((photo, index) => (
-                  <ImageListItem key={index}>
-                    <img src={photo} loading='lazy' />
-                  </ImageListItem>
+                  <Button key={index}>
+                    <ImageListItem key={index}>
+                      <img src={photo} loading='lazy' />
+                    </ImageListItem>
+                  </Button>
                 ))
               ) : (
                 <>No photos...</>
