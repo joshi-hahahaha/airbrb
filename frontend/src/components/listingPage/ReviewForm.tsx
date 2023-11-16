@@ -29,6 +29,7 @@ export const ReviewForm: React.FC = () => {
     } else if (ratingValue === null) {
       handleAlert('Invalid rating. Please give a rating.', 'error', true);
     }
+    console.log('Review:', reviewMsg);
     console.log('Rating:', ratingValue);
   };
 
