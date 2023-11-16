@@ -35,7 +35,6 @@ export const ImageListModal: React.FC<LiveDatesModalProps> = ({
               boxShadow: 24,
               p: 4,
               borderRadius: '10px',
-              overflowY: 'auto',
             }}
           >
             <ImageList
