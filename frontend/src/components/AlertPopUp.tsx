@@ -3,21 +3,27 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
-type Severity = 'error' | 'warning' | 'info' | 'success';
+export type Severity = 'error' | 'warning' | 'info' | 'success';
 
-interface AlertPopUpProps {
+export interface AlertPopUpProps {
   message: string;
   severity: Severity;
+  show: boolean;
 }
 
 export const AlertPopUp: React.FC<AlertPopUpProps> = ({
   message,
   severity,
+  show,
 }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState<boolean>(show);
+
+  React.useEffect(() => {
+    console.log(show);
+    setOpen(show);
+  }, [show]);
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -41,15 +47,6 @@ export const AlertPopUp: React.FC<AlertPopUpProps> = ({
           {message}
         </Alert>
       </Collapse>
-      <Button
-        disabled={open}
-        variant='outlined'
-        onClick={() => {
-          setOpen(true);
-        }}
-      >
-        Re-open
-      </Button>
     </Box>
   );
 };

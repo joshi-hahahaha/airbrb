@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { TextField, Button, Divider, Typography } from '@mui/material';
 import { LoginData, LoginRes } from '../../interfaces/loginInterfaces';
 import { apiCall } from '../../helpers/apiHelper';
@@ -6,6 +6,7 @@ import { BaseAuthModal, BaseAuthModalProps } from '../BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
+import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 
 const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -20,6 +21,20 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
+
+  const [alertData, setAlertData] = useState<AlertPopUpProps>({
+    show: false,
+    message: '',
+    severity: 'error',
+  });
+
+  const handleAlert = (message: string, severity: Severity, show: boolean) => {
+    setAlertData({ message, severity, show });
+  };
+
+  useEffect(() => {
+    console.log(alertData);
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +60,8 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
     if (res.error) {
       // Handle error res
       console.log(res.error);
+      handleAlert(res.error, 'error', true);
+      console.log(alertData);
     } else if (res.data) {
       // Handle successful res
       console.log(res.data.token);
@@ -100,6 +117,11 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
               {"Don't have an account?"}
             </Typography>
           </Link>
+          <AlertPopUp
+            message={alertData.message}
+            severity={alertData.severity}
+            show={alertData.show}
+          />
         </>
       }
     </BaseAuthModal>
