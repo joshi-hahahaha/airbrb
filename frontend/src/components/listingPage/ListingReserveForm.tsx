@@ -56,13 +56,20 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
 
   const handleSubmit = async () => {
     if (dateRange.startDate && dateRange.endDate) {
+      const oneDay = 24 * 60 * 60 * 1000;
+      const nightCount = Math.round(
+        Math.abs(
+          (dateRange.startDate.getTime() - dateRange.endDate.getTime()) / oneDay
+        )
+      );
+
       const dateRangeObj: DateRange = {
         startDate: dateRange.startDate.toISOString(),
         endDate: dateRange.endDate.toISOString(),
       };
       const bookingReqObj: BookingReq = {
         dateRange: dateRangeObj,
-        totalPrice: listing.price,
+        totalPrice: listing.price * nightCount,
       };
       try {
         await makeBookingRequest(authToken, bookingReqObj, listingId);
