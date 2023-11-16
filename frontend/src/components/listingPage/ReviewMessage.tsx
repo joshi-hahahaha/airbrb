@@ -17,6 +17,7 @@ export const ReviewMessage: React.FC<ReviewMessageProps> = ({ review }) => {
           width: '100%',
           display: 'flex',
           py: '10px',
+          my: '20px',
           borderRadius: '10px',
         }}
       >
