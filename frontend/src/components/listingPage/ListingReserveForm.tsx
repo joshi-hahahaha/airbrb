@@ -11,6 +11,8 @@ import {
   makeBookingRequest,
 } from '../../helpers/makeBookingHelpers';
 import { DateRange } from '../../interfaces/bookingsInterfaces';
+import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
+import { CustomError } from '../../classes/CustomError';
 
 interface DateRangeForm {
   startDate: Date | null;
@@ -27,6 +29,16 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
 }) => {
   const { authToken } = useContext(AuthContext);
 
+  const [alertData, setAlertData] = useState<AlertPopUpProps>({
+    show: false,
+    message: '',
+    severity: 'error',
+  });
+
+  const handleAlert = (message: string, severity: Severity, show: boolean) => {
+    setAlertData({ message, severity, show });
+  };
+
   const today = new Date();
 
   const [dateRange, setDateRange] = useState<DateRangeForm>({
@@ -42,7 +54,7 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
     setDateRange(newDateRange);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log(dateRange);
 
     if (dateRange.startDate && dateRange.endDate) {
@@ -54,7 +66,16 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
         dateRange: dateRangeObj,
         totalPrice: listing.price,
       };
-      makeBookingRequest(authToken, bookingReqObj, listingId);
+      try {
+        await makeBookingRequest(authToken, bookingReqObj, listingId);
+        handleAlert('Success', 'success', true);
+      } catch (error) {
+        if (error instanceof CustomError) {
+          handleAlert(error.message, 'error', true);
+        }
+      }
+    } else if (dateRange.startDate === dateRange.endDate) {
+      handleAlert('Start and end dates cannot be the same.', 'error', true);
     }
   };
 
@@ -97,6 +118,12 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
             Make Booking Request
           </Button>
         </div>
+        <AlertPopUp
+          message={alertData.message}
+          severity={alertData.severity}
+          show={alertData.show}
+          onAlertClose={() => handleAlert('', 'error', false)}
+        />
       </Box>
     </div>
   );

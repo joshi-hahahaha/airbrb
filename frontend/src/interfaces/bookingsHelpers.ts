@@ -16,5 +16,19 @@ export const getBookingsForListingId = async (
     (booking) => booking.listingId === String(listingId)
   );
 
+  console.log(getUserBookingForListing(filteredBookings));
+
   return filteredBookings;
+};
+
+/**
+ * Returns bookingId of booking made by user
+ */
+export const getUserBookingForListing = (
+  bookings: Booking[]
+): number | null => {
+  const { email } = useContext(AuthContext);
+  const userBooking = bookings.find((booking) => booking.owner === email);
+
+  return userBooking ? userBooking.id : null;
 };

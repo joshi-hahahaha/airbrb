@@ -1,3 +1,4 @@
+import { CustomError } from '../classes/CustomError';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import { DateRange } from '../interfaces/bookingsInterfaces';
 import { apiCall } from './apiHelper';
@@ -31,10 +32,10 @@ export const makeBookingRequest = async (
   );
 
   if (res.error) {
-    // console.log(res.error);
+    throw new CustomError(res.error);
   } else if (res.data && res.data) {
     return res.data;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new CustomError('Unexpected response.');
   }
 };
