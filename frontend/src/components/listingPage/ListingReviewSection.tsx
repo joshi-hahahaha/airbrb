@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 import { Typography } from '@mui/material';
 import { ReviewMessage } from './ReviewMessage';
-import { Review } from '../../interfaces/listingInterfaces';
+// import { Review } from '../../interfaces/listingInterfaces';
 import { ReviewForm } from './ReviewForm';
 import { Booking } from '../../interfaces/bookingsInterfaces';
 import { getBookings } from '../../helpers/bookingsApiHelper';
@@ -27,7 +27,7 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
   const { authToken, email } = useContext(AuthContext);
 
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [bookingId, setBookingId] = useState<number | null>(null);
+  const [bookingId, setBookingId] = useState<number>(0);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +43,7 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
             (booking) => booking.owner === email
           );
 
-          userBooking ? setBookingId(userBooking.id) : setBookingId(null);
+          userBooking ? setBookingId(userBooking.id) : setBookingId(0);
 
           // Move the logging here or use the second useEffect
           console.log(filteredBookings);
@@ -62,32 +62,32 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
     console.log(bookings);
   }, [bookings]);
 
-  const dummyReviews: Review[] = [
-    {
-      rating: 5.0,
-      reviewMsg:
-        'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
-    },
-    { rating: 2.2, reviewMsg: 'secoond' },
-    { rating: 3.5, reviewMsg: 'third' },
-    { rating: 1.0, reviewMsg: 'first' },
-    {
-      rating: 5.0,
-      reviewMsg:
-        'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
-    },
-    { rating: 2.2, reviewMsg: 'secoond' },
-    { rating: 3.5, reviewMsg: 'third' },
-    { rating: 1.0, reviewMsg: 'first' },
-    {
-      rating: 5.0,
-      reviewMsg:
-        'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
-    },
-    { rating: 2.2, reviewMsg: 'secoond' },
-    { rating: 3.5, reviewMsg: 'third' },
-    { rating: 1.0, reviewMsg: 'first' },
-  ];
+  // const dummyReviews: Review[] = [
+  //   {
+  //     rating: 5.0,
+  //     reviewMsg:
+  //       'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
+  //   },
+  //   { rating: 2.2, reviewMsg: 'secoond' },
+  //   { rating: 3.5, reviewMsg: 'third' },
+  //   { rating: 1.0, reviewMsg: 'first' },
+  //   {
+  //     rating: 5.0,
+  //     reviewMsg:
+  //       'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
+  //   },
+  //   { rating: 2.2, reviewMsg: 'secoond' },
+  //   { rating: 3.5, reviewMsg: 'third' },
+  //   { rating: 1.0, reviewMsg: 'first' },
+  //   {
+  //     rating: 5.0,
+  //     reviewMsg:
+  //       'firsaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaatfirsaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaatfirsaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaat',
+  //   },
+  //   { rating: 2.2, reviewMsg: 'secoond' },
+  //   { rating: 3.5, reviewMsg: 'third' },
+  //   { rating: 1.0, reviewMsg: 'first' },
+  // ];
   /* eslint-disable-next-line multiline-ternary */
   return listing ? (
     <div style={{ width: '100%' }}>
@@ -96,25 +96,25 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
         gutterBottom
         sx={{ fontFamily: 'Samsung-Regular' }}
       >
-        {/* {`${listing.reviews ? listing.reviews?.length : 0} Reviews`} */}
-        {`${listing.reviews ? dummyReviews.length : 0} Reviews`}
+        {`${listing.reviews ? listing.reviews?.length : 0} Reviews`}
+        {/* {`${listing.reviews ? dummyReviews.length : 0} Reviews`} */}
       </Typography>
       <div
         style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}
       >
         {/* eslint-disable-next-line multiline-ternary */}
         {listing.reviews ? (
-          // listing.reviews.map((review, index) => (
-          //   <ReviewMessage key={index} review={review} />
-          // ))
-          dummyReviews.map((review, index) => (
+          listing.reviews.map((review, index) => (
             <ReviewMessage key={index} review={review} />
           ))
         ) : (
+          // dummyReviews.map((review, index) => (
+          //   <ReviewMessage key={index} review={review} />
+          // ))
           <></>
         )}
       </div>
-      <ReviewForm listingId={listing.id ? listing.id : 0} />
+      <ReviewForm listingId={listingId} bookingId={bookingId} />
     </div>
   ) : (
     <></>
