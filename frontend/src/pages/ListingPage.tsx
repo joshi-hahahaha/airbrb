@@ -8,6 +8,7 @@ import AuthContext from '../contexts/AuthContext';
 import { ListingImage } from '../components/listingPage/ListingImage';
 import { ListingAmmenities } from '../components/listingPage/ListingAmenities';
 import { ListingReserveForm } from '../components/listingPage/ListingReserveForm';
+import { ListingReviewSection } from '../components/listingPage/ListingReviewSection';
 
 export interface ListingHeaderProps {
   listing: Listing;
@@ -48,6 +49,7 @@ export const ListingPage: React.FC = () => {
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
+          <ListingReviewSection listing={listing} />
         </div>
       </div>
     </div>
