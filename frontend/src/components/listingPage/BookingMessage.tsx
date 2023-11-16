@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import { Booking } from '../../interfaces/bookingsInterfaces';
+import { StatusTag } from './StatusTag';
 
 interface BookingMessageProps {
   booking: Booking;
@@ -38,7 +39,7 @@ export const BookingMessage: React.FC<BookingMessageProps> = ({ booking }) => {
         }}
       >
         <div style={{ minWidth: '80px', padding: '0 20px' }}>
-          <Typography sx={{ textAlign: 'left' }}>{booking.status}</Typography>
+          <StatusTag status={booking.status} />
         </div>
         <div
           style={{
