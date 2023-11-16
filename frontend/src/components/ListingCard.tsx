@@ -13,12 +13,14 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import BedIcon from '@mui/icons-material/Bed';
 import BathtubIcon from '@mui/icons-material/Bathtub';
+import BedroomParentIcon from '@mui/icons-material/BedroomParent';
 
 import AuthContext from '../contexts/AuthContext';
 import { getListing } from '../helpers/listingApiHelpers';
 import { useNavigate } from 'react-router-dom';
 import LiveDatesModal from './LiveDatesModal';
 import theme from '../assets/theme';
+import { calcRating } from '../helpers/reviewsHelper';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
@@ -149,25 +151,51 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               {props.title}
             </Typography>
 
-            {/* State, Country */}
+            {/* Type + State, Country */}
             <Typography gutterBottom variant='body1' component='div'>
-              {`${props.address.city}, ${props.address.country}`}
-            </Typography>
-
-            {/* Type */}
-            <Typography gutterBottom variant='body1' component='div'>
-              {`${listing?.metadata?.propertyType}`}
+              {`${listing?.metadata?.propertyType} located in ${props.address.city}, ${props.address.country}`}
             </Typography>
 
             {/* No. of beds, bedrooms, bathrooms */}
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Typography gutterBottom variant='body1' component='div'>
-                <BedIcon />
+              <Typography
+                gutterBottom
+                variant='body1'
+                component='div'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: '4px',
+                }}
+              >
                 {`${listing?.metadata?.beds}`}
+                <BedIcon />
               </Typography>
-              <Typography gutterBottom variant='body1' component='div'>
-                <BathtubIcon />
+              <Typography
+                gutterBottom
+                variant='body1'
+                component='div'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: '4px',
+                }}
+              >
+                {`${listing?.metadata?.bedrooms}`}
+                <BedroomParentIcon />
+              </Typography>
+              <Typography
+                gutterBottom
+                variant='body1'
+                component='div'
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: '4px',
+                }}
+              >
                 {`${listing?.metadata?.bathrooms}`}
+                <BathtubIcon />
               </Typography>
             </div>
 
@@ -185,7 +213,19 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               variant='body1'
               component='div'
             >
-              {props.reviews === undefined ? '0' : `${props.reviews.length}`}
+              {props.reviews === undefined
+                ? `★ ${(0).toFixed(1)}`
+                : `★ ${calcRating(props.reviews).toFixed(1)}`}
+            </Typography>
+            <Typography
+              style={{ textAlign: 'right' }}
+              gutterBottom
+              variant='body1'
+              component='div'
+            >
+              {props.reviews === undefined
+                ? '👁 0'
+                : `👁 ${props.reviews.length}`}
             </Typography>
           </div>
         </CardContent>
