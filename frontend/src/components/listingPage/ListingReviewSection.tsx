@@ -39,6 +39,8 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
     fetchData();
   }, [listingId]);
 
+  console.log(bookingId);
+
   /* eslint-disable-next-line multiline-ternary */
   return listing ? (
     <div style={{ width: '100%' }}>
@@ -61,7 +63,12 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
           <></>
         )}
       </div>
-      <ReviewForm listingId={listingId} bookingId={bookingId} />
+      {/* eslint-disable-next-line multiline-ternary */}
+      {bookingId !== 0 ? (
+        <ReviewForm listingId={listingId} bookingId={bookingId} />
+      ) : (
+        <></>
+      )}
     </div>
   ) : (
     <></>
