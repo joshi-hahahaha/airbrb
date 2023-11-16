@@ -25,9 +25,6 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({
   const [ratingValue, setRatingValue] = useState<number>(0);
   const { authToken } = useContext(AuthContext);
 
-  // console.log(bookingId);
-  // console.log(listingId);
-
   const handleReviewMsgChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -52,8 +49,6 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({
       },
     };
 
-    // console.log(reviewObj);
-    // Change 4th param to bookingid
     try {
       await makeReview(authToken, reviewObj, listingId, bookingId);
     } catch (error) {

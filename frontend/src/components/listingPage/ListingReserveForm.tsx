@@ -55,8 +55,6 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
   };
 
   const handleSubmit = async () => {
-    console.log(dateRange);
-
     if (dateRange.startDate && dateRange.endDate) {
       const dateRangeObj: DateRange = {
         startDate: dateRange.startDate.toISOString(),
