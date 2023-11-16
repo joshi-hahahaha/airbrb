@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
 import { Typography } from '@mui/material';
 import { ReviewMessage } from './ReviewMessage';
 import { Review } from '../../interfaces/listingInterfaces';
 import { ReviewForm } from './ReviewForm';
+import { Booking } from '../../interfaces/bookingsInterfaces';
+import { getBookings } from '../../helpers/bookingsApiHelper';
+import AuthContext from '../../contexts/AuthContext';
 
 interface ListingReviewSectionProps extends ListingHeaderProps {
   listingId: number;
@@ -13,7 +16,51 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
   listing,
   listingId,
 }) => {
-  console.log(listingId);
+  // console.log(listingId);
+  // getBookingsForListingId(listingId).then((bookings) => {
+  //   console.log(bookings);
+  //   // console.log(getUserBookingForListing(bookings));
+  // });
+  // const bookings = getBookingsForListingId(listingId);
+  // console.log(bookings);
+  // console.log(getUserBookingForListing(bookings));
+  const { authToken, email } = useContext(AuthContext);
+
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [bookingId, setBookingId] = useState<number | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getBookings(authToken);
+        if (data !== undefined) {
+          const filteredBookings = data.bookings.filter(
+            (booking) => booking.listingId === String(listingId)
+          );
+          console.log(filteredBookings);
+          setBookings(filteredBookings);
+
+          const userBooking = filteredBookings.find(
+            (booking) => booking.owner === email
+          );
+
+          userBooking ? setBookingId(userBooking.id) : setBookingId(null);
+
+          // Move the logging here or use the second useEffect
+          console.log(filteredBookings);
+          console.log(bookingId);
+          // console.log(userBooking.id);
+        }
+      } catch (error) {
+        console.log('oh no');
+      }
+    };
+    fetchData();
+  }, [listingId]);
+
+  // Alternatively, use a second useEffect for logging the updated state
+  useEffect(() => {
+    console.log(bookings);
+  }, [bookings]);
 
   const dummyReviews: Review[] = [
     {
