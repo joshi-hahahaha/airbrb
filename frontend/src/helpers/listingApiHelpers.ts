@@ -10,6 +10,7 @@ import {
   ListingsRes,
   NewListingFormData,
 } from '../interfaces/listingInterfaces';
+import { CustomError } from '../classes/CustomError';
 
 export const getListings = async (
   authToken: string | null
@@ -29,11 +30,11 @@ export const getListings = async (
   );
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
 
@@ -52,11 +53,11 @@ export const getListing = async (
   }>(path, method, body, token, queryStr);
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data && res.data.listing) {
     return res.data.listing;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
 
@@ -79,11 +80,11 @@ export const addListing = async (
   );
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
 
@@ -107,11 +108,11 @@ export const editListing = async (
   );
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
 
@@ -134,11 +135,11 @@ export const deleteListing = async (
   );
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
 
@@ -162,11 +163,11 @@ export const addAvailability = async (
   );
 
   if (res.error) {
-    throw new Error(res.error);
+    throw new CustomError(res.error);
   } else if (res.data) {
     console.log(res.data);
     return res.data;
   } else {
-    throw new Error('Unexpected response');
+    throw new CustomError('Unexpected response');
   }
 };
