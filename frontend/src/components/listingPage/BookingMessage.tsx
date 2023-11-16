@@ -8,6 +8,21 @@ interface BookingMessageProps {
 
 export const BookingMessage: React.FC<BookingMessageProps> = ({ booking }) => {
   console.log(booking);
+  const formatDates = (dateStr: string): string => {
+    const date = new Date(dateStr);
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    const formattedDay = day < 10 ? `0${day}` : `${day}`;
+    const formattedMonth = month < 10 ? `0${month}` : `${month}`;
+
+    const formattedDateString = `${formattedDay}/${formattedMonth}/${year}`;
+
+    return formattedDateString;
+  };
+
   return (
     <div>
       <Box
@@ -22,17 +37,17 @@ export const BookingMessage: React.FC<BookingMessageProps> = ({ booking }) => {
           alignItems: 'center',
         }}
       >
-        <div style={{ minWidth: '80px', paddingLeft: '20px' }}>
-          <Typography sx={{ textAlign: 'center' }}>{booking.status}</Typography>
+        <div style={{ minWidth: '80px', padding: '0 20px' }}>
+          <Typography sx={{ textAlign: 'left' }}>{booking.status}</Typography>
         </div>
         <div
           style={{
             flexGrow: 1,
           }}
         >
-          <Typography
-            sx={{ textAlign: 'center' }}
-          >{`${booking.dateRange.startDate} ${booking.dateRange.endDate}`}</Typography>
+          <Typography>{`${formatDates(
+            booking.dateRange.startDate
+          )} to ${formatDates(booking.dateRange.endDate)}`}</Typography>
         </div>
         <div
           style={{
@@ -40,7 +55,7 @@ export const BookingMessage: React.FC<BookingMessageProps> = ({ booking }) => {
           }}
         >
           <Typography
-            sx={{ textAlign: 'center', paddingRight: '20px' }}
+            sx={{ textAlign: 'right', padding: '0 20px' }}
           >{`$${booking.totalPrice}`}</Typography>
         </div>
       </Box>
