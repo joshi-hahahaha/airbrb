@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import LiveDatesModal from './LiveDatesModal';
 import theme from '../assets/theme';
 import { calcRating } from '../helpers/reviewsHelper';
+import { AmentityIcon } from './AmentityIconText';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
@@ -98,7 +99,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       <Card
         sx={{
           minWidth: '225px',
-          height: '440px',
+          height: '460px',
           cursor: 'pointer',
           m: '15px',
           flex: '1',
@@ -137,7 +138,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         )}
 
         <CardContent
-          sx={{ fontFamily: 'Samsung-Light', display: 'flex', height: '160px' }}
+          sx={{ fontFamily: 'Samsung-Light', display: 'flex', height: '185px' }}
         >
           <div
             style={{
@@ -210,6 +211,24 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               </div>
             </div>
             <div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  paddingRight: '4px',
+                }}
+              >
+                <Typography gutterBottom variant='body1' component='div'>
+                  Includes:
+                </Typography>
+                {listing?.metadata?.amenities && (
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {listing.metadata.amenities.map((amenity, index) => (
+                      <AmentityIcon key={index} amenity={amenity} />
+                    ))}
+                  </div>
+                )}
+              </div>
               {/* Price */}
               <Typography
                 variant='h6'

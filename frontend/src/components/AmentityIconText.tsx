@@ -27,3 +27,15 @@ export const AmentityIconText: React.FC<AmentityIconTextProps> = ({
     </Typography>
   );
 };
+
+export const AmentityIcon: React.FC<AmentityIconTextProps> = ({ amenity }) => {
+  return (
+    <Typography sx={{ mx: '4px' }}>
+      {amenity === 'Swimming Pool' && <PoolIcon />}
+      {amenity === 'Gym' && <FitnessCenterIcon />}
+      {amenity === 'Parking' && <LocalParkingIcon />}
+      {amenity === 'WiFi' && <WifiIcon />}
+      {amenity === 'Air Conditioning' && <AcUnitIcon />}
+    </Typography>
+  );
+};
