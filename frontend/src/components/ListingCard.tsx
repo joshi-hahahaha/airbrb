@@ -26,11 +26,13 @@ import { AmentityIcon } from './AmentityIconText';
 interface ListingCardProps extends Listing {
   myListing?: boolean;
   onDelete?: () => void;
+  onUnpublish?: () => void;
 }
 
 export const ListingCard: React.FC<ListingCardProps> = ({
   myListing,
   onDelete,
+  onUnpublish,
   ...props
 }) => {
   const { authToken } = useContext(AuthContext);
@@ -38,6 +40,8 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const [unpublishBtn, setUnpublishBtn] = useState<boolean>(false);
 
   const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
 
@@ -56,6 +60,9 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       try {
         const data = await getListing(authToken, props.id);
         setListing(data);
+        if (data.published) {
+          setUnpublishBtn(true);
+        }
         // console.log(data);
       } catch (error) {
         console.error('Error fetching listings:', error);
@@ -77,6 +84,12 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const handleEditClick = () => {
     navigate(`/edit/${props.id}`);
   };
+
+  const handleUnpublishClick = () => {
+    if (onUnpublish) onUnpublish();
+    setUnpublishBtn(false);
+    setAnchorEl(null);
+  }
 
   const handleListingDelete = () => {
     if (onDelete) onDelete();
@@ -275,12 +288,15 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       >
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
         <MenuItem onClick={handleOpenModal}>Add Availabilities</MenuItem>
-        <MenuItem onClick={handleEditClick}>Go Live</MenuItem>
+        {unpublishBtn &&
+          <MenuItem onClick={handleUnpublishClick}>Unpublish</MenuItem>
+        }
         <MenuItem onClick={handleListingDelete}>Delete</MenuItem>
       </Menu>
       <LiveDatesModal
         open={liveDatesModalOpen}
         onClose={handleCloseModal}
+        updateUnpublishBtn={setUnpublishBtn}
         listingId={props.id}
       />
     </>

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { contentContainer, listingContainer, page } from '../styles/pageStyles';
 import AuthContext from '../contexts/AuthContext';
-import { deleteListing, getListings } from '../helpers/listingApiHelpers';
+import { unpublishListing, deleteListing, getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 import {
@@ -43,6 +43,16 @@ export const MyListingsPage: React.FC = () => {
     fetchData();
   }, [authToken]);
 
+  const handleListingUnpublish = async (listingId: number | undefined) => {
+    try {
+      if (listingId !== undefined) {
+        await unpublishListing(authToken, listingId);
+      }
+    } catch (error) {
+      console.error('Error unpublishing listing:', error);
+    }
+  }
+
   const handleListingDelete = async (listingId: number | undefined) => {
     try {
       if (listingId !== undefined) {
@@ -71,6 +81,7 @@ export const MyListingsPage: React.FC = () => {
               key={listing.id}
               myListing={true}
               onDelete={() => handleListingDelete(listing.id)}
+              onUnpublish={() => handleListingUnpublish(listing.id)}
               {...listing}
             />
           ))}

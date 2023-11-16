@@ -17,6 +17,7 @@ import { AvailabilityAdd } from '../interfaces/listingInterfaces';
 interface LiveDatesModalProps {
   open: boolean;
   onClose: () => void;
+  updateUnpublishBtn: (state: boolean) => void;
   listingId: number | undefined;
 }
 
@@ -28,6 +29,7 @@ interface DateRange {
 const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
   open,
   onClose,
+  updateUnpublishBtn,
   listingId,
 }: LiveDatesModalProps) => {
   const { authToken } = useContext(AuthContext);
@@ -74,6 +76,7 @@ const LiveDatesModal: React.FC<LiveDatesModalProps> = ({
     console.log(dateRanges);
     addAvailability(authToken, listingId, body);
     setDateRanges(initialDateRanges);
+    updateUnpublishBtn(true);
     onClose();
   };
 

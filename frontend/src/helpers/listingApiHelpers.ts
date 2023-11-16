@@ -9,6 +9,7 @@ import {
   Listing,
   ListingsRes,
   NewListingFormData,
+  UnpublishListingRes,
 } from '../interfaces/listingInterfaces';
 import { CustomError } from '../classes/CustomError';
 
@@ -115,6 +116,27 @@ export const editListing = async (
     throw new CustomError('Unexpected response');
   }
 };
+
+export const unpublishListing = async (
+  authToken: string | null,
+  listingId: number
+) => {
+  const res: ApiResponse<DeleteListingRes> = await apiCall<UnpublishListingRes>(
+    `/listings/unpublish/${listingId}`,
+    'PUT',
+    null,
+    authToken,
+    undefined
+  );
+
+  if (res.error) {
+    throw new CustomError(res.error);
+  } else if (res.data) {
+    return res.data;
+  } else {
+    throw new CustomError('Unexpected response');
+  }
+}
 
 export const deleteListing = async (
   authToken: string | null,
