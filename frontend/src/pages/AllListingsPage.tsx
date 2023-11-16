@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { contentContainer, listingContainer, page } from '../styles/pageStyles';
-import { getListings } from '../helpers/listingApiHelpers';
+import { getListing, getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 import AuthContext from '../contexts/AuthContext';
@@ -25,11 +25,21 @@ export const AllListingsPage: React.FC = () => {
   };
 
   const [listings, setListings] = useState<Listing[]>([]);
+  const publishedListings: Listing[] = [];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getListings(authToken);
-        setListings(data.listings);
+        for (const listing of data.listings) {
+          const listingData = getListing(authToken, listing.id);
+          const isPublished = (await listingData).published;
+          if (isPublished) {
+            publishedListings.push(listing);
+          }
+        }
+        // setListings(data.listings)
+        setListings(publishedListings);
       } catch (error) {
         if (error instanceof CustomError) {
           handleAlert(error.message, 'error', true);

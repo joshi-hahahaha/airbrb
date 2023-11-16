@@ -99,14 +99,16 @@ describe('BookingsPending', () => {
 
   it('handles booking requests', () => {
     render(
-      <BookingsPending
-        bookings={mockBookings}
-        listing={mockListing}
-        listingId={'101'}
-        processedBookings={[]}
-        setProcessedBookings={() => {}}
-        handleBookingStatusChange={() => {}}
-      />
+      <AuthContext.Provider value={mockAuthContextValue}>
+        <BookingsPending
+          bookings={mockBookings}
+          listing={mockListing}
+          listingId={'101'}
+          processedBookings={[]}
+          setProcessedBookings={() => {}}
+          handleBookingStatusChange={() => {}}
+        />
+      </AuthContext.Provider>
     );
 
     fireEvent.click(screen.getByRole('button', { name: 'Accept' }));
