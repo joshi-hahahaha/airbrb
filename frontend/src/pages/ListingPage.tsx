@@ -49,7 +49,7 @@ export const ListingPage: React.FC = () => {
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
-          <ListingReviewSection listing={listing} />
+          <ListingReviewSection listing={listing} listingId={parsedId} />
         </div>
       </div>
     </div>
