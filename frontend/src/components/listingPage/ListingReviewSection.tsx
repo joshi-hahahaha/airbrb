@@ -46,7 +46,9 @@ export const ListingReviewSection: React.FC<ListingHeaderProps> = ({
         {/* {`${listing.reviews ? listing.reviews?.length : 0} Reviews`} */}
         {`${listing.reviews ? dummyReviews.length : 0} Reviews`}
       </Typography>
-      <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
+      <div
+        style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}
+      >
         {/* eslint-disable-next-line multiline-ternary */}
         {listing.reviews ? (
           // listing.reviews.map((review, index) => (
