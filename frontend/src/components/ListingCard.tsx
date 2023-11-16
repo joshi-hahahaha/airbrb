@@ -211,6 +211,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
               </div>
             </div>
             <div>
+              {/* Amenities */}
               <div
                 style={{
                   display: 'flex',
@@ -229,6 +230,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
                   </div>
                 )}
               </div>
+
               {/* Price */}
               <Typography
                 variant='h6'
