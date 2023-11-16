@@ -1,8 +1,9 @@
-import {
-  ApiResponse,
-} from '../interfaces/apiInterfaces';
+import { ApiResponse } from '../interfaces/apiInterfaces';
 import { apiCall } from './apiHelper';
-import { BookingsRes, HandleBookingRes } from '../interfaces/bookingsInterfaces';
+import {
+  BookingsRes,
+  HandleBookingRes,
+} from '../interfaces/bookingsInterfaces';
 
 export const getBookings = async (
   authToken: string | null
@@ -26,7 +27,7 @@ export const getBookings = async (
   }
 
   return { bookings: [] };
-}
+};
 
 export const handleBooking = async (
   authToken: string | null,
@@ -48,4 +49,4 @@ export const handleBooking = async (
   } else if (res.data) {
     return res.data;
   }
-}
+};

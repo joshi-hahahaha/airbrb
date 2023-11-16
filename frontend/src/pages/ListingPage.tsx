@@ -9,6 +9,7 @@ import { ListingImage } from '../components/listingPage/ListingImage';
 import { ListingAmmenities } from '../components/listingPage/ListingAmenities';
 import { ListingReserveForm } from '../components/listingPage/ListingReserveForm';
 import { ListingReviewSection } from '../components/listingPage/ListingReviewSection';
+import { ImageListModal } from '../components/listingPage/ImageListModal';
 
 export interface ListingHeaderProps {
   listing: Listing;
@@ -17,10 +18,18 @@ export interface ListingHeaderProps {
 export const ListingPage: React.FC = () => {
   // Authorisation
   const { authToken } = useContext(AuthContext);
-
-  // Listing information handling
   const { listingId } = useParams();
   const parsedId: number = parseInt(listingId ?? '0', 10);
+
+  const [imageListModalOpen, setImageListModalOpen] = useState<boolean>(false);
+
+  // const handleOpenModal = () => {
+  //   setImageListModalOpen(true);
+  // };
+
+  const handleCloseModal = () => {
+    setImageListModalOpen(false);
+  };
 
   const [listing, setListing] = useState<Listing>();
   useEffect(() => {
@@ -36,15 +45,21 @@ export const ListingPage: React.FC = () => {
     fetchData();
   }, [authToken, listingId]);
 
-  useEffect(() => console.log(listing), [listing]);
-
   /* eslint-disable-next-line multiline-ternary */
   return listing && parsedId ? (
     <div style={page}>
       <div style={contentContainer}>
+        <ImageListModal
+          open={imageListModalOpen}
+          onClose={handleCloseModal}
+          photos={listing.metadata?.photos}
+        />
         <div style={{ ...infoContainer, marginTop: '20px' }}>
           <ListingHeader listing={listing} />
-          <ListingImage listing={listing} />
+          <ListingImage
+            listing={listing}
+            openModal={() => setImageListModalOpen(true)}
+          />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
