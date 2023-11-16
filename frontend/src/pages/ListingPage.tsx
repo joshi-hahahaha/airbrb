@@ -24,10 +24,6 @@ export const ListingPage: React.FC = () => {
 
   const [imageListModalOpen, setImageListModalOpen] = useState<boolean>(false);
 
-  // const handleOpenModal = () => {
-  //   setImageListModalOpen(true);
-  // };
-
   const handleCloseModal = () => {
     setImageListModalOpen(false);
   };
@@ -71,7 +67,7 @@ export const ListingPage: React.FC = () => {
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
-          <ListingBookingSection listing={listing} listingId={parsedId} />
+          <ListingBookingSection listingId={parsedId} />
           <ListingReviewSection listing={listing} listingId={parsedId} />
         </div>
       </div>

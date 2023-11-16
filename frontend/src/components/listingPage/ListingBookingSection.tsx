@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ListingHeaderProps } from '../../pages/ListingPage';
 import { getBookings } from '../../helpers/bookingsApiHelper';
 import AuthContext from '../../contexts/AuthContext';
 import { Booking } from '../../interfaces/bookingsInterfaces';
 import { Typography } from '@mui/material';
 import { BookingMessage } from './BookingMessage';
 
-interface ListingBookingSectionProps extends ListingHeaderProps {
+interface ListingBookingSectionProps {
   listingId: number;
 }
 
 export const ListingBookingSection: React.FC<ListingBookingSectionProps> = ({
-  listing,
   listingId,
 }) => {
   const { authToken, email } = useContext(AuthContext);
@@ -31,8 +29,6 @@ export const ListingBookingSection: React.FC<ListingBookingSectionProps> = ({
             (booking) => booking.owner === email
           );
 
-          console.log(filteredBookings);
-
           setBookings(filteredBookings);
         }
       } catch (error) {
@@ -43,14 +39,7 @@ export const ListingBookingSection: React.FC<ListingBookingSectionProps> = ({
   }, [listingId]);
 
   /* eslint-disable-next-line multiline-ternary */
-  console.log(listing);
-
-  useEffect(() => {
-    console.log(bookings);
-  }, [bookings]);
-
-  /* eslint-disable-next-line multiline-ternary */
-  return listing ? (
+  return bookings.length !== 0 ? (
     <div style={{ width: '100%' }}>
       <Typography
         variant='h6'
