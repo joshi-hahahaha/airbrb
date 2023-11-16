@@ -76,8 +76,6 @@ export const addListing = async (
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
-  // console.log(body);
-
   const res: ApiResponse<AddListingRes> = await apiCall<AddListingRes>(
     path,
     method,
@@ -87,12 +85,11 @@ export const addListing = async (
   );
 
   if (res.error) {
-    // console.log(res.error);
+    throw new Error(res.error);
   } else if (res.data) {
-    // console.log(res.data);
     return res.data;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
 };
 
