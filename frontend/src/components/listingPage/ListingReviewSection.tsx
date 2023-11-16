@@ -32,8 +32,6 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
             (booking) => booking.owner === email
           );
 
-          console.log(filteredBookings);
-
           userBooking ? setBookingId(userBooking.id) : setBookingId(0);
         }
       } catch (error) {
@@ -43,8 +41,6 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
     fetchData();
   }, [listingId]);
 
-  console.log(bookingId);
-
   /* eslint-disable-next-line multiline-ternary */
   return listing ? (
     <div style={{ width: '100%' }}>
@@ -53,7 +49,11 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
         gutterBottom
         sx={{ fontFamily: 'Samsung-Regular' }}
       >
-        {`${listing.reviews ? listing.reviews?.length : 0} Reviews`}
+        {`${listing.reviews ? listing.reviews?.length : 0} ${
+          (listing.reviews ? listing.reviews?.length : 0) === 1
+            ? 'Review'
+            : 'Reviews'
+        }`}
       </Typography>
       <div
         style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}

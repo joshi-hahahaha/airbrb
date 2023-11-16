@@ -3,6 +3,8 @@ import { ListingHeaderProps } from '../../pages/ListingPage';
 import { getBookings } from '../../helpers/bookingsApiHelper';
 import AuthContext from '../../contexts/AuthContext';
 import { Booking } from '../../interfaces/bookingsInterfaces';
+import { Typography } from '@mui/material';
+import { BookingMessage } from './BookingMessage';
 
 interface ListingBookingSectionProps extends ListingHeaderProps {
   listingId: number;
@@ -47,5 +49,26 @@ export const ListingBookingSection: React.FC<ListingBookingSectionProps> = ({
     console.log(bookings);
   }, [bookings]);
 
-  return <>Bookings</>;
+  /* eslint-disable-next-line multiline-ternary */
+  return listing ? (
+    <div style={{ width: '100%' }}>
+      <Typography
+        variant='h6'
+        gutterBottom
+        sx={{ fontFamily: 'Samsung-Regular' }}
+      >
+        {`${bookings.length} ${bookings.length === 1 ? 'Booking' : 'Bookings'}`}
+      </Typography>
+      <div
+        style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}
+      >
+        {/* eslint-disable-next-line multiline-ternary */}
+        {bookings.map((booking, index) => (
+          <BookingMessage key={index} booking={booking} />
+        ))}
+      </div>
+    </div>
+  ) : (
+    <></>
+  );
 };

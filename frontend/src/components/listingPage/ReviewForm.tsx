@@ -40,20 +40,20 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({
       handleAlert('Review was empty. Please make a review.', 'error', true);
     } else if (ratingValue === null) {
       handleAlert('Invalid rating. Please give a rating.', 'error', true);
-    }
+    } else {
+      const reviewObj: ReviewReqObj = {
+        review: {
+          reviewMsg: reviewMsg,
+          rating: ratingValue,
+        },
+      };
 
-    const reviewObj: ReviewReqObj = {
-      review: {
-        reviewMsg: reviewMsg,
-        rating: ratingValue,
-      },
-    };
-
-    try {
-      await makeReview(authToken, reviewObj, listingId, bookingId);
-    } catch (error) {
-      if (error instanceof CustomError) {
-        handleAlert(error.message, 'error', true);
+      try {
+        await makeReview(authToken, reviewObj, listingId, bookingId);
+      } catch (error) {
+        if (error instanceof CustomError) {
+          handleAlert(error.message, 'error', true);
+        }
       }
     }
   };
