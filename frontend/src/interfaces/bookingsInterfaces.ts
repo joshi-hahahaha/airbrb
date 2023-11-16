@@ -3,13 +3,15 @@ export interface DateRange {
   endDate: string;
 }
 
+export type Status = 'accepted' | 'denied' | 'pending';
+
 export interface Booking {
   id: number;
   owner: string;
   dateRange: DateRange;
   totalPrice: number;
   listingId: string;
-  status: 'accepted' | 'denied' | 'pending';
+  status: Status;
 }
 
 export interface BookingsRes {

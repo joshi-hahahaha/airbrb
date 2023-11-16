@@ -94,6 +94,8 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
               'error',
               true
             );
+          } else {
+            handleAlert(error.message, 'error', true);
           }
         }
       }
