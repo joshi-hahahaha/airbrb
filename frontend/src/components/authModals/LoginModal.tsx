@@ -6,6 +6,7 @@ import { BaseAuthModal, BaseAuthModalProps } from '../BaseAuthModal';
 import { ApiResponse, HttpMethod } from '../../interfaces/apiInterfaces';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
+import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 
 const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const navigate = useNavigate();
@@ -19,6 +20,16 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const [alertData, setAlertData] = useState<AlertPopUpProps>({
+    show: false,
+    message: '',
+    severity: 'error',
+  });
+
+  const handleAlert = (message: string, severity: Severity, show: boolean) => {
+    setAlertData({ message, severity, show });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -44,10 +55,9 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
 
     if (res.error) {
       // Handle error res
-      console.log(res.error);
+      handleAlert(res.error, 'error', true);
     } else if (res.data) {
       // Handle successful res
-      console.log(res.data.token);
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('email', formData.email);
       setAuthToken(
@@ -100,6 +110,12 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
               {"Don't have an account?"}
             </Typography>
           </Link>
+          <AlertPopUp
+            message={alertData.message}
+            severity={alertData.severity}
+            show={alertData.show}
+            onAlertClose={() => handleAlert('', 'error', false)}
+          />
         </>
       }
     </BaseAuthModal>
