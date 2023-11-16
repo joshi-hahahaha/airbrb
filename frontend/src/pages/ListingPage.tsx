@@ -60,7 +60,13 @@ export const ListingPage: React.FC = () => {
             listing={listing}
             openModal={() => setImageListModalOpen(true)}
           />
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              marginBottom: '20px',
+            }}
+          >
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>

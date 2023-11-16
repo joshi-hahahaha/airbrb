@@ -21,7 +21,7 @@ export const ListingAmmenities: React.FC<ListingHeaderProps> = ({
           listing.metadata?.bathrooms === 1 ? 'bathroom' : 'bathrooms'
         }`}</Typography>
       </div>
-      <Divider />
+      <Divider style={{ marginBottom: '10px' }} />
       <div>
         <Typography variant='h6' style={{ fontFamily: 'Samsung-Regular' }}>
           What this place offers
