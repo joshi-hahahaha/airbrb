@@ -4,7 +4,6 @@ import { Typography } from '@mui/material';
 import { ReviewMessage } from './ReviewMessage';
 import { Review } from '../../interfaces/listingInterfaces';
 import { ReviewForm } from './ReviewForm';
-import { getBookingsForListingId } from '../../interfaces/bookingsHelpers';
 
 interface ListingReviewSectionProps extends ListingHeaderProps {
   listingId: number;
@@ -14,8 +13,7 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
   listing,
   listingId,
 }) => {
-  console.log(listing);
-  console.log(getBookingsForListingId(listingId));
+  console.log(listingId);
 
   const dummyReviews: Review[] = [
     {
