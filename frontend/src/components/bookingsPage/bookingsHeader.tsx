@@ -1,6 +1,7 @@
 import React from 'react';
 import { BookingsProps } from '../../pages/BookingsPage';
 import { Booking } from '../../interfaces/bookingsInterfaces';
+import { Box, Typography } from '@mui/material';
 
 const BookingsHeader: React.FC<BookingsProps> = ({ listingId, bookings, listing }) => {
   // The duration of the listing been online
@@ -68,13 +69,13 @@ const BookingsHeader: React.FC<BookingsProps> = ({ listingId, bookings, listing 
   const profit: number = listing.price * days;
 
   return <>
-    <h1>{listing.title}</h1>
-    {/* <p>{bookings[0]?.totalPrice}</p> */}
-    {listing.postedOn && (
-      <p>{calculatedOnlineDuration(listing.postedOn)}</p>
-    )}
-    <p>{days} days</p>
-    <p>{profit} dollars</p>
+    <Typography variant='h3'>{listing.title}</Typography>
+    <Box display='inline' justifyContent='space-between' alignItems='center'>
+      {listing.postedOn && (
+        <Typography variant='h6'>{calculatedOnlineDuration(listing.postedOn)}</Typography>
+      )}
+      <Typography variant='h6'>{`You've hosted ${days} days this year and made $${profit}`}</Typography>
+    </Box>
   </>
 };
 
