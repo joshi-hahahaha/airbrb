@@ -1,7 +1,5 @@
-// import { useContext } from 'react';
 import { ApiResponse, HttpMethod } from '../interfaces/apiInterfaces';
 import { apiCall } from './apiHelper';
-// import AuthContext from '../contexts/AuthContext';
 import {
   AddListingRes,
   AvailabilityAdd,
@@ -31,14 +29,12 @@ export const getListings = async (
   );
 
   if (res.error) {
-    // console.log(res.error);
+    throw new Error(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
-
-  return { listings: [] };
 };
 
 export const getListing = async (
@@ -55,14 +51,12 @@ export const getListing = async (
     listing: Listing;
   }>(path, method, body, token, queryStr);
 
-  // console.log(res);
-
   if (res.error) {
-    // console.log(res.error);
+    throw new Error(res.error);
   } else if (res.data && res.data.listing) {
     return res.data.listing;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
 };
 
@@ -113,11 +107,11 @@ export const editListing = async (
   );
 
   if (res.error) {
-    // console.log(res.error)
+    throw new Error(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
 };
 
@@ -140,11 +134,11 @@ export const deleteListing = async (
   );
 
   if (res.error) {
-    // console.log(res.error)
+    throw new Error(res.error);
   } else if (res.data) {
     return res.data;
   } else {
-    // console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
 };
 
@@ -168,11 +162,11 @@ export const addAvailability = async (
   );
 
   if (res.error) {
-    console.log(res.error);
+    throw new Error(res.error);
   } else if (res.data) {
     console.log(res.data);
     return res.data;
   } else {
-    console.log('Unexpected response structure:', res);
+    throw new Error('Unexpected response');
   }
 };
