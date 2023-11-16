@@ -10,6 +10,7 @@ import { ListingAmmenities } from '../components/listingPage/ListingAmenities';
 import { ListingReserveForm } from '../components/listingPage/ListingReserveForm';
 import { ListingReviewSection } from '../components/listingPage/ListingReviewSection';
 import { ImageListModal } from '../components/listingPage/ImageListModal';
+import { ListingBookingSection } from '../components/listingPage/ListingBookingSection';
 
 export interface ListingHeaderProps {
   listing: Listing;
@@ -70,6 +71,7 @@ export const ListingPage: React.FC = () => {
             <ListingAmmenities listing={listing} />
             <ListingReserveForm listing={listing} listingId={parsedId} />
           </div>
+          <ListingBookingSection listing={listing} listingId={parsedId} />
           <ListingReviewSection listing={listing} listingId={parsedId} />
         </div>
       </div>
