@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -54,22 +54,32 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
     setDateRange(newDateRange);
   };
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    setTotalPrice(listing.price * calcNights());
+  }, [dateRange]);
+
+  const [totalPrice, setTotalPrice] = useState<number>(listing.price);
+  const calcNights = () => {
     if (dateRange.startDate && dateRange.endDate) {
       const oneDay = 24 * 60 * 60 * 1000;
-      const nightCount = Math.round(
-        Math.abs(
-          (dateRange.startDate.getTime() - dateRange.endDate.getTime()) / oneDay
-        )
+      const numNights: number = Math.round(
+        dateRange.endDate.getTime() / oneDay -
+          dateRange.startDate.getTime() / oneDay
       );
+      return numNights === 0 ? 1 : numNights;
+    }
+    return 1;
+  };
 
+  const handleSubmit = async () => {
+    if (dateRange.startDate && dateRange.endDate) {
       const dateRangeObj: DateRange = {
         startDate: dateRange.startDate.toISOString(),
         endDate: dateRange.endDate.toISOString(),
       };
       const bookingReqObj: BookingReq = {
         dateRange: dateRangeObj,
-        totalPrice: listing.price * nightCount,
+        totalPrice: totalPrice,
       };
       try {
         await makeBookingRequest(authToken, bookingReqObj, listingId);
@@ -93,7 +103,7 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
             style={{ fontFamily: 'Samsung-Regular' }}
             gutterBottom
           >
-            {`$${listing.price} per night`}
+            {`$${totalPrice} per night`}
           </Typography>
         </div>
         <div style={{ width: '100%' }}>
