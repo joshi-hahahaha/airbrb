@@ -54,11 +54,8 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
     setDateRange(newDateRange);
   };
 
-  useEffect(() => {
-    setTotalPrice(listing.price * calcNights());
-  }, [dateRange]);
-
   const [totalPrice, setTotalPrice] = useState<number>(listing.price);
+  const [numNights, setNumNights] = useState<number>(1);
   const calcNights = () => {
     if (dateRange.startDate && dateRange.endDate) {
       const oneDay = 24 * 60 * 60 * 1000;
@@ -70,6 +67,11 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
     }
     return 1;
   };
+
+  useEffect(() => {
+    setNumNights(calcNights());
+    setTotalPrice(listing.price * calcNights());
+  }, [dateRange]);
 
   const handleSubmit = async () => {
     if (dateRange.startDate && dateRange.endDate) {
@@ -97,13 +99,23 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
   return (
     <div style={{ width: '40%', display: 'flex', justifyContent: 'flex-end' }}>
       <Box sx={{ width: '90%', boxShadow: 3, borderRadius: '25px', p: '15px' }}>
-        <div style={{ width: '100%' }}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <Typography
             variant='h6'
             style={{ fontFamily: 'Samsung-Regular' }}
             gutterBottom
           >
-            {`$${totalPrice} per night`}
+            {`$${totalPrice} for ${numNights}🌙`}
+          </Typography>
+          <Typography variant='body1' gutterBottom>
+            {`($${listing.price}/night)`}
           </Typography>
         </div>
         <div style={{ width: '100%' }}>
