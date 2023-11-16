@@ -68,7 +68,7 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
       };
       try {
         await makeBookingRequest(authToken, bookingReqObj, listingId);
-        handleAlert('Success', 'success', true);
+        handleAlert('Your booking request has been made.', 'success', true);
       } catch (error) {
         if (error instanceof CustomError) {
           handleAlert(error.message, 'error', true);

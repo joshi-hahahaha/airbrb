@@ -16,8 +16,6 @@ export const getBookingsForListingId = async (
     (booking) => booking.listingId === String(listingId)
   );
 
-  console.log(getUserBookingForListing(filteredBookings));
-
   return filteredBookings;
 };
 
