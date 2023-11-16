@@ -66,7 +66,7 @@ const LoginModal: React.FC<BaseAuthModalProps> = ({ open, onClose }) => {
       );
       navigate('/');
     } else {
-      console.log('Unexpected response structure:', res);
+      handleAlert('Unexpected response', 'error', true);
     }
   };
 
