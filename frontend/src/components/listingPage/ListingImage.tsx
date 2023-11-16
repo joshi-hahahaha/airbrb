@@ -8,14 +8,17 @@ import {
 import { Button } from '@mui/material';
 import CollectionsIcon from '@mui/icons-material/Collections';
 
-export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
+export const ListingImage: React.FC<
+  ListingHeaderProps & { openModal: () => void }
+> = ({ listing, openModal }) => {
   const firstFourPhotos = listing.metadata
     ? listing.metadata.photos.slice(0, 4)
     : [];
 
-  const handleShowPhotos = () => {
-    console.log('show photos');
-  };
+  // const handleShowPhotos = () => {
+  //   console.log('show photos');
+  //   openModal;
+  // };
 
   return (
     <div style={containerStyle}>
@@ -60,7 +63,7 @@ export const ListingImage: React.FC<ListingHeaderProps> = ({ listing }) => {
               variant='contained'
               color='primary'
               style={{ opacity: '0.9' }}
-              onClick={handleShowPhotos}
+              onClick={openModal}
             >
               <CollectionsIcon />
             </Button>
