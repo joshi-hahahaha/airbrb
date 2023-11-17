@@ -141,6 +141,7 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
         bathrooms: listing?.metadata?.bathrooms || 0,
       },
     });
+    setIsThumbnailVideo(!isImgFile(formData.thumbnail));
   }, [listing]);
 
   /**
