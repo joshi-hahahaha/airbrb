@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -262,8 +262,6 @@ export const AddListingForm = () => {
         thumbnail: formatYoutubeVid(formData.thumbnail),
       }));
 
-      console.log(formData);
-
       await addListing(authToken, formData);
       handleAlert('Success', 'success', true);
       navigate('/my-listings');
@@ -273,8 +271,6 @@ export const AddListingForm = () => {
       }
     }
   };
-
-  useEffect(() => console.log(formData.thumbnail));
 
   return (
     <>
