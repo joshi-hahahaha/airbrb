@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
-import { Typography } from '@mui/material';
+import { Button, Divider, Tooltip, Typography } from '@mui/material';
 import { ReviewMessage } from './ReviewMessage';
 import { ReviewForm } from './ReviewForm';
 import { getBookings } from '../../helpers/bookingsApiHelper';
@@ -61,6 +61,38 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
       ) : (
         <></>
       )}
+      <div
+        style={{
+          width: '100%',
+        }}
+      >
+        <Tooltip title='One star'>
+          <Button>
+            <Typography variant='h6'>{'★ 1'}</Typography>
+          </Button>
+        </Tooltip>
+        <Tooltip title='Two stars'>
+          <Button>
+            <Typography variant='h6'>{'★ 2'}</Typography>
+          </Button>
+        </Tooltip>
+        <Tooltip title='Three star'>
+          <Button>
+            <Typography variant='h6'>{'★ 3'}</Typography>
+          </Button>
+        </Tooltip>
+        <Tooltip title='Four star'>
+          <Button>
+            <Typography variant='h6'>{'★ 4'}</Typography>
+          </Button>
+        </Tooltip>
+        <Tooltip title='Five star'>
+          <Button>
+            <Typography variant='h6'>{'★ 5'}</Typography>
+          </Button>
+        </Tooltip>
+      </div>
+      <Divider sx={{ mb: '20px' }} />
 
       <div
         style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}
