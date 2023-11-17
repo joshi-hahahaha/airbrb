@@ -205,12 +205,8 @@ export const AddListingForm = () => {
         try {
           const jsonData = JSON.parse(reader.result as string);
 
-          // Validate the structure of jsonData if needed
-
           setFormData({
             ...formData,
-            // Update formData with the data from the JSON file
-            // Adjust this based on the actual structure of your JSON
             title: jsonData.title || '',
             address: jsonData.address || {},
             price: jsonData.price || 0,
@@ -218,7 +214,6 @@ export const AddListingForm = () => {
             metadata: jsonData.metadata || {},
           });
         } catch (error) {
-          // Handle JSON parsing error
           console.error('Error parsing JSON file:', error);
         }
       };
@@ -240,8 +235,13 @@ export const AddListingForm = () => {
   const navigate = useNavigate();
 
   // Form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
+    handleClose();
 
     try {
       if (!formData.thumbnail) {
@@ -595,7 +595,7 @@ export const AddListingForm = () => {
                 style={{ marginBottom: '20px', width: '100%' }}
                 multiple
               />
-              <Button variant='contained' fullWidth>
+              <Button onClick={handleSubmit} variant='contained' fullWidth>
                 Upload File
               </Button>
             </Box>
