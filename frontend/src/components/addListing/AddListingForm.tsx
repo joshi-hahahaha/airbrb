@@ -498,7 +498,7 @@ export const AddListingForm = () => {
           {isThumbnailVideo ? (
             <div>
               <Typography variant='subtitle1' gutterBottom>
-                Video Typography
+                Add Video Thumbnail
               </Typography>
               <TextField
                 margin='normal'
@@ -515,7 +515,7 @@ export const AddListingForm = () => {
           ) : (
             <div>
               <Typography variant='subtitle1' gutterBottom>
-                Image Typography
+                Add Image Thumbnail
               </Typography>
               <input
                 type='file'

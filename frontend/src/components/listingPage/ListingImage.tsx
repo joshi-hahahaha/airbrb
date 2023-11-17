@@ -7,6 +7,7 @@ import {
 } from '../../styles/imageStyles';
 import { Button } from '@mui/material';
 import CollectionsIcon from '@mui/icons-material/Collections';
+import { isImgFile } from '../../helpers/generalHelpers';
 
 export const ListingImage: React.FC<
   ListingHeaderProps & { openModal: () => void }
@@ -18,11 +19,33 @@ export const ListingImage: React.FC<
   return (
     <div style={containerStyle}>
       <div style={{ ...halfStyle, left: 0 }}>
-        <img
-          src={listing.thumbnail}
-          alt='Thumbnail'
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+        {/* eslint-disable-next-line multiline-ternary */}
+        {isImgFile(listing.thumbnail) ? (
+          <>
+            <img
+              src={listing.thumbnail}
+              alt='Thumbnail'
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </>
+        ) : (
+          <>
+            <iframe
+              title={listing.title}
+              width='100%'
+              height='100%'
+              src={listing.thumbnail}
+              allowFullScreen
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+              }}
+            ></iframe>
+          </>
+        )}
       </div>
       <div
         style={{
