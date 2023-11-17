@@ -22,7 +22,6 @@ import LiveDatesModal from './LiveDatesModal';
 import theme from '../assets/theme';
 import { calcRating } from '../helpers/reviewsHelper';
 import { AmentityIcon } from './AmentityIconText';
-import { isImgFile } from '../helpers/generalHelpers';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
@@ -40,7 +39,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [unpublishBtn, setUnpublishBtn] = useState<boolean>(false);
   const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
-
   const navigate = useNavigate();
 
   const handleOpenModal = () => {
@@ -105,8 +103,6 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     }
   };
 
-  console.log(isImgFile(props.thumbnail));
-
   return (
     <>
       <Card
@@ -120,24 +116,12 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         }}
         onClick={handleCardClick}
       >
-        {/* eslint-disable-next-line multiline-ternary */}
-        {isImgFile(props.thumbnail) ? (
-          <iframe
-            title={props.title}
-            width='100%'
-            height='250'
-            src={props.thumbnail}
-            allowFullScreen
-            style={{ borderRadius: '5px' }}
-          ></iframe>
-        ) : (
-          <CardMedia
-            component='img'
-            alt={props.title}
-            image={props.thumbnail}
-            sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
-          />
-        )}
+        <CardMedia
+          component='img'
+          alt={props.title}
+          image={props.thumbnail}
+          sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
+        />
         {/* eslint-disable-next-line multiline-ternary */}
         {myListing ? (
           <>
