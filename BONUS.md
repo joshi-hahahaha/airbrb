@@ -14,23 +14,23 @@ In addition to the assignment, we had placed effort into designing a mock up bef
 
 ### FIGMA EXAMPLES
 
-| EXAMPLE             | Image                                                     |
-| ------------------- | --------------------------------------------------------- |
-| Overview            | ![Overview](./mdAssets/bonusAssets/figma1.png)            |
-| Register Screen     | ![Register Screen](./mdAssets/bonusAssets/figma2.png)     |
-| Listings Page       | ![Listings Page](./mdAssets/bonusAssets/figma3.png)       |
-| Create Listing Page | ![Create Listing Page](./mdAssets/bonusAssets/figma4.png) |
-| Listing Page        | ![Listing Page](./mdAssets/bonusAssets/figma5.png)        |
+| EXAMPLE             | Image                                         |
+| ------------------- | --------------------------------------------- |
+| Overview            | ![Overview](./mdAssets/figma1.png)            |
+| Register Screen     | ![Register Screen](./mdAssets/figma2.png)     |
+| Listings Page       | ![Listings Page](./mdAssets/figma3.png)       |
+| Create Listing Page | ![Create Listing Page](./mdAssets/figma4.png) |
+| Listing Page        | ![Listing Page](./mdAssets/figma5.png)        |
 
 As a result of this early effort placed into design, it made it easier to pump content out wihtout needed to worry about designing on the spot. Here are some examples of this from our actual website!
 
 ### DESIGN EXAMPLES
 
-| EXAMPLE                 | IMAGES                                                      |
-| ----------------------- | ----------------------------------------------------------- |
-| Listings Page           | ![Listings Page](./mdAssets/bonusAssets/page1.png)          |
-| Listing Page            | ![Listing Page](./mdAssets/bonusAssets/page2.png)           |
-| Bookings Page           | ![Bookings Page](./mdAssets/bonusAssets/page3.png)          |
-| Bookings + Reviews      | ![Bookings + Reviews](./mdAssets/bonusAssets/page4.png)     |
-| Advanced Review Listing | !Advanced Review Listing](./mdAssets/bonusAssets/page5.png) |
-| Image List              | ![Image List](./mdAssets/bonusAssets/page6.png)             |
+| EXAMPLE                 | IMAGES                                           |
+| ----------------------- | ------------------------------------------------ |
+| Listings Page           | ![Listings Page](./mdAssets/page1.png)           |
+| Listing Page            | ![Listing Page](./mdAssets/page2.png)            |
+| Bookings Page           | ![Bookings Page](./mdAssets/page3.png)           |
+| Bookings + Reviews      | ![Bookings + Reviews](./mdAssets/page4.png)      |
+| Advanced Review Listing | ![Advanced Review Listing](./mdAssets/page5.png) |
+| Image List              | ![Image List](./mdAssets/page6.png)              |
