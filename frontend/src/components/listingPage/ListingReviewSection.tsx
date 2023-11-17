@@ -70,7 +70,12 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
         <></>
       )}
 
-      <Divider sx={{ mb: '20px' }} />
+      {/* eslint-disable-next-line multiline-ternary */}
+      {(listing.reviews ? listing.reviews?.length : 0) !== 0 ? (
+        <Divider sx={{ mb: '20px' }} />
+      ) : (
+        <></>
+      )}
 
       <div
         style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}
