@@ -14,14 +14,17 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { UserMenu } from './UserMenu';
+import { useSearch } from '../../contexts/SearchContext';
 
 export const NavBar: React.FC = () => {
   const navigate = useNavigate();
+  const { resetSearchResults } = useSearch();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleLogoBtn = () => {
+    resetSearchResults();
     navigate('/');
   };
 

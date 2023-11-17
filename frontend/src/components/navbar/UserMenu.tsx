@@ -20,9 +20,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
+import { useSearch } from '../../contexts/SearchContext';
 
 export const UserMenu = () => {
   const { authToken, email, logout } = useContext(AuthContext);
+  const { resetSearchResults } = useSearch();
 
   // anchor Element
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -49,6 +51,7 @@ export const UserMenu = () => {
     navigate('/add-listing');
   };
   const handleAllListingsBtn = () => {
+    resetSearchResults();
     navigate('/');
   };
 
