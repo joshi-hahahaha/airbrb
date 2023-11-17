@@ -1,6 +1,16 @@
-import { Box, Button, Fade, Modal, Tooltip, Typography } from '@mui/material';
-import React from 'react';
+import {
+  Box,
+  Button,
+  Divider,
+  Fade,
+  Modal,
+  Tooltip,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
+import { Review } from '../../interfaces/listingInterfaces';
+import { ReviewMessage } from './ReviewMessage';
 
 export const AdvancedRatingView: React.FC<ListingHeaderProps> = ({
   listing,
@@ -9,6 +19,9 @@ export const AdvancedRatingView: React.FC<ListingHeaderProps> = ({
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [filteredReviews, setFilteredReviews] = useState<Review[]>([]);
+  const [filteredRating, setFilteredRating] = useState<number>(0);
 
   const countReviewsForStar = (rating: number): number => {
     if (listing.reviews !== undefined) {
@@ -32,6 +45,17 @@ export const AdvancedRatingView: React.FC<ListingHeaderProps> = ({
     }
   };
 
+  const handleRatingButton = (rating: number) => {
+    console.log(rating);
+    if (listing.reviews !== undefined) {
+      setFilteredReviews(
+        listing.reviews.filter((review) => review.rating === rating)
+      );
+      setFilteredRating(rating);
+    }
+    handleOpen();
+  };
+
   const renderStarButton = (rating: number): JSX.Element => (
     <Tooltip
       key={rating}
@@ -39,8 +63,8 @@ export const AdvancedRatingView: React.FC<ListingHeaderProps> = ({
         rating
       ).toFixed(2)}%`}
     >
-      <Button onClick={handleOpen}>
-        <Typography variant='h6'>{`★ ${rating}`}</Typography>
+      <Button onClick={() => handleRatingButton(rating)}>
+        <Typography variant='h6'>{`★${rating}`}</Typography>
       </Button>
     </Tooltip>
   );
@@ -75,12 +99,14 @@ export const AdvancedRatingView: React.FC<ListingHeaderProps> = ({
               borderRadius: '10px',
             }}
           >
-            <Typography id='transition-modal-title' variant='h6' component='h2'>
-              Text in a modal
-            </Typography>
-            <Typography id='transition-modal-description' sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </Typography>
+            <Typography variant='h6'>{`All Reviews With ★${filteredRating} Ratings`}</Typography>
+            <div style={{ width: '100%' }}>
+              {[1, 2, 3, 4, 5].map(renderStarButton)}
+            </div>
+            <Divider sx={{ mb: '20px' }} />
+            {filteredReviews.map((review, index) => (
+              <ReviewMessage key={index} review={review} />
+            ))}
           </Box>
         </Fade>
       </Modal>
