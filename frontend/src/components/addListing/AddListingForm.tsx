@@ -58,7 +58,7 @@ export const AddListingForm = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [isThumbnailVideo, setIsThumbnailVideo] = useState(false);
+  const [isThumbnailVideo, setIsThumbnailVideo] = useState<boolean>(false);
 
   const handleSwitchChange = () => {
     setIsThumbnailVideo(!isThumbnailVideo);
@@ -99,6 +99,7 @@ export const AddListingForm = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const isNumber = ['price'].includes(name);
+
     setFormData({
       ...formData,
       [name]: isNumber ? Number(value) : value,
@@ -256,11 +257,6 @@ export const AddListingForm = () => {
         handleAlert('Thumbnail is missing. Please add one.', 'error', true);
         return;
       }
-
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        thumbnail: formatYoutubeVid(formData.thumbnail),
-      }));
 
       await addListing(authToken, formData);
       handleAlert('Success', 'success', true);

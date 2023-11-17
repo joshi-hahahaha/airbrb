@@ -12,6 +12,7 @@ import {
   UnpublishListingRes,
 } from '../interfaces/listingInterfaces';
 import { CustomError } from '../classes/CustomError';
+import { formatYoutubeVid } from './generalHelpers';
 
 export const getListings = async (
   authToken: string | null
@@ -71,6 +72,8 @@ export const addListing = async (
   const body: NewListingFormData = { ...formData };
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
+
+  body.thumbnail = formatYoutubeVid(formData.thumbnail);
 
   const res: ApiResponse<AddListingRes> = await apiCall<AddListingRes>(
     path,
@@ -136,7 +139,7 @@ export const unpublishListing = async (
   } else {
     throw new CustomError('Unexpected response');
   }
-}
+};
 
 export const deleteListing = async (
   authToken: string | null,

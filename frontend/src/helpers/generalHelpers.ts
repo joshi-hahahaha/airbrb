@@ -44,6 +44,7 @@ export const isImgFile = (url: string): boolean => {
  * @returns youtube url
  */
 export const formatYoutubeVid = (url: string) => {
+  console.log(`https://www.youtube.com/embed/${extractVidID(url)}`);
   return `https://www.youtube.com/embed/${extractVidID(url)}`;
 };
 
