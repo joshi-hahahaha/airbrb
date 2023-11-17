@@ -123,6 +123,7 @@ export const SearchBar: React.FC = () => {
 
   const matchesSearchCriteria = (listingData: Listing) => {
     return (
+      // filter listings string, bedrooms and price
       (listingData.title.toLowerCase().includes(searchText.toLowerCase()) ||
        listingData.address.street.toLowerCase().includes(searchText.toLowerCase()) ||
        listingData.address.city.toLowerCase().includes(searchText.toLowerCase()) ||

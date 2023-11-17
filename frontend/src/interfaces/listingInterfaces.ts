@@ -40,7 +40,7 @@ export interface Availability {
 }
 
 export interface Listing {
-  // id
+  // id not included in GET /listings
   id?: number;
 
   // always
