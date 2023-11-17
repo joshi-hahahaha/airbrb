@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   formContainer,
   imageFormContainer,
@@ -48,7 +48,7 @@ import theme from '../../assets/theme';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 import { CustomError } from '../../classes/CustomError';
 import { useNavigate } from 'react-router-dom';
-import { formatYoutubeVid } from '../../helpers/generalHelpers';
+import { formatYoutubeVid, isImgFile } from '../../helpers/generalHelpers';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -262,6 +262,8 @@ export const AddListingForm = () => {
         thumbnail: formatYoutubeVid(formData.thumbnail),
       }));
 
+      console.log(formData);
+
       await addListing(authToken, formData);
       handleAlert('Success', 'success', true);
       navigate('/my-listings');
@@ -271,6 +273,8 @@ export const AddListingForm = () => {
       }
     }
   };
+
+  useEffect(() => console.log(formData.thumbnail));
 
   return (
     <>
@@ -532,13 +536,33 @@ export const AddListingForm = () => {
             </div>
           )}
           <Divider />
-          {formData.thumbnail && (
-            <img
-              src={formData.thumbnail}
-              alt='Thumbnail'
-              style={{ width: '100%' }}
-            />
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <>
+              {formData.thumbnail && !isImgFile(formData.thumbnail) && (
+                <iframe
+                  title={formData.title}
+                  src={formatYoutubeVid(formData.thumbnail)}
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '250px',
+                  }}
+                ></iframe>
+              )}
+            </>
+          ) : (
+            <>
+              {formData.thumbnail && isImgFile(formData.thumbnail) && (
+                <img
+                  src={formData.thumbnail}
+                  alt='Thumbnail'
+                  style={{ width: '100%' }}
+                />
+              )}
+            </>
           )}
+
           <Typography
             variant='subtitle1'
             gutterBottom
