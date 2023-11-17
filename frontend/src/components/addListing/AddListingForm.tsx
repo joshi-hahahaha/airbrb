@@ -62,6 +62,10 @@ export const AddListingForm = () => {
 
   const handleSwitchChange = () => {
     setIsThumbnailVideo(!isThumbnailVideo);
+    setFormData({
+      ...formData,
+      thumbnail: '',
+    });
   };
 
   // FormData state
