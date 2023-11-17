@@ -20,6 +20,10 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Fab,
+  Modal,
+  Fade,
+  Box,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -31,6 +35,7 @@ import {
 } from '../../interfaces/listingInterfaces';
 import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PoolIcon from '@mui/icons-material/Pool';
@@ -46,6 +51,10 @@ import { useNavigate } from 'react-router-dom';
 export const AddListingForm = () => {
   // Authorisation
   const { authToken } = useContext(AuthContext);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // FormData state
   const [formData, setFormData] = useState<NewListingFormData>({
@@ -186,6 +195,33 @@ export const AddListingForm = () => {
     });
   };
 
+  const handleJsonFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        try {
+          const jsonData = JSON.parse(reader.result as string);
+
+          setFormData({
+            ...formData,
+            title: jsonData.title || '',
+            address: jsonData.address || {},
+            price: jsonData.price || 0,
+            thumbnail: jsonData.thumbnail || '',
+            metadata: jsonData.metadata || {},
+          });
+        } catch (error) {
+          console.error('Error parsing JSON file:', error);
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  };
+
   const [alertData, setAlertData] = useState<AlertPopUpProps>({
     show: false,
     message: '',
@@ -199,8 +235,13 @@ export const AddListingForm = () => {
   const navigate = useNavigate();
 
   // Form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
+    handleClose();
 
     try {
       if (!formData.thumbnail) {
@@ -507,6 +548,59 @@ export const AddListingForm = () => {
             </ImageList>
           </div>
         </div>
+        <Fab
+          color='primary'
+          style={{
+            position: 'fixed',
+            bottom: 16,
+            right: 80,
+          }}
+          onClick={handleOpen}
+        >
+          <FileUploadIcon />
+        </Fab>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '20%',
+                minWidth: '250px',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: '10px',
+              }}
+            >
+              <Typography id='transition-modal-title' variant='h6'>
+                Upload A JSON File
+              </Typography>
+              <Divider sx={{ mb: '20px' }} />
+              <input
+                type='file'
+                accept='.json'
+                onChange={handleJsonFileChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+                multiple
+              />
+              <Button onClick={handleSubmit} variant='contained' fullWidth>
+                Upload File
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
       </form>
     </>
   );
