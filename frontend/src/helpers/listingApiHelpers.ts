@@ -103,6 +103,8 @@ export const editListing = async (
   const token: string | null = authToken;
   const queryStr: string | undefined = undefined;
 
+  body.thumbnail = formatYoutubeVid(formData.thumbnail);
+
   const res: ApiResponse<EditListingRes> = await apiCall<EditListingRes>(
     path,
     method,

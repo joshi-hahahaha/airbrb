@@ -20,6 +20,7 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Switch,
 } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -43,6 +44,7 @@ import theme from '../../assets/theme';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 import { CustomError } from '../../classes/CustomError';
 import { useNavigate } from 'react-router-dom';
+import { formatYoutubeVid, isImgFile } from '../../helpers/generalHelpers';
 
 interface EditListingFormProps {
   listingId: string | undefined;
@@ -51,7 +53,15 @@ interface EditListingFormProps {
 export const EditListingForm: React.FC<EditListingFormProps> = ({
   listingId,
 }) => {
-  console.log(listingId);
+  const [isThumbnailVideo, setIsThumbnailVideo] = useState<boolean>(false);
+
+  const handleSwitchChange = () => {
+    setIsThumbnailVideo(!isThumbnailVideo);
+    setFormData({
+      ...formData,
+      thumbnail: '',
+    });
+  };
 
   // Authorisation
   const { authToken } = useContext(AuthContext);
@@ -490,26 +500,67 @@ export const EditListingForm: React.FC<EditListingFormProps> = ({
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
             Change Property Photos
           </Typography>
-          <Typography
-            variant='subtitle1'
-            gutterBottom
-            style={{ marginTop: '10px' }}
-          >
-            Change Thumbnail
-          </Typography>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleThumbnailChange}
-            style={{ marginBottom: '20px', width: '100%' }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant='body2'>Thumbnail Video</Typography>
+            <Switch checked={isThumbnailVideo} onChange={handleSwitchChange} />
+          </div>
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Change Video Thumbnail
+              </Typography>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Youtube Link'
+                name='thumbnail'
+                type='text'
+                value={formData.thumbnail}
+                onChange={handleChange}
+                sx={{ m: 0, mb: '20px' }}
+              />
+            </div>
+          ) : (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Change Image Thumbnail
+              </Typography>
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleThumbnailChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+              />
+            </div>
+          )}
           <Divider />
-          {formData.thumbnail && (
-            <img
-              src={formData.thumbnail}
-              alt='Thumbnail'
-              style={{ width: '100%', cursor: 'pointer' }}
-            />
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <>
+              {formData.thumbnail && !isImgFile(formData.thumbnail) && (
+                <iframe
+                  title={formData.title}
+                  src={formatYoutubeVid(formData.thumbnail)}
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '250px',
+                  }}
+                ></iframe>
+              )}
+            </>
+          ) : (
+            <>
+              {formData.thumbnail && isImgFile(formData.thumbnail) && (
+                <img
+                  src={formData.thumbnail}
+                  alt='Thumbnail'
+                  style={{ width: '100%' }}
+                />
+              )}
+            </>
           )}
           <Typography
             variant='subtitle1'
