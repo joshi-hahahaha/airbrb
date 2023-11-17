@@ -8,6 +8,7 @@ const BookingsHistory: React.FC<BookingsProps> = ({
   bookings,
   listing,
 }) => {
+  // get dates exclude time
   const formattedDate = (date: string) => {
     return date.split('T')[0];
   }

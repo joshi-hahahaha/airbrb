@@ -53,6 +53,7 @@ const BookingsHeader: React.FC<BookingsProps> = ({ listingId, bookings, listing 
         console.log(start);
         console.log(end);
         const difference = Math.round(
+          // tranfer into days
           (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
         );
 

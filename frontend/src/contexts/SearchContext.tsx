@@ -2,6 +2,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { Listing } from '../interfaces/listingInterfaces';
 import { DateRange } from '../interfaces/bookingsInterfaces';
 
+// provide search query to all the components needed
 interface SearchProviderProps {
   children: ReactNode;
 }
