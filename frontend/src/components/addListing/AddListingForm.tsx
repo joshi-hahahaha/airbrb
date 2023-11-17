@@ -48,6 +48,7 @@ import theme from '../../assets/theme';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 import { CustomError } from '../../classes/CustomError';
 import { useNavigate } from 'react-router-dom';
+import { formatYoutubeVid } from '../../helpers/generalHelpers';
 
 export const AddListingForm = () => {
   // Authorisation
@@ -255,6 +256,11 @@ export const AddListingForm = () => {
         handleAlert('Thumbnail is missing. Please add one.', 'error', true);
         return;
       }
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        thumbnail: formatYoutubeVid(formData.thumbnail),
+      }));
 
       await addListing(authToken, formData);
       handleAlert('Success', 'success', true);

@@ -37,3 +37,16 @@ export const fileToDataUrl = (file: File): Promise<string> => {
 export const isImgFile = (url: string): boolean => {
   return url.includes('data:image');
 };
+
+export const formatYoutubeVid = (url: string) => {
+  const vId = extractVidID(url);
+
+  return `https://www.youtube.com/embed/${vId}`;
+};
+
+const extractVidID = (url: string) => {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return match && match[7].length === 11 ? match[7] : false;
+};
