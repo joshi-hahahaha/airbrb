@@ -38,12 +38,20 @@ export const isImgFile = (url: string): boolean => {
   return url.includes('data:image');
 };
 
+/**
+ * Format Youtube url for usable link
+ * @param url
+ * @returns youtube url
+ */
 export const formatYoutubeVid = (url: string) => {
-  const vId = extractVidID(url);
-
-  return `https://www.youtube.com/embed/${vId}`;
+  return `https://www.youtube.com/embed/${extractVidID(url)}`;
 };
 
+/**
+ * Extract the id out of a Youtube url
+ * @param url
+ * @returns returns the id
+ */
 const extractVidID = (url: string) => {
   var regExp =
     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
