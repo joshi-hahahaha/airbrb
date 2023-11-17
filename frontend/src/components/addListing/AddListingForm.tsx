@@ -20,6 +20,7 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Fab,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -31,6 +32,7 @@ import {
 } from '../../interfaces/listingInterfaces';
 import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PoolIcon from '@mui/icons-material/Pool';
@@ -507,6 +509,16 @@ export const AddListingForm = () => {
             </ImageList>
           </div>
         </div>
+        <Fab
+          color='primary'
+          style={{
+            position: 'fixed',
+            bottom: 16,
+            right: 80,
+          }}
+        >
+          <FileUploadIcon />
+        </Fab>
       </form>
     </>
   );

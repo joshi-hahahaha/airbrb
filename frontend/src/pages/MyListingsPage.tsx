@@ -100,7 +100,7 @@ export const MyListingsPage: React.FC = () => {
         style={{
           position: 'fixed',
           bottom: 16,
-          right: 16,
+          right: 80,
         }}
         onClick={() => navigate('/add-listing')}
       >
