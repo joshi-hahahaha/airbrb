@@ -24,8 +24,8 @@ export const SearchContext = createContext<SearchContextType>({
   searchText: '',
   bedrooms: [1, 2],
   dateRange: {
-    startDate: '2023-11-11',
-    endDate: '2023-11-23'
+    startDate: (new Date().toDateString()),
+    endDate: (new Date().toDateString())
   },
   price: [0, 1000],
   searchResults: undefined,
@@ -44,8 +44,8 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
   const [searchText, setSearchText] = useState('');
   const [bedrooms, setBedrooms] = useState([1, 2]);
   const [dateRange, setDateRange] = useState<DateRange>({
-    startDate: '2023-11-11',
-    endDate: '2023-11-23'
+    startDate: (new Date().toDateString()),
+    endDate: (new Date().toDateString())
   });
   const [price, setPrice] = useState([0, 1000]);
 

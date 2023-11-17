@@ -50,7 +50,7 @@ export const AllListingsPage: React.FC = () => {
     };
 
     fetchData();
-  }, [authToken]);
+  }, [authToken, searchResults]);
 
   return (
     <div style={page}>
@@ -62,11 +62,16 @@ export const AllListingsPage: React.FC = () => {
       />
       <div style={contentContainer}>
         <div style={listingContainer}>
-          {searchResults?.map(listing => (
-            <ListingCard key={listing.id} {...listing} />
-          )) || listings.map(listing => (
-            <ListingCard key={listing.id} myListing={false} {...listing} />
-          ))}
+        {/* eslint-disable-next-line multiline-ternary  */}
+          {searchResults ? (searchResults.map(listing => (
+              <ListingCard key={listing.id} myListing={false} {...listing} />
+          ))
+          ) : (
+            listings.map(listing => (
+              <ListingCard key={listing.id} myListing={false} {...listing} />
+            ))
+          )
+          }
         </div>
       </div>
     </div>

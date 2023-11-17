@@ -98,39 +98,18 @@ export const SearchBar: React.FC = () => {
     return false;
   };
 
-  const filteredListings: Listing[] = [];
-
   const handleSearch = async () => {
     try {
       const data = await getListings(authToken);
-      for (const listing of data.listings) {
-        const listingData = getListing(authToken, listing.id);
+      const filteredListings = [];
 
-        if (((await listingData).title.toLowerCase().includes(searchText.toLowerCase()) ||
-            (await listingData).address.street.toLowerCase().includes(searchText.toLowerCase()) ||
-            (await listingData).address.city.toLowerCase().includes(searchText.toLowerCase()) ||
-            (await listingData).address.state.toLowerCase().includes(searchText.toLowerCase()) ||
-            (await listingData).address.country.toLowerCase().includes(searchText.toLowerCase())) &&
-              ((await listingData).metadata!.bedrooms >= bedrooms[0] &&
-              (await listingData).metadata!.bedrooms <= bedrooms[1]) &&
-            (availabilityCheck(await listingData, dateRange)) &&
-            ((await listingData).price >= price[0] &&
-            (await listingData).price <= price[1])
-        ) {
-          filteredListings.push(await listingData);
+      for (const listing of data.listings) {
+        const listingData = await getListing(authToken, listing.id);
+
+        if (matchesSearchCriteria(listingData)) {
+          filteredListings.push(listingData);
         }
       }
-      // const filteredListings = data.listings.filter(listing =>
-      //   listing.title.toLowerCase().includes(searchText.toLowerCase()) ||
-      //   listing.address.street.toLowerCase().includes(searchText.toLowerCase()) ||
-      //   listing.address.city.toLowerCase().includes(searchText.toLowerCase()) ||
-      //   listing.address.state.toLowerCase().includes(searchText.toLowerCase()) ||
-      //   listing.address.country.toLowerCase().includes(searchText.toLowerCase())
-      // ).filter(listing =>
-      //   listing.metadata.bedrooms >= bedrooms[0] && listing.metadata?.bedrooms <= bedrooms[1]
-      // ).filter(listing =>
-
-      // );
 
       updateSearchResults(filteredListings);
     } catch (error) {
@@ -140,6 +119,22 @@ export const SearchBar: React.FC = () => {
     }
 
     navigate('/');
+  };
+
+  const matchesSearchCriteria = (listingData: Listing) => {
+    return (
+      (listingData.title.toLowerCase().includes(searchText.toLowerCase()) ||
+       listingData.address.street.toLowerCase().includes(searchText.toLowerCase()) ||
+       listingData.address.city.toLowerCase().includes(searchText.toLowerCase()) ||
+       listingData.address.state.toLowerCase().includes(searchText.toLowerCase()) ||
+       listingData.address.country.toLowerCase().includes(searchText.toLowerCase())
+      ) &&
+      listingData.metadata!.bedrooms >= bedrooms[0] &&
+      listingData.metadata!.bedrooms <= bedrooms[1] &&
+      availabilityCheck(listingData, dateRange) &&
+      listingData.price >= price[0] &&
+      listingData.price <= price[1]
+    );
   };
 
   // Number of bedrooms (a minimum and maximum number of bedrooms, expressed either
@@ -181,8 +176,9 @@ export const SearchBar: React.FC = () => {
               value={bedrooms}
               onChange={handleBedroomRangeChange}
               valueLabelDisplay="auto"
+              defaultValue={100}
               min={1}
-              max={10}
+              max={100}
               step={1}
             />
           </MenuItem>
