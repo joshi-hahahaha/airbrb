@@ -21,6 +21,9 @@ import {
   Select,
   IconButton,
   Fab,
+  Modal,
+  Fade,
+  Box,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -48,6 +51,10 @@ import { useNavigate } from 'react-router-dom';
 export const AddListingForm = () => {
   // Authorisation
   const { authToken } = useContext(AuthContext);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   // FormData state
   const [formData, setFormData] = useState<NewListingFormData>({
@@ -516,9 +523,52 @@ export const AddListingForm = () => {
             bottom: 16,
             right: 80,
           }}
+          onClick={handleOpen}
         >
           <FileUploadIcon />
         </Fab>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '20%',
+                minWidth: '250px',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: '10px',
+              }}
+            >
+              <Typography id='transition-modal-title' variant='h6'>
+                Upload A JSON File
+              </Typography>
+              <Divider sx={{ mb: '20px' }} />
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handlePhotosChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+                multiple
+              />
+              <Button variant='contained' fullWidth>
+                Upload File
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
       </form>
     </>
   );
