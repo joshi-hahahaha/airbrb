@@ -24,6 +24,7 @@ import {
   Modal,
   Fade,
   Box,
+  Switch,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -55,6 +56,12 @@ export const AddListingForm = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [isThumbnailVideo, setIsThumbnailVideo] = useState(false);
+
+  const handleSwitchChange = () => {
+    setIsThumbnailVideo(!isThumbnailVideo);
+  };
 
   // FormData state
   const [formData, setFormData] = useState<NewListingFormData>({
@@ -483,19 +490,41 @@ export const AddListingForm = () => {
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
             Add Property Photos
           </Typography>
-          <Typography
-            variant='subtitle1'
-            gutterBottom
-            style={{ marginTop: '10px' }}
-          >
-            Add Thumbnail
-          </Typography>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleThumbnailChange}
-            style={{ marginBottom: '20px', width: '100%' }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant='body2'>Thumbnail Video</Typography>
+            <Switch checked={isThumbnailVideo} onChange={handleSwitchChange} />
+          </div>
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Video Typography
+              </Typography>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Youtube Link'
+                name='thumbnail'
+                type='text'
+                value={formData.thumbnail}
+                onChange={handleChange}
+                sx={{ m: 0, mb: '20px' }}
+              />
+            </div>
+          ) : (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Image Typography
+              </Typography>
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleThumbnailChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+              />
+            </div>
+          )}
           <Divider />
           {formData.thumbnail && (
             <img
