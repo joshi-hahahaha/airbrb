@@ -41,6 +41,7 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({
     } else if (ratingValue === null) {
       handleAlert('Invalid rating. Please give a rating.', 'error', true);
     } else {
+      // eslint-disable-next-line
       const reviewObj: ReviewReqObj = {
         review: {
           reviewMsg: reviewMsg,
