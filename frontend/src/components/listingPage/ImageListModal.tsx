@@ -8,17 +8,20 @@ import {
   Modal,
 } from '@mui/material';
 
-interface LiveDatesModalProps {
+interface ImageListModalProps {
   open: boolean;
   onClose: () => void;
   photos: string[] | undefined;
+  thumbnail: string | undefined;
 }
 
-export const ImageListModal: React.FC<LiveDatesModalProps> = ({
+export const ImageListModal: React.FC<ImageListModalProps> = ({
   open,
   onClose,
   photos,
+  thumbnail,
 }) => {
+  const updatedPhotos = photos ? [thumbnail, ...photos] : [];
   return (
     <div>
       <Modal open={open} onClose={onClose} closeAfterTransition>
@@ -43,8 +46,8 @@ export const ImageListModal: React.FC<LiveDatesModalProps> = ({
               rowHeight={164}
             >
               {/* eslint-disable-next-line multiline-ternary */}
-              {photos ? (
-                photos.map((photo, index) => (
+              {updatedPhotos ? (
+                updatedPhotos.map((photo, index) => (
                   <Button key={index}>
                     <ImageListItem key={index}>
                       <img src={photo} loading='lazy' />
