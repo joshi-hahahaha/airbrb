@@ -90,3 +90,52 @@ The repetion of these components next to each other made them feel more united t
 | Ratings + Reviews         | ![Ratings + Reviews](./mdAssets/page11.png)        |
 | Booking Tickets + Reviews | ![Booking Tickets + Reviews](./mdAssets/page4.png) |
 | Listings                  | ![Listings](./mdAssets/page8.png)                  |
+
+### I'M SPEED RUNNING FROM THIS POINT ON
+
+## VISIBILITY
+
+- Menu icons to save space, but expand with clickable buttons and links
+- Responsive with differing sizes, and controls do not disappear when shrunk
+- The ability to scroll for certain components.
+
+## AFFORDANCE
+
+- Links are underlined (e.g. on the login, register form)
+- Links are clearly a different colour, so are the majority of buttons
+- Buttons change when interacted with, makes it more clear to the user they are successfully completing and action
+- Familiar icons which are used to make more concise visualisations about the function of a feature
+
+## FEEDBACK
+
+- Errors are visually depicted, and sometimes even prompt further actions
+- Successes are also displayed to the user
+
+## CONSISTENCY
+
+- Consistent text fonts and sizing
+- Stuck to one font
+
+## EFFECTIVENESS AND UTILITY
+
+- Allows keyboard controls for forms
+- Logged out users do not get the same functions and features as those who are logged in users
+- Minimise the room for errors as it prevents users from attempting to complete a task they should not be allowed to complete
+
+## EFFICIENCY
+
+- Most tasks can be completed with minimal clicks
+
+## SAFETY
+
+- Buttons are separated generously as to ensure that they do not accidentally misclick the wrong button
+- Hovering over buttons will display a hover effect, implying that they would know if they were to click the button or not
+- Error messages are user friendly and prompts for further actions
+
+## LEARNABILITY
+
+- Placeholders for form inputs are present throughout the application
+
+## COMMON STANDARDS AND CONVENTIONS
+
+- Familiar icons, ensure that the features are understandable from a glance
