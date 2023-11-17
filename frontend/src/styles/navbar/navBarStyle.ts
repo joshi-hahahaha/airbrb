@@ -12,4 +12,5 @@ export const navBar: CSSProperties = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
+  flexWrap: 'wrap'
 };

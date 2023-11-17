@@ -4,6 +4,7 @@ import { getListing, getListings } from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 import AuthContext from '../contexts/AuthContext';
+import { useSearch } from '../contexts/SearchContext';
 import { CustomError } from '../classes/CustomError';
 import {
   AlertPopUp,
@@ -13,6 +14,7 @@ import {
 
 export const AllListingsPage: React.FC = () => {
   const { authToken } = useContext(AuthContext);
+  const { searchResults } = useSearch();
 
   const [alertData, setAlertData] = useState<AlertPopUpProps>({
     show: false,
@@ -60,7 +62,9 @@ export const AllListingsPage: React.FC = () => {
       />
       <div style={contentContainer}>
         <div style={listingContainer}>
-          {listings.map((listing) => (
+          {searchResults?.map(listing => (
+            <ListingCard key={listing.id} {...listing} />
+          )) || listings.map(listing => (
             <ListingCard key={listing.id} myListing={false} {...listing} />
           ))}
         </div>
