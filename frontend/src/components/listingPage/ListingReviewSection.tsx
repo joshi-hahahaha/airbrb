@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ListingHeaderProps } from '../../pages/ListingPage';
-import { Typography } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { ReviewMessage } from './ReviewMessage';
 import { ReviewForm } from './ReviewForm';
 import { getBookings } from '../../helpers/bookingsApiHelper';
 import AuthContext from '../../contexts/AuthContext';
+import { AdvancedRatingView } from './AdvancedRatingView';
 
 interface ListingReviewSectionProps extends ListingHeaderProps {
   listingId: number;
@@ -61,6 +62,15 @@ export const ListingReviewSection: React.FC<ListingReviewSectionProps> = ({
       ) : (
         <></>
       )}
+
+      {/* eslint-disable-next-line multiline-ternary */}
+      {(listing.reviews ? listing.reviews?.length : 0) !== 0 ? (
+        <AdvancedRatingView listing={listing} />
+      ) : (
+        <></>
+      )}
+
+      <Divider sx={{ mb: '20px' }} />
 
       <div
         style={{ maxHeight: '400px', overflowY: 'auto', marginBottom: '20px' }}

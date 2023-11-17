@@ -7,8 +7,6 @@ interface ReviewMessageProps {
 }
 
 export const ReviewMessage: React.FC<ReviewMessageProps> = ({ review }) => {
-  const formattedRating = review.rating.toFixed(1);
-
   return (
     <div>
       <Box
@@ -22,7 +20,7 @@ export const ReviewMessage: React.FC<ReviewMessageProps> = ({ review }) => {
         }}
       >
         <div style={{ padding: '0 20px', minWidth: '50px' }}>
-          <Typography>{`★ ${formattedRating}`}</Typography>
+          <Typography>{`★ ${review.rating}`}</Typography>
         </div>
         <div
           style={{
