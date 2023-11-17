@@ -105,7 +105,6 @@ export const ReviewForm: React.FC<ListingReviewFormProps> = ({
           <Rating
             name='half-rating'
             value={ratingValue}
-            precision={0.5}
             size='large'
             onChange={(e, newValue) => handleRatingChange(newValue)}
             sx={{ my: '10px' }}
