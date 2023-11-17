@@ -22,6 +22,7 @@ import LiveDatesModal from './LiveDatesModal';
 import theme from '../assets/theme';
 import { calcRating } from '../helpers/reviewsHelper';
 import { AmentityIcon } from './AmentityIconText';
+import { isImgFile } from '../helpers/generalHelpers';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
@@ -36,14 +37,11 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   ...props
 }) => {
   const { authToken } = useContext(AuthContext);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [unpublishBtn, setUnpublishBtn] = useState<boolean>(false);
+  const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const [unpublishBtn, setUnpublishBtn] = useState<boolean>(false);
-
-  const [liveDatesModalOpen, setLiveDatesModalOpen] = useState<boolean>(false);
 
   const handleOpenModal = () => {
     setLiveDatesModalOpen(true);
@@ -89,7 +87,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     if (onUnpublish) onUnpublish();
     setUnpublishBtn(false);
     setAnchorEl(null);
-  }
+  };
 
   const handleListingDelete = () => {
     if (onDelete) onDelete();
@@ -107,6 +105,8 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     }
   };
 
+  console.log(isImgFile(props.thumbnail));
+
   return (
     <>
       <Card
@@ -120,12 +120,24 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         }}
         onClick={handleCardClick}
       >
-        <CardMedia
-          component='img'
-          alt={props.title}
-          image={props.thumbnail}
-          sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
-        />
+        {/* eslint-disable-next-line multiline-ternary */}
+        {isImgFile(props.thumbnail) ? (
+          <iframe
+            title={props.title}
+            width='100%'
+            height='250'
+            src={props.thumbnail}
+            allowFullScreen
+            style={{ borderRadius: '5px' }}
+          ></iframe>
+        ) : (
+          <CardMedia
+            component='img'
+            alt={props.title}
+            image={props.thumbnail}
+            sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
+          />
+        )}
         {/* eslint-disable-next-line multiline-ternary */}
         {myListing ? (
           <>
@@ -288,9 +300,9 @@ export const ListingCard: React.FC<ListingCardProps> = ({
       >
         <MenuItem onClick={handleEditClick}>Edit</MenuItem>
         <MenuItem onClick={handleOpenModal}>Add Availabilities</MenuItem>
-        {unpublishBtn &&
+        {unpublishBtn && (
           <MenuItem onClick={handleUnpublishClick}>Unpublish</MenuItem>
-        }
+        )}
         <MenuItem onClick={handleListingDelete}>Delete</MenuItem>
       </Menu>
       <LiveDatesModal
