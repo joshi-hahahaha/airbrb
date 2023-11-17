@@ -35,5 +35,5 @@ export const fileToDataUrl = (file: File): Promise<string> => {
 };
 
 export const isImgFile = (url: string): boolean => {
-  return url.includes('data:image/png;base64,');
+  return url.includes('data:image');
 };

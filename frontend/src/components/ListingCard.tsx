@@ -22,6 +22,7 @@ import LiveDatesModal from './LiveDatesModal';
 import theme from '../assets/theme';
 import { calcRating } from '../helpers/reviewsHelper';
 import { AmentityIcon } from './AmentityIconText';
+import { isImgFile } from '../helpers/generalHelpers';
 
 interface ListingCardProps extends Listing {
   myListing?: boolean;
@@ -95,7 +96,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
   // On all listings nav to viewing the listing
   const handleCardClick = () => {
     // console.log(`Card pressed: ${props.title}`);
-    // console.log(myListing);
+    console.log(isImgFile(props.thumbnail));
     if (myListing) {
       navigate(`/bookings/${props.id}`);
     } else {
