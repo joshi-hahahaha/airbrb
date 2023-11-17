@@ -50,6 +50,7 @@ export const ListingPage: React.FC = () => {
           open={imageListModalOpen}
           onClose={handleCloseModal}
           photos={listing.metadata?.photos}
+          thumbnail={listing.thumbnail}
         />
         <div style={{ ...infoContainer, marginTop: '20px' }}>
           <ListingHeader listing={listing} />

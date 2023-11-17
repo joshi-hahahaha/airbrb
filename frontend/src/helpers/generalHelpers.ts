@@ -33,3 +33,29 @@ export const fileToDataUrl = (file: File): Promise<string> => {
   reader.readAsDataURL(file);
   return dataUrlPromise;
 };
+
+export const isImgFile = (url: string): boolean => {
+  return url.includes('data:image');
+};
+
+/**
+ * Format Youtube url for usable link
+ * @param url
+ * @returns youtube url
+ */
+export const formatYoutubeVid = (url: string) => {
+  console.log(`https://www.youtube.com/embed/${extractVidID(url)}`);
+  return `https://www.youtube.com/embed/${extractVidID(url)}`;
+};
+
+/**
+ * Extract the id out of a Youtube url
+ * @param url
+ * @returns returns the id
+ */
+const extractVidID = (url: string) => {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return match && match[7].length === 11 ? match[7] : false;
+};

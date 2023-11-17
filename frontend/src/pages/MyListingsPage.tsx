@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { contentContainer, listingContainer, page } from '../styles/pageStyles';
 import AuthContext from '../contexts/AuthContext';
-import { unpublishListing, deleteListing, getListings } from '../helpers/listingApiHelpers';
+import {
+  unpublishListing,
+  deleteListing,
+  getListings,
+} from '../helpers/listingApiHelpers';
 import { Listing } from '../interfaces/listingInterfaces';
 import { ListingCard } from '../components/ListingCard';
 import {
@@ -10,9 +14,13 @@ import {
   Severity,
 } from '../components/AlertPopUp';
 import { CustomError } from '../classes/CustomError';
+import { Fab } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
 export const MyListingsPage: React.FC = () => {
   const { authToken, email } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [alertData, setAlertData] = useState<AlertPopUpProps>({
     show: false,
@@ -51,7 +59,7 @@ export const MyListingsPage: React.FC = () => {
     } catch (error) {
       console.error('Error unpublishing listing:', error);
     }
-  }
+  };
 
   const handleListingDelete = async (listingId: number | undefined) => {
     try {
@@ -87,6 +95,17 @@ export const MyListingsPage: React.FC = () => {
           ))}
         </div>
       </div>
+      <Fab
+        color='primary'
+        style={{
+          position: 'fixed',
+          bottom: 16,
+          right: 80,
+        }}
+        onClick={() => navigate('/add-listing')}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 };

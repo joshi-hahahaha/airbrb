@@ -20,6 +20,11 @@ import {
   MenuItem,
   Select,
   IconButton,
+  Fab,
+  Modal,
+  Fade,
+  Box,
+  Switch,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -31,6 +36,7 @@ import {
 } from '../../interfaces/listingInterfaces';
 import { addListing } from '../../helpers/listingApiHelpers';
 import AuthContext from '../../contexts/AuthContext';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import PoolIcon from '@mui/icons-material/Pool';
@@ -42,10 +48,25 @@ import theme from '../../assets/theme';
 import { AlertPopUp, AlertPopUpProps, Severity } from '../AlertPopUp';
 import { CustomError } from '../../classes/CustomError';
 import { useNavigate } from 'react-router-dom';
+import { formatYoutubeVid, isImgFile } from '../../helpers/generalHelpers';
 
 export const AddListingForm = () => {
   // Authorisation
   const { authToken } = useContext(AuthContext);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const [isThumbnailVideo, setIsThumbnailVideo] = useState<boolean>(false);
+
+  const handleSwitchChange = () => {
+    setIsThumbnailVideo(!isThumbnailVideo);
+    setFormData({
+      ...formData,
+      thumbnail: '',
+    });
+  };
 
   // FormData state
   const [formData, setFormData] = useState<NewListingFormData>({
@@ -82,6 +103,7 @@ export const AddListingForm = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     const isNumber = ['price'].includes(name);
+
     setFormData({
       ...formData,
       [name]: isNumber ? Number(value) : value,
@@ -186,6 +208,33 @@ export const AddListingForm = () => {
     });
   };
 
+  const handleJsonFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        try {
+          const jsonData = JSON.parse(reader.result as string);
+
+          setFormData({
+            ...formData,
+            title: jsonData.title || '',
+            address: jsonData.address || {},
+            price: jsonData.price || 0,
+            thumbnail: jsonData.thumbnail || '',
+            metadata: jsonData.metadata || {},
+          });
+        } catch (error) {
+          console.error('Error parsing JSON file:', error);
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  };
+
   const [alertData, setAlertData] = useState<AlertPopUpProps>({
     show: false,
     message: '',
@@ -199,8 +248,13 @@ export const AddListingForm = () => {
   const navigate = useNavigate();
 
   // Form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
+    handleClose();
 
     try {
       if (!formData.thumbnail) {
@@ -442,27 +496,69 @@ export const AddListingForm = () => {
           <Typography variant='h6' gutterBottom style={{ marginTop: '10px' }}>
             Add Property Photos
           </Typography>
-          <Typography
-            variant='subtitle1'
-            gutterBottom
-            style={{ marginTop: '10px' }}
-          >
-            Add Thumbnail
-          </Typography>
-          <input
-            type='file'
-            accept='image/*'
-            onChange={handleThumbnailChange}
-            style={{ marginBottom: '20px', width: '100%' }}
-          />
-          <Divider />
-          {formData.thumbnail && (
-            <img
-              src={formData.thumbnail}
-              alt='Thumbnail'
-              style={{ width: '100%' }}
-            />
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Typography variant='body2'>Thumbnail Video</Typography>
+            <Switch checked={isThumbnailVideo} onChange={handleSwitchChange} />
+          </div>
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Add Video Thumbnail
+              </Typography>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Youtube Link'
+                name='thumbnail'
+                type='text'
+                value={formData.thumbnail}
+                onChange={handleChange}
+                sx={{ m: 0, mb: '20px' }}
+              />
+            </div>
+          ) : (
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Add Image Thumbnail
+              </Typography>
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleThumbnailChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+              />
+            </div>
           )}
+          <Divider />
+          {/* eslint-disable-next-line multiline-ternary */}
+          {isThumbnailVideo ? (
+            <>
+              {formData.thumbnail && !isImgFile(formData.thumbnail) && (
+                <iframe
+                  title={formData.title}
+                  src={formatYoutubeVid(formData.thumbnail)}
+                  allowFullScreen
+                  style={{
+                    width: '100%',
+                    height: '250px',
+                  }}
+                ></iframe>
+              )}
+            </>
+          ) : (
+            <>
+              {formData.thumbnail && isImgFile(formData.thumbnail) && (
+                <img
+                  src={formData.thumbnail}
+                  alt='Thumbnail'
+                  style={{ width: '100%' }}
+                />
+              )}
+            </>
+          )}
+
           <Typography
             variant='subtitle1'
             gutterBottom
@@ -507,6 +603,59 @@ export const AddListingForm = () => {
             </ImageList>
           </div>
         </div>
+        <Fab
+          color='primary'
+          style={{
+            position: 'fixed',
+            bottom: 16,
+            right: 80,
+          }}
+          onClick={handleOpen}
+        >
+          <FileUploadIcon />
+        </Fab>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box
+              sx={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '20%',
+                minWidth: '250px',
+                bgcolor: 'background.paper',
+                boxShadow: 24,
+                p: 4,
+                borderRadius: '10px',
+              }}
+            >
+              <Typography id='transition-modal-title' variant='h6'>
+                Upload A JSON File
+              </Typography>
+              <Divider sx={{ mb: '20px' }} />
+              <input
+                type='file'
+                accept='.json'
+                onChange={handleJsonFileChange}
+                style={{ marginBottom: '20px', width: '100%' }}
+                multiple
+              />
+              <Button onClick={handleSubmit} variant='contained' fullWidth>
+                Upload File
+              </Button>
+            </Box>
+          </Fade>
+        </Modal>
       </form>
     </>
   );
