@@ -195,6 +195,38 @@ export const AddListingForm = () => {
     });
   };
 
+  const handleJsonFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        try {
+          const jsonData = JSON.parse(reader.result as string);
+
+          // Validate the structure of jsonData if needed
+
+          setFormData({
+            ...formData,
+            // Update formData with the data from the JSON file
+            // Adjust this based on the actual structure of your JSON
+            title: jsonData.title || '',
+            address: jsonData.address || {},
+            price: jsonData.price || 0,
+            thumbnail: jsonData.thumbnail || '',
+            metadata: jsonData.metadata || {},
+          });
+        } catch (error) {
+          // Handle JSON parsing error
+          console.error('Error parsing JSON file:', error);
+        }
+      };
+
+      reader.readAsText(file);
+    }
+  };
+
   const [alertData, setAlertData] = useState<AlertPopUpProps>({
     show: false,
     message: '',
@@ -558,8 +590,8 @@ export const AddListingForm = () => {
               <Divider sx={{ mb: '20px' }} />
               <input
                 type='file'
-                accept='image/*'
-                onChange={handlePhotosChange}
+                accept='.json'
+                onChange={handleJsonFileChange}
                 style={{ marginBottom: '20px', width: '100%' }}
                 multiple
               />
