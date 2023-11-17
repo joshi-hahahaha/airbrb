@@ -79,6 +79,7 @@ export const ListingReserveForm: React.FC<ListingReserveFormProps> = ({
         startDate: dateRange.startDate.toISOString(),
         endDate: dateRange.endDate.toISOString(),
       };
+      // eslint-disable-next-line
       const bookingReqObj: BookingReq = {
         dateRange: dateRangeObj,
         totalPrice: totalPrice,
