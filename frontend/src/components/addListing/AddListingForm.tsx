@@ -496,20 +496,25 @@ export const AddListingForm = () => {
           </div>
           {/* eslint-disable-next-line multiline-ternary */}
           {isThumbnailVideo ? (
-            <Typography
-              variant='subtitle1'
-              gutterBottom
-              style={{ marginTop: '10px' }}
-            >
-              Video Typography
-            </Typography>
+            <div>
+              <Typography variant='subtitle1' gutterBottom>
+                Video Typography
+              </Typography>
+              <TextField
+                margin='normal'
+                required
+                fullWidth
+                label='Youtube Link'
+                name='thumbnail'
+                type='text'
+                value={formData.thumbnail}
+                onChange={handleChange}
+                sx={{ m: 0, mb: '20px' }}
+              />
+            </div>
           ) : (
             <div>
-              <Typography
-                variant='subtitle1'
-                gutterBottom
-                style={{ marginTop: '10px' }}
-              >
+              <Typography variant='subtitle1' gutterBottom>
                 Image Typography
               </Typography>
               <input
