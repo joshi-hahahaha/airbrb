@@ -7,6 +7,7 @@ import {
   ImageListItem,
   Modal,
 } from '@mui/material';
+import { isImgFile } from '../../helpers/generalHelpers';
 
 interface ImageListModalProps {
   open: boolean;
@@ -21,7 +22,13 @@ export const ImageListModal: React.FC<ImageListModalProps> = ({
   photos,
   thumbnail,
 }) => {
-  const updatedPhotos = photos ? [thumbnail, ...photos] : [];
+  let updatedPhotos: string[] = [];
+  if (photos !== undefined) {
+    updatedPhotos = photos;
+  }
+  if (thumbnail !== undefined && isImgFile(thumbnail)) {
+    updatedPhotos = [thumbnail, ...(photos ?? [])];
+  }
   return (
     <div>
       <Modal open={open} onClose={onClose} closeAfterTransition>
