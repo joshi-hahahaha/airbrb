@@ -117,12 +117,23 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         }}
         onClick={handleCardClick}
       >
-        <CardMedia
-          component='img'
-          alt={props.title}
-          image={props.thumbnail}
-          sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
-        />
+        {/* eslint-disable-next-line multiline-ternary */}
+        {isImgFile(props.thumbnail) ? (
+          <CardMedia
+            component='img'
+            alt={props.title}
+            image={props.thumbnail}
+            sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
+          />
+        ) : (
+          <CardMedia
+            component='iframe'
+            src={props.thumbnail}
+            allow='autoPlay'
+            // image={props.thumbnail}
+            sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
+          />
+        )}
         {/* eslint-disable-next-line multiline-ternary */}
         {myListing ? (
           <>
