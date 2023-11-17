@@ -3,7 +3,8 @@ import { CSSProperties } from 'react';
 export const searchBar: CSSProperties = {
   display: 'flex',
   alignItems: 'center',
-  gap: '10px'
+  gap: '10px',
+  flexWrap: 'wrap'
   // justifyContent: 'space-around',
   // minWidth: '600px',
   // height: '60px',

@@ -1,3 +1,3 @@
 import { CSSProperties } from 'react';
 
-export const guestSlider: CSSProperties = { width: '30vw' };
+export const guestSlider: CSSProperties = { width: '100px' };

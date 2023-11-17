@@ -161,106 +161,164 @@ export const ListingCard: React.FC<ListingCardProps> = ({
         <CardContent
           sx={{ fontFamily: 'Samsung-Light', display: 'flex', height: '185px' }}
         >
-          <div
-            style={{
-              width: '85%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div>
-              {/* Title */}
-              <Typography
-                sx={{ fontFamily: 'Samsung-Regular' }}
-                gutterBottom
-                variant='h5'
-                component='div'
-                overflow='hidden'
-                textOverflow='ellipsis'
-                whiteSpace='nowrap'
-              >
-                {props.title}
-              </Typography>
-
-              {/* Type + State, Country */}
-              <Typography gutterBottom variant='body1' component='div'>
-                {`${listing?.metadata?.propertyType} located in ${props.address.city}, ${props.address.country}`}
-              </Typography>
-
-              {/* No. of beds, bedrooms, bathrooms */}
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Typography
-                  gutterBottom
-                  variant='body1'
-                  component='div'
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    paddingRight: '4px',
-                  }}
-                >
-                  {`${listing?.metadata?.beds}`}
-                  <BedIcon />
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant='body1'
-                  component='div'
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    paddingRight: '4px',
-                  }}
-                >
-                  {`${listing?.metadata?.bedrooms}`}
-                  <BedroomParentIcon />
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant='body1'
-                  component='div'
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    paddingRight: '4px',
-                  }}
-                >
-                  {`${listing?.metadata?.bathrooms}`}
-                  <BathtubIcon />
-                </Typography>
-              </div>
-            </div>
-            <div>
-              {/* Amenities */}
-              <div
+          <CardMedia
+            component='img'
+            alt={props.title}
+            image={props.thumbnail}
+            sx={{ borderRadius: '5px', width: '100%', height: '250px' }}
+          />
+          {/* eslint-disable-next-line multiline-ternary */}
+          {myListing ? (
+            <>
+              <IconButton
+                aria-label='more'
+                aria-controls='long-menu'
+                aria-haspopup='true'
+                onClick={handleAnchorClick}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  paddingRight: '4px',
+                  position: 'absolute',
+                  top: '10px',
+                  right: '10px',
+                  backgroundColor: theme.palette.primary.main,
+                  opacity: '0.8',
+                  color: '#fff',
                 }}
               >
-                <Typography gutterBottom variant='body1' component='div'>
-                  Includes:
-                </Typography>
-                {listing?.metadata?.amenities && (
-                  <div style={{ display: 'flex', alignItems: 'center' }}>
-                    {listing.metadata.amenities.map((amenity, index) => (
-                      <AmentityIcon key={index} amenity={amenity} />
-                    ))}
-                  </div>
-                )}
-              </div>
+                <MoreVertIcon />
+              </IconButton>
+            </>
+          ) : (
+            <></>
+          )}
 
-              {/* Price */}
+          <CardContent
+            sx={{ fontFamily: 'Samsung-Light', display: 'flex', height: '185px' }}
+          >
+            <div
+              style={{
+                width: '85%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}
+            >
+              <div>
+                {/* Title */}
+                <Typography
+                  sx={{ fontFamily: 'Samsung-Regular' }}
+                  gutterBottom
+                  variant='h5'
+                  component='div'
+                  overflow='hidden'
+                  textOverflow='ellipsis'
+                  whiteSpace='nowrap'
+                >
+                  {props.title}
+                </Typography>
+
+                {/* Type + State, Country */}
+                <Typography gutterBottom variant='body1' component='div'>
+                  {`${listing?.metadata?.propertyType} located in ${props.address.city}, ${props.address.country}`}
+                </Typography>
+
+                {/* No. of beds, bedrooms, bathrooms */}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography
+                    gutterBottom
+                    variant='body1'
+                    component='div'
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingRight: '4px',
+                    }}
+                  >
+                    {`${listing?.metadata?.beds}`}
+                    <BedIcon />
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant='body1'
+                    component='div'
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingRight: '4px',
+                    }}
+                  >
+                    {`${listing?.metadata?.bedrooms}`}
+                    <BedroomParentIcon />
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant='body1'
+                    component='div'
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingRight: '4px',
+                    }}
+                  >
+                    {`${listing?.metadata?.bathrooms}`}
+                    <BathtubIcon />
+                  </Typography>
+                </div>
+              </div>
+              <div>
+                {/* Amenities */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    paddingRight: '4px',
+                  }}
+                >
+                  <Typography gutterBottom variant='body1' component='div'>
+                    Includes:
+                  </Typography>
+                  {listing?.metadata?.amenities && (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      {listing.metadata.amenities.map((amenity, index) => (
+                        <AmentityIcon key={index} amenity={amenity} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Price */}
+                <Typography
+                  variant='h6'
+                  style={{ fontFamily: 'Samsung-Regular' }}
+                >
+                  ${props.price} / night
+                </Typography>
+              </div>
+            </div>
+
+            <div style={{ width: '15%' }}>
+              {/* No. reviews + ratings */}
               <Typography
-                variant='h6'
-                style={{ fontFamily: 'Samsung-Regular' }}
+                style={{ textAlign: 'right' }}
+                gutterBottom
+                variant='body1'
+                component='div'
               >
-                ${props.price} / night
+                {props.reviews === undefined
+                  ? `★ ${(0).toFixed(1)}`
+                  : `★ ${calcRating(props.reviews).toFixed(1)}`}
+              </Typography>
+              <Typography
+                style={{ textAlign: 'right' }}
+                gutterBottom
+                variant='body1'
+                component='div'
+              >
+                {props.reviews === undefined
+                  ? '👁 0'
+                  : `👁 ${props.reviews.length}`}
               </Typography>
             </div>
-          </div>
+          </CardContent>
 
           <div style={{ width: '15%' }}>
             {/* No. reviews + ratings */}
