@@ -67,7 +67,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
     };
 
     fetchData();
-  }, [authToken, props.id, searchResults]);
+  }, [authToken, props.id]);
 
   const handleAnchorClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -318,7 +318,7 @@ export const ListingCard: React.FC<ListingCardProps> = ({
                   : `👁 ${props.reviews.length}`}
               </Typography>
             </div>
-          </div>
+          </CardContent>
 
           <div style={{ width: '15%' }}>
             {/* No. reviews + ratings */}
