@@ -26,8 +26,11 @@ As a result of this early effort placed into design, it made it easier to pump c
 
 ### DESIGN EXAMPLES
 
-| EXAMPLE | IMAGES |
-| ------- | ------ |
-|         |        |
-|         |        |
-|         |        |
+| EXAMPLE                 | IMAGES                                 |
+| ----------------------- | -------------------------------------- |
+| Listings Page           | ![a](./mdAssets/bonusAssets/page1.png) |
+| Listing Page            | ![a](./mdAssets/bonusAssets/page2.png) |
+| Bookings Page           | ![a](./mdAssets/bonusAssets/page3.png) |
+| Bookings + Reviews      | ![a](./mdAssets/bonusAssets/page4.png) |
+| Advanced Review Listing | ![a](./mdAssets/bonusAssets/page5.png) |
+| Image List              | ![a](./mdAssets/bonusAssets/page6.png) |
