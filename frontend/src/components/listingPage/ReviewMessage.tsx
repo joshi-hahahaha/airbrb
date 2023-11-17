@@ -20,7 +20,7 @@ export const ReviewMessage: React.FC<ReviewMessageProps> = ({ review }) => {
         }}
       >
         <div style={{ padding: '0 20px', minWidth: '50px' }}>
-          <Typography>{`★ ${review.rating}`}</Typography>
+          <Typography>{`★${review.rating}`}</Typography>
         </div>
         <div
           style={{
